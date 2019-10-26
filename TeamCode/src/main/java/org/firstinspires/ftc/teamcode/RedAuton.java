@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.commands.FindGoldMineral;
 import org.firstinspires.ftc.teamcode.commands.HandsClosed;
 import org.firstinspires.ftc.teamcode.commands.HookHome;
 import org.firstinspires.ftc.teamcode.commands.HookRelease;
-import org.firstinspires.ftc.teamcode.commands.IdentifyGoldMineral;
+//import org.firstinspires.ftc.teamcode.commands.IdentifyGoldMineral;
 import org.firstinspires.ftc.teamcode.commands.IdentifyJewel;
 import org.firstinspires.ftc.teamcode.commands.IdentifyJewelwithREVColorSensor;
 import org.firstinspires.ftc.teamcode.commands.IdentifyVuMark;
@@ -62,7 +62,7 @@ public abstract class RedAuton extends FirstAuton {
 
         CommandGroup group = new CommandGroup();
         group.addCommand(new RaiseDOM());
-        group.addCommand(new IdentifyGoldMineral());
+        //group.addCommand(new IdentifyGoldMineral());
         group.addCommand(new FindGoldMineral());
         group.addCommand(new AlignwithGoldMineral());
         commands.add(group);

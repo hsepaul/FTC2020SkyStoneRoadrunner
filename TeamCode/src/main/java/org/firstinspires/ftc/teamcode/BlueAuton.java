@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.commands.DriveForward;
 import org.firstinspires.ftc.teamcode.commands.FindGoldMineral;
 import org.firstinspires.ftc.teamcode.commands.HookHome;
 import org.firstinspires.ftc.teamcode.commands.HookRelease;
-import org.firstinspires.ftc.teamcode.commands.IdentifyGoldMineral;
+//import org.firstinspires.ftc.teamcode.commands.IdentifyGoldMineral;
 import org.firstinspires.ftc.teamcode.commands.RaiseDOM;
 import org.firstinspires.ftc.teamcode.commands.ReleaseCage;
 import org.firstinspires.ftc.teamcode.commands.ResetDriveEncoders;
@@ -53,7 +53,7 @@ public abstract class BlueAuton extends FirstAuton {
 
         CommandGroup group = new CommandGroup();
         group.addCommand(new RaiseDOM());
-        group.addCommand(new IdentifyGoldMineral());
+        //group.addCommand(new IdentifyGoldMineral());
         group.addCommand(new FindGoldMineral());
         group.addCommand(new AlignwithGoldMineral());
         commands.add(group);

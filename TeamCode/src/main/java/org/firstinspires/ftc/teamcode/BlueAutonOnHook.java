@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.commands.DriveForward;
 import org.firstinspires.ftc.teamcode.commands.FindGoldMineral;
 import org.firstinspires.ftc.teamcode.commands.HookHome;
 import org.firstinspires.ftc.teamcode.commands.HookRelease;
-import org.firstinspires.ftc.teamcode.commands.IdentifyGoldMineral;
+//import org.firstinspires.ftc.teamcode.commands.IdentifyGoldMineral;
 import org.firstinspires.ftc.teamcode.commands.RaiseDOM;
 import org.firstinspires.ftc.teamcode.commands.ResetDriveEncoders;
 import org.firstinspires.ftc.teamcode.commands.RobotDown;
@@ -39,7 +39,7 @@ public abstract class BlueAutonOnHook extends FirstAuton {
         io.setAllianceColor(IO_RoverRuckus_Test.BLUE);
         CommandGroup group = new CommandGroup();
         group.addCommand(new RaiseDOM());
-        group.addCommand(new IdentifyGoldMineral());
+        //group.addCommand(new IdentifyGoldMineral());
         group.addCommand(new DetermineGoldMineralPositiononCamera());
         commands.add(group);
 
