@@ -84,6 +84,6 @@ public class IdentifyJewelwithREVColorSensor extends BasicCommand{
         }*/
     }
     public void stop() {
-        io.setDrivePower(0,0);
+        io.setDrivePower(0,0, 0, 0);
     }
 }

@@ -29,7 +29,7 @@ public class ElevatorDown extends BasicCommand {
     }
 
     public void stop() {
-        io.setDrivePower(0,0);
+        io.setDrivePower(0,0, 0, 0);
         //io.forkLiftMotor.setPower(0);
     }
 

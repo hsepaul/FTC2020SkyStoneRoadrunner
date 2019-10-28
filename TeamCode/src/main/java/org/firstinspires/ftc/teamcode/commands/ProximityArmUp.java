@@ -42,7 +42,7 @@ public class ProximityArmUp extends BasicCommand {
         }
 
         public boolean isFinished(){ return proximityArmUp || System.currentTimeMillis() >= timeOut; }
-        public void stop() { io.setDrivePower(0,0); }
+        public void stop() { io.setDrivePower(0,0, 0, 0); }
 
 }
 

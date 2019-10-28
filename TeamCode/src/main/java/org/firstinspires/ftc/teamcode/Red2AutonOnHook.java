@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.commands.ChinDown;
+//import org.firstinspires.ftc.teamcode.commands.ChinDown;
 import org.firstinspires.ftc.teamcode.commands.CommandGroup;
 import org.firstinspires.ftc.teamcode.commands.DriveForward;
 import org.firstinspires.ftc.teamcode.commands.DriveForwardHeadingandDistanceSensor;
@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.commands.WaitForTime;
  * Created by David Austin on 11/10/2016.
  */
 
-@Autonomous(name="Red Silver On Hook",group="Auton")
+//@Autonomous(name="Red Silver On Hook",group="Auton")
 public class Red2AutonOnHook extends RedAutonOnHook {
     public void addFinalCommands() {
         //WAS 11 before wheel change at States
@@ -42,7 +42,7 @@ public class Red2AutonOnHook extends RedAutonOnHook {
 
         //ADDED Distance Sensor May Need to Return non-distance sensor
         CommandGroup group1 = new CommandGroup();
-        group1.addCommand(new ChinDown());
+        //group1.addCommand(new ChinDown());
         group1.addCommand(new HookHome());
         group1.addCommand(new DriveForward(17,DriveForward.XGREATERTHAN,.65,0));
         commands.add(group1);

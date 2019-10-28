@@ -30,7 +30,7 @@ public class HandsClosed extends BasicCommand {
         return handsClosed || System.currentTimeMillis() >= timeOut;
     }
     public void stop() {
-        io.setDrivePower(0,0);
+        io.setDrivePower(0,0, 0, 0);
         //io.forkLiftMotor.setPower(0);
     }
 

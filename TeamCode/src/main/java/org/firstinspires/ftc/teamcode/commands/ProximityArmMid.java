@@ -44,7 +44,7 @@ public class ProximityArmMid extends BasicCommand {
             return proximityArmMid || System.currentTimeMillis() >= timeOut;
         }
         public void stop() {
-            io.setDrivePower(0,0);
+            io.setDrivePower(0,0, 0, 0);
         }
 
 }

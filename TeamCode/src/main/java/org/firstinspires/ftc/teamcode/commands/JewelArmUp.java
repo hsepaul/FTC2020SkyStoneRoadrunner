@@ -44,7 +44,7 @@ public class JewelArmUp extends BasicCommand {
         public boolean isFinished(){
             return jewelArmUp || System.currentTimeMillis() >= timeOut;
         }
-        public void stop() { io.setDrivePower(0,0); }
+        public void stop() { io.setDrivePower(0,0, 0, 0); }
 
 }
 

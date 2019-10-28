@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 //import org.firstinspires.ftc.robotcontroller.internal.HSCamera;
@@ -10,15 +9,13 @@ import org.firstinspires.ftc.teamcode.utilities.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import static org.firstinspires.ftc.teamcode.utilities.Sleep.sleep;
-
 
 /**
  * Created by David Austin on 10/27/2016.
  */
 
 public abstract class FirstAuton extends OpMode {
-    IO_RoverRuckus_Test io;
+    IO_SkyStone_Test io;
     static final int INIT = 0;
     static final int EXECUTE = 1;
     static final int STOP = 2;
@@ -46,7 +43,7 @@ public abstract class FirstAuton extends OpMode {
 
     public void init() {
         //io = new IO_4WD_Test(hardwareMap, telemetry);
-        io = new IO_RoverRuckus_Test(hardwareMap, telemetry);
+        io = new IO_SkyStone_Test(hardwareMap, telemetry);
         //io.setAllianceColor(allianceColor);
         BasicCommand.setIO(io);
         BasicCommand.setMap(hardwareMap);
@@ -55,8 +52,8 @@ public abstract class FirstAuton extends OpMode {
         //io.openRelicHand();
         //io.jewelArmUp();
         //io.proximityArmUp();
-        io.hookStop();
-        io.markerBoxFlat();
+        //io.hookStop();
+        //io.markerBoxFlat();
         telemetry.addData("Status", " Hook and Marker Box Initialized");
         io.calibrateGyroandIMU();
         io.calibrateGyroandIMU1();
@@ -172,7 +169,7 @@ public abstract class FirstAuton extends OpMode {
     }*/
 
     /*public void addInitDOM1Commands() {
-        commandsInitDOM1.add(new DOM1Movement(0, DOM1Movement.INCREASINGDIRECTION, .25));
+        commandsInitDOM1.add(new ArmAngleMovement(0, ArmAngleMovement.INCREASINGDIRECTION, .25));
     }*/
 
     /*public void addInitDOM2Commands() {
@@ -213,7 +210,7 @@ public abstract class FirstAuton extends OpMode {
     }
 
     public void stop() {
-        io.setDrivePower(0,0);
+        io.setDrivePower(0,0, 0 ,0);
     }
 
 }

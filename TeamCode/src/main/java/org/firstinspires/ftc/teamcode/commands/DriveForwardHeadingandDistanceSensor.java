@@ -51,12 +51,12 @@ public class DriveForwardHeadingandDistanceSensor extends BasicCommand {
         switch(test) {
             case FRONTGREATERTHAN:
             case FRONTLESSTHAN:
-                distanceCorrection = distancePID.getCorrection(io.frontDistance.getDistance(DistanceUnit.INCH));
+                distanceCorrection = distancePID.getCorrection(io.leftFrontDistance.getDistance(DistanceUnit.INCH));
                 break;
             case BACKGREATERTHAN:
             case BACKLESSTHAN:
             default:
-                distanceCorrection = distancePID.getCorrection(io.backDistance.getDistance(DistanceUnit.INCH));
+                //distanceCorrection = distancePID.getCorrection(io.backDistance.getDistance(DistanceUnit.INCH));
                 break;
         }
         distanceCorrection = Range.clip(Math.abs(distanceCorrection),0,1);
@@ -71,9 +71,9 @@ public class DriveForwardHeadingandDistanceSensor extends BasicCommand {
             rightSpeed = Range.clip(rightSpeed, -1, 0);
         }
 
-        io.setDrivePower(leftSpeed,rightSpeed);
-        telemetry.addData("Front Distance: ",io.frontDistance.getDistance(DistanceUnit.INCH));
-        telemetry.addData("Back Distance: ",io.backDistance.getDistance(DistanceUnit.INCH));
+        io.setDrivePower(leftSpeed,rightSpeed,leftSpeed,rightSpeed);
+        telemetry.addData("Front Distance: ",io.leftFrontDistance.getDistance(DistanceUnit.INCH));
+        //telemetry.addData("Back Distance: ",io.backDistance.getDistance(DistanceUnit.INCH));
         telemetry.addData("Target Heading:", targetHeading);
         telemetry.addData("Heading:", heading);
         telemetry.addData("Heading Correction: ", correction);
@@ -87,8 +87,8 @@ public class DriveForwardHeadingandDistanceSensor extends BasicCommand {
 
     public boolean isFinished(){
         if (System.currentTimeMillis() >= endTime) return true;
-        telemetry.addData("Front Distance: ",io.frontDistance.getDistance(DistanceUnit.INCH));
-        telemetry.addData("Back Distance: ",io.backDistance.getDistance(DistanceUnit.INCH));
+        telemetry.addData("Front Distance: ",io.leftFrontDistance.getDistance(DistanceUnit.INCH));
+        //telemetry.addData("Back Distance: ",io.backDistance.getDistance(DistanceUnit.INCH));
         telemetry.addData("Target Heading:", targetHeading);
         telemetry.addData("Heading:", heading);
         telemetry.addData("Heading Correction: ", correction);
@@ -101,19 +101,20 @@ public class DriveForwardHeadingandDistanceSensor extends BasicCommand {
 
         switch(test) {
             case FRONTGREATERTHAN:
-                return io.frontDistance.getDistance(DistanceUnit.INCH) > targetPosition;
+                return io.leftFrontDistance.getDistance(DistanceUnit.INCH) > targetPosition;
             case FRONTLESSTHAN:
-                return io.frontDistance.getDistance(DistanceUnit.INCH) < targetPosition;
+                return io.leftFrontDistance.getDistance(DistanceUnit.INCH) < targetPosition;
             case BACKGREATERTHAN:
-                return io.backDistance.getDistance(DistanceUnit.INCH) > targetPosition;
+                //return io.backDistance.getDistance(DistanceUnit.INCH) > targetPosition;
             case BACKLESSTHAN:
             default:
-                return io.backDistance.getDistance(DistanceUnit.INCH) < targetPosition;
+                return false;
+                //return io.backDistance.getDistance(DistanceUnit.INCH) < targetPosition;
         }
     }
 
     public void stop(){
-        if (!coast) io.setDrivePower(0.0,0.0);
+        if (!coast) io.setDrivePower(0.0,0.0, 0.0, 0.0);
     }
 
 }

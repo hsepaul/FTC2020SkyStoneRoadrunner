@@ -65,7 +65,7 @@ public class RemoveOpponentsJewel extends BasicCommand {
         double correction = headingPID.getCorrection(Math.toDegrees(io.heading));
         correction = Range.clip(correction,-1,1);
         //correction = Range.clip(correction,0,1);
-        io.setDrivePower(correction*leftSpd,-correction*rightSpd);
+        io.setDrivePower(correction*leftSpd,-correction*rightSpd, correction*leftSpd,-correction*rightSpd);
         telemetry.addData("Target Heading:", heading);
         //telemetry.addData("Heading: ", io.getHeading());
         telemetry.addData("Heading: ", Math.toDegrees(io.heading));
@@ -91,7 +91,7 @@ public class RemoveOpponentsJewel extends BasicCommand {
         return Math.abs(Math.toDegrees(io.heading) - heading) <=2.3 || System.currentTimeMillis() >= timeOut;
     }
     public void stop() {
-        io.setDrivePower(0,0);
+        io.setDrivePower(0,0, 0, 0);
     }
 
 }

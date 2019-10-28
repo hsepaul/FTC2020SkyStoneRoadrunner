@@ -48,9 +48,9 @@ public class DriveForwardDistanceSensorandEncoder extends BasicCommand {
     public void execute(){
 
         if (side.equals("Left")) {
-            currentDistanceOffset = io.leftDistance.getDistance(DistanceUnit.INCH);
+            currentDistanceOffset = io.leftFrontDistance.getDistance(DistanceUnit.INCH);
         } else {
-            currentDistanceOffset = io.rightDistance.getDistance(DistanceUnit.INCH);
+            currentDistanceOffset = io.rightFrontDistance.getDistance(DistanceUnit.INCH);
         }
 
         correction = distanceSensorPID.getCorrection(currentDistanceOffset);
@@ -84,7 +84,7 @@ public class DriveForwardDistanceSensorandEncoder extends BasicCommand {
             rightSpeed = Range.clip(rightSpeed, -1, 0);
         }
 
-        io.setDrivePower(leftSpeed,rightSpeed);
+        io.setDrivePower(leftSpeed,rightSpeed, leftSpeed,rightSpeed);
         telemetry.addData("x: ",io.getX());
         telemetry.addData("y: ",io.getY());
         telemetry.addData("Target Distance from Wall:", distanceOffsetfromWall);
@@ -126,7 +126,7 @@ public class DriveForwardDistanceSensorandEncoder extends BasicCommand {
     }
 
     public void stop(){
-        if (!coast) io.setDrivePower(0.0,0.0);
+        if (!coast) io.setDrivePower(0.0,0.0, 0.0, 0.0);
     }
 
 }

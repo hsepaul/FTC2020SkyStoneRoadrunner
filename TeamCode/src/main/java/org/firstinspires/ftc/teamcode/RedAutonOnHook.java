@@ -1,20 +1,18 @@
 package org.firstinspires.ftc.teamcode;
 
 
-import org.firstinspires.ftc.teamcode.commands.ChinDown;
 import org.firstinspires.ftc.teamcode.commands.CommandGroup;
-import org.firstinspires.ftc.teamcode.commands.DetermineGoldMineralPositiononCamera;
+//import org.firstinspires.ftc.teamcode.commands.DetermineGoldMineralPositiononCamera;
 import org.firstinspires.ftc.teamcode.commands.DriveForward;
-import org.firstinspires.ftc.teamcode.commands.HookHome;
 import org.firstinspires.ftc.teamcode.commands.HookRelease;
 //import org.firstinspires.ftc.teamcode.commands.IdentifyGoldMineral;
 import org.firstinspires.ftc.teamcode.commands.RaiseDOM;
 import org.firstinspires.ftc.teamcode.commands.ResetDriveEncoders;
-import org.firstinspires.ftc.teamcode.commands.RobotDown;
+//import org.firstinspires.ftc.teamcode.commands.RobotDown;
 import org.firstinspires.ftc.teamcode.commands.Rotate;
 import org.firstinspires.ftc.teamcode.commands.SetIMUOffset;
 import org.firstinspires.ftc.teamcode.commands.WaitForTime;
-import org.firstinspires.ftc.teamcode.utilities.IO_RoverRuckus_Test;
+import org.firstinspires.ftc.teamcode.utilities.IO_SkyStone_Test;
 
 //import org.firstinspires.ftc.teamcode.commands.DriveForwardForDistance;
 //import org.firstinspires.ftc.teamcode.commands.DriveHorizontal;
@@ -34,14 +32,14 @@ public abstract class RedAutonOnHook extends FirstAuton {
 
     @Override
     public void addCommands() {
-        io.setAllianceColor(IO_RoverRuckus_Test.RED);
+        io.setAllianceColor(IO_SkyStone_Test.RED);
         CommandGroup group = new CommandGroup();
         group.addCommand(new RaiseDOM());
         //group.addCommand(new IdentifyGoldMineral());
-        group.addCommand(new DetermineGoldMineralPositiononCamera());
+        //group.addCommand(new DetermineGoldMineralPositiononCamera());
         commands.add(group);
 
-        commands.add(new RobotDown());
+        //commands.add(new RobotDown());
         commands.add(new SetIMUOffset());
         //commands.add(new WaitForTime(50));
         commands.add(new HookRelease());

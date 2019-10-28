@@ -1,20 +1,16 @@
 package org.firstinspires.ftc.teamcode;
 
 
-import org.firstinspires.ftc.teamcode.commands.AlignwithGoldMineral;
 import org.firstinspires.ftc.teamcode.commands.AlignwithGoldMineralTest;
 import org.firstinspires.ftc.teamcode.commands.CommandGroup;
 import org.firstinspires.ftc.teamcode.commands.DriveForward;
-import org.firstinspires.ftc.teamcode.commands.DriveForwardDistanceSensorandDistanceSensor;
-import org.firstinspires.ftc.teamcode.commands.DriveForwardDistanceSensorandEncoder;
-import org.firstinspires.ftc.teamcode.commands.DriveForwardHeadingandDistanceSensor;
-import org.firstinspires.ftc.teamcode.commands.FindGoldMineral;
+//import org.firstinspires.ftc.teamcode.commands.FindGoldMineral;
 //import org.firstinspires.ftc.teamcode.commands.IdentifyGoldMineral;
 import org.firstinspires.ftc.teamcode.commands.RaiseDOM;
 import org.firstinspires.ftc.teamcode.commands.ResetDriveEncoders;
 import org.firstinspires.ftc.teamcode.commands.SetIMUOffset;
 import org.firstinspires.ftc.teamcode.commands.WaitForTime;
-import org.firstinspires.ftc.teamcode.utilities.IO_RoverRuckus_Test;
+import org.firstinspires.ftc.teamcode.utilities.IO_SkyStone_Test;
 
 //import org.firstinspires.ftc.teamcode.commands.DriveForwardForDistance;
 //import org.firstinspires.ftc.teamcode.commands.DriveHorizontal;
@@ -34,7 +30,7 @@ public abstract class BlueAutonTest extends FirstAuton {
 
     @Override
     public void addCommands() {
-        io.setAllianceColor(IO_RoverRuckus_Test.BLUE);
+        io.setAllianceColor(IO_SkyStone_Test.BLUE);
         //commands.add(new RobotDown());
         //commands.add(new WaitForTime(50));
         //commands.add(new HookRelease());
@@ -48,7 +44,7 @@ public abstract class BlueAutonTest extends FirstAuton {
         CommandGroup group = new CommandGroup();
         group.addCommand(new RaiseDOM());
         //group.addCommand(new IdentifyGoldMineral());
-        group.addCommand(new FindGoldMineral());
+        //group.addCommand(new FindGoldMineral());
         group.addCommand(new AlignwithGoldMineralTest());
         //group.addCommand(new AlignwithGoldMineral());
         commands.add(group);

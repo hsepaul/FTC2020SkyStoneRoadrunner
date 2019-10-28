@@ -22,7 +22,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
-import org.firstinspires.ftc.teamcode.utilities.IO_RoverRuckus_Test;
+import org.firstinspires.ftc.teamcode.utilities.IO_SkyStone_Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.FRONT;
-import org.firstinspires.ftc.teamcode.utilities.IO_RoverRuckus_Test;
+import org.firstinspires.ftc.teamcode.utilities.IO_SkyStone_Test;
 
 /**
  * Created by HPaul on 10/25/2017.

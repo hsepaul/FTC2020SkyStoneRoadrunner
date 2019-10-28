@@ -20,7 +20,7 @@ public class HookRelease extends BasicCommand {
 
     public void execute(){
         telemetry.addData("Mode:", "Hook Release");
-        io.hook.setPower(-.79);
+        //io.hook.setPower(-.79);
         hookRelease = true;
     }
 
@@ -28,7 +28,7 @@ public class HookRelease extends BasicCommand {
         return hookRelease && System.currentTimeMillis() >= timeOut;
     }
     public void stop() {
-        io.hookStop();
+        //io.hookStop();
         //io.setDrivePower(0,0);
         //io.forkLiftMotor.setPower(0);
     }

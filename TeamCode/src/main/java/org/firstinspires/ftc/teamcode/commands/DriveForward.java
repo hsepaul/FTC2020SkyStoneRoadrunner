@@ -123,7 +123,7 @@ public class DriveForward extends BasicCommand {
             rightSpeed = Range.clip(rightSpeed, -1, 0);
         }
 
-        io.setDrivePower(leftSpeed,rightSpeed);
+        io.setDrivePower(leftSpeed,rightSpeed, leftSpeed,rightSpeed);
         telemetry.addData("x: ",io.getX());
         telemetry.addData("y: ",io.getY());
         telemetry.addData("Target Heading:", targetHeading);
@@ -170,7 +170,7 @@ public class DriveForward extends BasicCommand {
     }
 
     public void stop(){
-        if (!coast) io.setDrivePower(0.0,0.0);
+        if (!coast) io.setDrivePower(0.0,0.0, 0.0, 0.0);
     }
 
 }

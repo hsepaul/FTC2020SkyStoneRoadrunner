@@ -35,8 +35,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.utilities.IO_4WD_Test;
-import org.firstinspires.ftc.teamcode.utilities.IO_RoverRuckus_Test;
+import org.firstinspires.ftc.teamcode.utilities.IO_SkyStone_Test;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -52,9 +51,9 @@ import org.firstinspires.ftc.teamcode.utilities.IO_RoverRuckus_Test;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Calibration Rover Ruckus", group="Calibration")
+@TeleOp(name="Calibration Sky Stone", group="Calibration")
 //@Disabled
-public class CalibrationRoverRuckus extends OpMode
+public class CalibrationSkyStone extends OpMode
 {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -62,7 +61,7 @@ public class CalibrationRoverRuckus extends OpMode
     private DcMotor rightDrive = null;
     //private DcMotor forkLiftMotor = null;
     private DcMotor arm = null;
-    IO_RoverRuckus_Test io;
+    IO_SkyStone_Test io;
     public Servo leftHand    = null;
     public Servo rightHand   = null;
 
@@ -87,9 +86,8 @@ public class CalibrationRoverRuckus extends OpMode
     // Define class members
     double  position = 0; //(MAX_POS - MIN_POS) / 2; // Start at halfway position
     boolean rampUp = true;
-    boolean calibrationChinDone = false;
-    boolean calibrationDoneDOMArm = false;
-    boolean calibrationDoneDOMExtension = false;
+    boolean calibrationArmExtenderDone = false;
+    boolean calibrationArmAngleDone = false;
     long initTime = 0;
 
     /*
@@ -97,9 +95,9 @@ public class CalibrationRoverRuckus extends OpMode
      */
     @Override
     public void init() {
-        io = new IO_RoverRuckus_Test(hardwareMap, telemetry);
-        io.hookStop();
-        io.markerBoxFlat();
+        io = new IO_SkyStone_Test(hardwareMap, telemetry);
+        //io.hookStop();
+        io.gripperRotateStowed();
         io.resetDriveEncoders();
         //io.resetDriveEncoders();
         //telemetry.addData("Status", "Resetting Encoders");
@@ -133,23 +131,23 @@ public class CalibrationRoverRuckus extends OpMode
         arm.setDirection(DcMotor.Direction.FORWARD);*/
 
         // Tell the driver that initialization is complete.
-        if (io.touchChin.getState() == false) {
-            telemetry.addData("Calibration of Chin", "Not Required");
+        if (io.touchArmExtender.getState() == false) {
+            telemetry.addData("Calibration of Arm Extender", "Not Required");
         } else {
-            telemetry.addData("Calibration of Chin", "Required");
+            telemetry.addData("Calibration of Arm Extender", "Required");
         }
 
-        if (io.touchDOM.getState() == false) {
-            telemetry.addData("Calibration of DOM Arm", "Not Required");
+        if (io.touchArmAngle.getState() == false) {
+            telemetry.addData("Calibration of Arm Angle", "Not Required");
         } else {
-            telemetry.addData("Calibration of DOM Arm", "Required");
+            telemetry.addData("Calibration of Arm Angle", "Required");
         }
 
-        if (io.touchDOMExtend.getState() == false) {
+/*        if (io.touchDOMExtend.getState() == false) {
             telemetry.addData("Calibration of DOM Extension", "Not Required");
         } else {
             telemetry.addData("Calibration of DOM Extension", "Required");
-        }
+        }*/
 
 
         //forkLiftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -276,26 +274,28 @@ public class CalibrationRoverRuckus extends OpMode
         //calibrationChinDone
         // chin down io.chinMotor.setPower(-1);
 
-        if ((io.touchChin.getState() == true) && !calibrationChinDone) {
-            io.chinMotor.setPower(-1);
-            telemetry.addData("Calibration of Chin", "In Process");
+        io.gripperRotateStowed();
+
+        if ((io.touchArmExtender.getState() == true) && !calibrationArmExtenderDone) {
+            io.armExtenderMotor.setPower(.5);
+            telemetry.addData("Calibration of Arm Extender", "In Process");
         } else{
-            io.chinMotor.setPower(0);
+            io.armExtenderMotor.setPower(0);
             io.resetDriveEncoders();
             telemetry.addData("Status", "Resetting Encoders");
-            telemetry.addData("Calibration of Chin", "Completed");
-            calibrationChinDone = true;
+            telemetry.addData("Calibration of Arm Extender", "Completed");
+            calibrationArmExtenderDone = true;
         }
 
-        if ((io.touchDOMExtend.getState() == true) && (!calibrationDoneDOMExtension)){
-            io.domExtendMotor.setPower(-1);
-            telemetry.addData("Calibration of DOM Extension", "In Process");
+        if ((io.touchArmAngle.getState() == true) && (!calibrationArmAngleDone)){
+            io.armAngleMotor.setPower(.5);
+            telemetry.addData("Calibration of Arm Angle", "In Process");
         } else {
-            io.domExtendMotor.setPower(0);
+            io.armAngleMotor.setPower(0);
             io.resetDriveEncoders();
             telemetry.addData("Status", "Resetting Encoders");
-            telemetry.addData("Calibration of DOM Extension", "Completed");
-            calibrationDoneDOMExtension = true;
+            telemetry.addData("Calibration of Arm Angle", "Completed");
+            calibrationArmAngleDone = true;
         }
 
         /*if ((io.touchBottom.getState() == true) && (!calibrationDone) && ((System.currentTimeMillis() - initTime) > 0) && (System.currentTimeMillis() - initTime) <= 2000) {
@@ -337,28 +337,31 @@ public class CalibrationRoverRuckus extends OpMode
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
 
-        if (io.touchChin.getState() == false) {
-            telemetry.addData("Chin", "Is Pressed");
+        if (io.touchArmExtender.getState() == false) {
+            telemetry.addData("Arm Extender", "Is Pressed");
         } else {
-            telemetry.addData("Chin", "Is Not Pressed");
+            telemetry.addData("Arm Extender", "Is Not Pressed");
         }
 
-        if (io.touchDOM.getState() == false) {
-            telemetry.addData("DOM Arm", "Is Pressed");
+        if (io.touchArmAngle.getState() == false) {
+            telemetry.addData("Arm Angle", "Is Pressed");
         } else {
-            telemetry.addData("DOM Arm", "Is Not Pressed");
+            telemetry.addData("Arm Angle", "Is Not Pressed");
         }
 
-        if (io.touchDOMExtend.getState() == false) {
+        /*if (io.touchDOMExtend.getState() == false) {
             telemetry.addData("DOM Arm Extension", "Is Pressed");
         } else {
             telemetry.addData("DOM Arm Extension", "Is Not Pressed");
-        }
+        }*/
 
 
 
-        telemetry.addData("Chin",  "Setting at %.2f",
-                io.getChinMotorEncoder());
+        telemetry.addData("Arm Extender Encoder",  "Setting at %.2f",
+                io.getArmExtenderEncoder());
+
+        telemetry.addData("Arm Angle Encoder",  "Setting at %.2f",
+                io.getArmAngleEncoder());
 
         /*telemetry.addData("DOM Arm 1",  "Setting at %.2f",
                 io.getDOM1MotorEncoder());

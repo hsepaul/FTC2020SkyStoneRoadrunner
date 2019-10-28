@@ -90,8 +90,8 @@ public class IdentifyProximity extends BasicCommand{
     }
 
     public boolean isFinished(){
-        leftProximity = io.leftDistance.getDistance(DistanceUnit.CM);
-        rightProximity = io.rightDistance.getDistance(DistanceUnit.CM);
+        leftProximity = io.leftFrontDistance.getDistance(DistanceUnit.CM);
+        rightProximity = io.rightFrontDistance.getDistance(DistanceUnit.CM);
 
         if (System.currentTimeMillis() >= endTime) {
             return true;
@@ -121,6 +121,6 @@ public class IdentifyProximity extends BasicCommand{
         }
     }
     public void stop() {
-        io.setDrivePower(0,0);
+        io.setDrivePower(0,0, 0, 0);
     }
 }

@@ -44,7 +44,7 @@ public class ProximityArmDown extends BasicCommand {
             return proximityArmDown || System.currentTimeMillis() >= timeOut;
         }
         public void stop() {
-            io.setDrivePower(0,0);
+            io.setDrivePower(0,0, 0, 0);
         }
 
 }

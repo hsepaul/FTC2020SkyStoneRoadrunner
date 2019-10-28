@@ -20,7 +20,7 @@ public class CageHome extends BasicCommand {
 
     public void execute(){
         telemetry.addData("Mode:", "Cage Home");
-        io.domExtendMotor.setPower(-1);
+        //io.domExtendMotor.setPower(-1);
         cageHome = true;
     }
 
@@ -28,7 +28,7 @@ public class CageHome extends BasicCommand {
         return cageHome && System.currentTimeMillis() >= timeOut;
     }
     public void stop() {
-        io.domExtendMotor.setPower(0);
+        //io.domExtendMotor.setPower(0);
     }
 
 }

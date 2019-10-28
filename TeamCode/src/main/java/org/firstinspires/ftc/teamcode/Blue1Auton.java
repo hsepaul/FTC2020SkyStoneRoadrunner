@@ -20,7 +20,7 @@ import org.firstinspires.ftc.teamcode.commands.WaitForTime;
  * Created by David Austin on 11/10/2016.
  */
 
-@Autonomous(name="Blue Gold",group="Auton")
+//@Autonomous(name="Blue Gold",group="Auton")
 public class Blue1Auton extends BlueAuton {
     public void addFinalCommands() {
         //commands.add(new DriveForward(18,DriveForward.XGREATERTHAN,.8,0, false, true, true));

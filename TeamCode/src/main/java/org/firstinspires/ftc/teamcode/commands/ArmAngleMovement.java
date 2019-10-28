@@ -8,30 +8,30 @@ import org.firstinspires.ftc.teamcode.utilities.PID;
  * Created by David Austin on 10/27/2016.
  */
 
-public class DOM1Movement extends BasicCommand {
+public class ArmAngleMovement extends BasicCommand {
     public double targetPosition;
-    double dom1Speed;
-    public PID dom1PID;
+    double armAngleSpeed;
+    public PID armAnglePID;
     public static final int INCREASINGDIRECTION = 0;
     public static final int DECREASINGDIRECTION = 1;
     int test;
     long endTime;
     boolean coast = false;
-    public DOM1Movement(double targetPosition, int test, double spd){
+    public ArmAngleMovement(double targetPosition, int test, double spd){
         //headingPID = new PID(0.05,0,0);
         //headingPID = new PID(0.02, 0.02, 0);
         //headingPID = new PID(0.05, 0, 0);
         //headingPID.setTarget(targetHeading);
         //dom1PID = new PID(.01,0,0);
-        dom1PID = new PID(.025,0,0);
+        armAnglePID = new PID(.025,0,0);
         //distancePID = new PID(.2,0,0);
-        dom1PID.setTarget(targetPosition);
+        armAnglePID.setTarget(targetPosition);
         this.targetPosition = targetPosition;
         this.test = test;
-        dom1Speed = spd;
+        armAngleSpeed = spd;
         //this.targetHeading = targetHeading;
     }
-    public DOM1Movement(double targetPosition, int test, double spd, boolean coast){
+    public ArmAngleMovement(double targetPosition, int test, double spd, boolean coast){
         this(targetPosition,test,spd);
         this.coast=coast;
     }
@@ -44,7 +44,7 @@ public class DOM1Movement extends BasicCommand {
         //double heading = io.getHeading();
         //double heading = Math.toDegrees(io.heading);
         //double correction = dom1PID.getCorrection(io.getDOM1MotorEncoder());
-        double correction = dom1PID.getCorrection(io.getDOMPotDegrees());
+        double correction = armAnglePID.getCorrection(io.getArmAnglePotDegrees());
         //double distanceCorrection;
 /*        switch(test) {
             case XGREATERTHAN:
@@ -69,7 +69,7 @@ public class DOM1Movement extends BasicCommand {
             rightSpeed = Range.clip(rightSpeed, -1, 0);
         }*/
 
-        io.dom1Motor.setPower(dom1Speed * correction);
+        io.armAngleMotor.setPower(armAngleSpeed * correction);
 
         //telemetry.addData("x: ",io.getX());
         //telemetry.addData("y: ",io.getY());

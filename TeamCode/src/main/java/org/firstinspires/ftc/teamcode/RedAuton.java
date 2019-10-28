@@ -1,31 +1,16 @@
 package org.firstinspires.ftc.teamcode;
 
 
-import org.firstinspires.ftc.teamcode.commands.AlignwithGoldMineral;
-import org.firstinspires.ftc.teamcode.commands.ChinDown;
+//import org.firstinspires.ftc.teamcode.commands.AlignwithGoldMineral;
 import org.firstinspires.ftc.teamcode.commands.CommandGroup;
 import org.firstinspires.ftc.teamcode.commands.DriveForward;
-import org.firstinspires.ftc.teamcode.commands.ElevatorUp;
-import org.firstinspires.ftc.teamcode.commands.FindGoldMineral;
-import org.firstinspires.ftc.teamcode.commands.HandsClosed;
-import org.firstinspires.ftc.teamcode.commands.HookHome;
-import org.firstinspires.ftc.teamcode.commands.HookRelease;
+//import org.firstinspires.ftc.teamcode.commands.FindGoldMineral;
 //import org.firstinspires.ftc.teamcode.commands.IdentifyGoldMineral;
-import org.firstinspires.ftc.teamcode.commands.IdentifyJewel;
-import org.firstinspires.ftc.teamcode.commands.IdentifyJewelwithREVColorSensor;
-import org.firstinspires.ftc.teamcode.commands.IdentifyVuMark;
-import org.firstinspires.ftc.teamcode.commands.JewelArmDown;
-import org.firstinspires.ftc.teamcode.commands.JewelArmUp;
-import org.firstinspires.ftc.teamcode.commands.ProximityArmMid;
 import org.firstinspires.ftc.teamcode.commands.RaiseDOM;
-import org.firstinspires.ftc.teamcode.commands.RemoveOpponentsJewel;
 import org.firstinspires.ftc.teamcode.commands.ResetDriveEncoders;
-import org.firstinspires.ftc.teamcode.commands.RobotDown;
-import org.firstinspires.ftc.teamcode.commands.Rotate;
 import org.firstinspires.ftc.teamcode.commands.SetIMUOffset;
 import org.firstinspires.ftc.teamcode.commands.WaitForTime;
-import org.firstinspires.ftc.teamcode.utilities.IO_4WD_Test;
-import org.firstinspires.ftc.teamcode.utilities.IO_RoverRuckus_Test;
+import org.firstinspires.ftc.teamcode.utilities.IO_SkyStone_Test;
 
 //import org.firstinspires.ftc.teamcode.commands.DriveForwardForDistance;
 //import org.firstinspires.ftc.teamcode.commands.DriveHorizontal;
@@ -45,7 +30,7 @@ public abstract class RedAuton extends FirstAuton {
 
     @Override
     public void addCommands() {
-        io.setAllianceColor(IO_RoverRuckus_Test.RED);
+        io.setAllianceColor(IO_SkyStone_Test.RED);
 
         //commands.add(new RobotDown());
         //commands.add(new WaitForTime(50));
@@ -63,8 +48,8 @@ public abstract class RedAuton extends FirstAuton {
         CommandGroup group = new CommandGroup();
         group.addCommand(new RaiseDOM());
         //group.addCommand(new IdentifyGoldMineral());
-        group.addCommand(new FindGoldMineral());
-        group.addCommand(new AlignwithGoldMineral());
+        //group.addCommand(new FindGoldMineral());
+        //group.addCommand(new AlignwithGoldMineral());
         commands.add(group);
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());

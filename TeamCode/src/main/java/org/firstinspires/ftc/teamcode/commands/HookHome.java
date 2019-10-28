@@ -20,7 +20,7 @@ public class HookHome extends BasicCommand {
 
     public void execute(){
         telemetry.addData("Mode:", "Hook Home");
-        io.hook.setPower(.79);
+        //io.hook.setPower(.79);
         hookHome = true;
     }
 
@@ -28,7 +28,7 @@ public class HookHome extends BasicCommand {
         return hookHome && System.currentTimeMillis() >= timeOut;
     }
     public void stop() {
-        io.hookStop();
+        //io.hookStop();
         //io.setDrivePower(0,0);
         //io.forkLiftMotor.setPower(0);
     }

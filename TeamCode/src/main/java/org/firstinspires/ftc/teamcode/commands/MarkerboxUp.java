@@ -20,7 +20,7 @@ public class MarkerboxUp extends BasicCommand {
 
     public void execute(){
         telemetry.addData("Mode:", "Markerbox Up");
-        io.markerBoxUp();
+        //io.markerBoxUp();
         markerboxUp = true;
     }
 

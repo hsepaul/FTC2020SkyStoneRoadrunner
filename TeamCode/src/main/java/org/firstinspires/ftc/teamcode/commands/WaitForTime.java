@@ -35,11 +35,11 @@ public class WaitForTime extends BasicCommand {
         telemetry.addData("IMU Heading:", io.angles.firstAngle);
         telemetry.addData("IMU IO Heading: ", Math.toDegrees(io.heading));
 
-        telemetry.addData("Distance left sensor (cm)",
+        /*telemetry.addData("Distance left sensor (cm)",
                 String.format(Locale.US, "%.02f", io.leftDistance.getDistance(DistanceUnit.CM)));
 
         telemetry.addData("Distance right sensor(cm)",
-                String.format(Locale.US, "%.02f", io.rightDistance.getDistance(DistanceUnit.CM)));
+                String.format(Locale.US, "%.02f", io.rightDistance.getDistance(DistanceUnit.CM)));*/
         //telemetry.addData("Proximity Correction:", io.getProximityCorrection());
         //telemetry.addData("Left Proximity Average:", io.getLeftProximityAverage());
         //telemetry.addData("Right Proximity Average:", io.getRightProximityAverage());
@@ -50,7 +50,7 @@ public class WaitForTime extends BasicCommand {
             return System.currentTimeMillis() >= wakeupTime;
         }
     public void stop() {
-            io.setDrivePower(0,0);
+            io.setDrivePower(0,0, 0, 0);
         }
 
 }

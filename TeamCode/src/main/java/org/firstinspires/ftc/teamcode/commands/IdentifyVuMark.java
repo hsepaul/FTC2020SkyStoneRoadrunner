@@ -152,7 +152,7 @@ public class IdentifyVuMark extends BasicCommand{
         return true;
     }
     public void stop() {
-        io.setDrivePower(0,0);
+        io.setDrivePower(0,0, 0, 0);
         execute();
     }
 

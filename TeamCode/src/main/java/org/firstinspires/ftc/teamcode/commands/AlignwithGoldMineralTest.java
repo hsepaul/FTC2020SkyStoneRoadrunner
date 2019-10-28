@@ -68,14 +68,14 @@ public class AlignwithGoldMineralTest extends BasicCommand {
 
     public void execute(){
 
-        if (io.getDOMPotDegrees() >= 45 && io.twoCyclesIsGoldFound) {
+        if (io.getArmAnglePotDegrees() >= 45 && io.twoCyclesIsGoldFound) {
             correction = goldPID.getCorrection(-io.getGoldXPositionAroundZero());
             correction1 = headingPID.getCorrection(Math.toDegrees(io.heading));
             correction = Range.clip(correction,-1,1);
             correction1 = Range.clip(correction1,-1,1);
-            io.setDrivePower(correction*leftSpd,-correction*rightSpd);
+            io.setDrivePower(correction*leftSpd,-correction*rightSpd, correction*leftSpd,-correction*rightSpd);
         } else {
-            io.setDrivePower(0,0);
+            io.setDrivePower(0,0, 0, 0);
         }
 
         /*if ((Math.abs(io.getGoldXPositionAroundZero() - 0) <= 10) && io.twoCyclesIsGoldFound && io.twoCyclesIsGoldAligned) {
@@ -116,7 +116,7 @@ public class AlignwithGoldMineralTest extends BasicCommand {
         telemetry.addData("Left Speed: ", leftSpd);
         telemetry.addData("Right Speed: ", rightSpd);
         //telemetry.addData("VuMark from IdentifyVuMark from IO", io.getVuMark());
-        telemetry.addData("Potentiometer", String.format("%.01f degrees", (io.getDOMPotDegrees())));
+        telemetry.addData("Potentiometer", String.format("%.01f degrees", (io.getArmAnglePotDegrees())));
         telemetry.addData("Mode:", "Align with Gold Mineral");
     }
 
@@ -139,14 +139,14 @@ public class AlignwithGoldMineralTest extends BasicCommand {
         telemetry.addData("Left Speed: ", leftSpd);
         telemetry.addData("Right Speed: ", rightSpd);
         //telemetry.addData("VuMark from IdentifyVuMark from IO", io.getVuMark());
-        telemetry.addData("Potentiometer", String.format("%.01f degrees", (io.getDOMPotDegrees())));
+        telemetry.addData("Potentiometer", String.format("%.01f degrees", (io.getArmAnglePotDegrees())));
         telemetry.addData("Mode:", "Align with Gold Mineral");
         //return Math.abs(io.getHeading() - heading) <=2 || System.currentTimeMillis() >= timeOut;
         //return centeredGold || System.currentTimeMillis() >= timeOut;
         return System.currentTimeMillis() >= timeOut;
     }
     public void stop() {
-        io.setDrivePower(0,0);
+        io.setDrivePower(0,0, 0, 0);
     }
 
 }

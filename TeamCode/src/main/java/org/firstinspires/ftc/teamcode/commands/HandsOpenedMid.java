@@ -28,7 +28,7 @@ public class HandsOpenedMid extends BasicCommand {
         return handsOpenedMid || System.currentTimeMillis() >= timeOut;
     }
     public void stop() {
-        io.setDrivePower(0,0);
+        io.setDrivePower(0,0, 0, 0);
         //io.forkLiftMotor.setPower(0);
     }
 

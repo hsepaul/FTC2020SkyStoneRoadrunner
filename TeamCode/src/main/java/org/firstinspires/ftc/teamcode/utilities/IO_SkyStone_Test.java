@@ -2,17 +2,12 @@ package org.firstinspires.ftc.teamcode.utilities;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.AnalogInput;
-import com.qualcomm.robotcore.hardware.AnalogOutput;
-import com.qualcomm.robotcore.hardware.AnalogSensor;
 import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
-import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -32,21 +27,22 @@ import static org.firstinspires.ftc.teamcode.utilities.Sleep.sleep;
  * Created by David Austin on 10/27/2016.
  */
 
-public class IO_RoverRuckus_Test {
-    public DcMotor rightBackDrive, leftBackDrive, chinMotor, dom1Motor, dom2Motor, domExtendMotor, domSweepMotor;
+public class IO_SkyStone_Test {
+    public DcMotor backRightMotor, backLeftMotor, frontRightMotor, frontLeftMotor, armExtenderMotor, armAngleMotor;
     //public GyroSensor gyro;
-    public CRServo hook;
-    public Servo markerBox;
-    public DistanceSensor leftDistance;
-    public DistanceSensor rightDistance;
-    public DistanceSensor frontDistance;
-    public DistanceSensor backDistance;
+    //public CRServo hook;
+    public Servo rightHook;
+    public Servo leftHook;
+    public Servo gripperRotate;
+    public Servo gripperPincher;
+    public DistanceSensor leftFrontDistance;
+    public DistanceSensor rightFrontDistance;
 
-    public DigitalChannel touchChin;
-    public DigitalChannel touchDOM;
-    public DigitalChannel touchDOMExtend;
 
-    public AnalogInput domPot;
+    public DigitalChannel touchArmAngle;
+    public DigitalChannel touchArmExtender;
+
+    public AnalogInput armAnglePot;
 
     public WebcamName webcamName;
 
@@ -57,8 +53,8 @@ public class IO_RoverRuckus_Test {
     double imu1Offset = 0;
     public double heading = 0;
     public double heading1 = 0;
-    double rightBackOffset = 0, leftBackOffset = 0, chinOffset = 0, dom1Offset = 0, dom2Offset = 0, domExtendOffset = 0;
-    double lastRightBackEncoder = 0, lastLeftBackEncoder = 0, lastChinEncoder = 0; //lastDOM1Encoder = 0, lastDOM2Encoder = 0, lastDOMExtendEncoder = 0;
+    double odometerRightOffset = 0, odometerLeftOffset = 0, odometerCenterOffset = 0, armExtenderOffset = 0, armAngleOffset = 0;
+    double lastOdometerRightEncoder = 0, lastOdometerLeftEncoder = 0, lastOdometerCenterEncoder = 0, lastArmExtenderEncoder = 0, lastArmAngleEncoder = 0;
     double x = 0, y = 0;
     double x_ZeroDegree = 0, y_ZeroDegree = 0;
     //double COUNTSPERINCH = 140/1.28;//84/1.28; //used for Rev HD Hex Motor (REV-41-1301) 40:1 motor (Counts per Rotation of the Output Shaft = 1120)
@@ -100,10 +96,6 @@ public class IO_RoverRuckus_Test {
     //public double headingatlanding = 0;
     public double headingOfGold = 0;
 
-    public static double hookClockwise = .79;
-    public static double hookCounterClockwise = -.79;
-    public static double hookStop = 0;
-
     //public static double leftHandOut = 0;
     //public static double rightHandOut = 1;
     //public static double leftHandMid = .3;
@@ -116,9 +108,15 @@ public class IO_RoverRuckus_Test {
     //public static double relicHandOpen = 0;
     //public static double relicHandClosed = 1;
 
-    public static double markerBoxUp = 0;
-    public static double markerBoxFlat = .5;
-    public static double markerBoxDown = 1;
+    public static double rightHookUp = 0;
+    public static double rightHookDown = 1;
+    public static double leftHookUp = 1;
+    public static double leftHookDown = 0;
+    public static double gripperRotateStowed = 1;
+    public static double gripperRotateParallel = .25;
+    public static double gripperRotateDown = 0;
+    public static double gripperPincherOpen = 0;
+    public static double gripperPincherClosed = 1;
 
     // State used for updating telemetry
     public Orientation angles;
@@ -136,31 +134,32 @@ public class IO_RoverRuckus_Test {
     Telemetry telemetry;
     HardwareMap map;
 
-    public IO_RoverRuckus_Test(HardwareMap map, Telemetry telemetry) {
+    public IO_SkyStone_Test(HardwareMap map, Telemetry telemetry) {
         this.telemetry = telemetry;
         this.map = map;
-        rightBackDrive = map.dcMotor.get("backright");
-        leftBackDrive = map.dcMotor.get("backleft");
-        chinMotor = map.dcMotor.get("chin");
-        dom1Motor = map.dcMotor.get("dom1");
-        dom2Motor = map.dcMotor.get("dom2");
-        domExtendMotor = map.dcMotor.get("domExtend");
-        domSweepMotor = map.dcMotor.get("domSweep");
+        backRightMotor = map.dcMotor.get("motorBR");
+        backLeftMotor = map.dcMotor.get("motorBL");
+        frontRightMotor = map.dcMotor.get("motorFR");
+        frontLeftMotor = map.dcMotor.get("motorFL");
+        armExtenderMotor = map.dcMotor.get("motorAE");
+        armAngleMotor = map.dcMotor.get("motorAA");
 
-        hook = map.crservo.get("hook");
-        markerBox = map.servo.get("markerbox");
+        //hook = map.crservo.get("hook");
+        rightHook = map.servo.get("servoRH");
+        leftHook = map.servo.get("servoLH");
+        gripperRotate = map.servo.get("servoGR");
+        gripperPincher = map.servo.get("servoGP");
         /*rightHand = map.servo.get("right_hand");
         jewelArm = map.servo.get("jewel_arm");
         proximityArm = map.servo.get("proximity_arm");
         relicHand = map.servo.get("relic_hand");*/
 
-        touchChin = map.digitalChannel.get("touchchin");
-        touchDOM = map.digitalChannel.get("touchdom");
-        touchDOMExtend = map.digitalChannel.get("touchdomextend");
+        touchArmAngle = map.digitalChannel.get("touchAA");
+        touchArmExtender = map.digitalChannel.get("touchAE");
 
-        domPot = map.analogInput.get("dompot");
+        armAnglePot = map.analogInput.get("potAA");
 
-        webcamName = map.get(WebcamName.class, "Webcam 2");
+        webcamName = map.get(WebcamName.class, "Webcam 1");
         /*touchProximity = map.digitalChannel.get("touchproximity");
         touchLowerRelicArm = map.digitalChannel.get("touchlowerrelicarm");
         touchUpperRelicArm = map.digitalChannel.get("touchupperrelicarm");*/
@@ -177,10 +176,10 @@ public class IO_RoverRuckus_Test {
         leftColor = map.get(ColorSensor.class, "leftcolor");*/
 
         // get a reference to the distance sensor that shares the same name.
-        leftDistance = map.get(DistanceSensor.class, "leftdistance");
-        rightDistance = map.get(DistanceSensor.class, "rightdistance");
-        frontDistance = map.get(DistanceSensor.class, "frontdistance");
-        backDistance = map.get(DistanceSensor.class, "backdistance");
+        leftFrontDistance = map.get(DistanceSensor.class, "DL");
+        rightFrontDistance = map.get(DistanceSensor.class, "DR");
+        //frontDistance = map.get(DistanceSensor.class, "frontdistance");
+        //backDistance = map.get(DistanceSensor.class, "backdistance");
 
         /*// get a reference to the color sensor.
         rightColor = map.get(ColorSensor.class, "rightcolor");
@@ -194,20 +193,19 @@ public class IO_RoverRuckus_Test {
         // get a reference to the distance sensor that shares the same name.
         jewelDistance = map.get(DistanceSensor.class, "jewelcolor");*/
 
-        touchChin.setMode(DigitalChannel.Mode.INPUT);
-        touchDOM.setMode(DigitalChannel.Mode.INPUT);
-        touchDOMExtend.setMode(DigitalChannel.Mode.INPUT);
+
+        touchArmAngle.setMode(DigitalChannel.Mode.INPUT);
+        touchArmExtender.setMode(DigitalChannel.Mode.INPUT);
         /*touchProximity.setMode(DigitalChannel.Mode.INPUT);
         touchLowerRelicArm.setMode(DigitalChannel.Mode.INPUT);
         touchUpperRelicArm.setMode(DigitalChannel.Mode.INPUT);*/
 
-        rightBackDrive.setDirection(DcMotorSimple.Direction.REVERSE);
-        leftBackDrive.setDirection(DcMotorSimple.Direction.FORWARD);
-        chinMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        dom1Motor.setDirection(DcMotorSimple.Direction.REVERSE);
-        dom2Motor.setDirection(DcMotorSimple.Direction.FORWARD);
-        domExtendMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        domSweepMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        armExtenderMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        armAngleMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         cameraMonitorViewId = map.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", map.appContext.getPackageName());
 
@@ -224,49 +222,42 @@ public class IO_RoverRuckus_Test {
     }
 
     /*public void retractHands() {
-        leftHand.setPosition(IO_RoverRuckus_Test.leftHandOut);
-        rightHand.setPosition(IO_RoverRuckus_Test.rightHandOut);
+        leftHand.setPosition(IO_SkyStone_Test.leftHandOut);
+        rightHand.setPosition(IO_SkyStone_Test.rightHandOut);
     }
 
     public void retractHandsMid() {
-        leftHand.setPosition(IO_RoverRuckus_Test.leftHandMid);
-        rightHand.setPosition(IO_RoverRuckus_Test.rightHandMid);
+        leftHand.setPosition(IO_SkyStone_Test.leftHandMid);
+        rightHand.setPosition(IO_SkyStone_Test.rightHandMid);
     }
 
     public void closeHands() {
-        leftHand.setPosition(IO_RoverRuckus_Test.leftHandIn);
-        rightHand.setPosition(IO_RoverRuckus_Test.rightHandIn);
+        leftHand.setPosition(IO_SkyStone_Test.leftHandIn);
+        rightHand.setPosition(IO_SkyStone_Test.rightHandIn);
     }*/
 
-    public void hookStop() {
-        hook.setPower(IO_RoverRuckus_Test.hookStop);
-    }
+    public void rightHookUp() { rightHook.setPosition(IO_SkyStone_Test.rightHookUp); }
+    public void rightHookDown() { rightHook.setPosition(IO_SkyStone_Test.rightHookDown); }
+    public void leftHookUp() { leftHook.setPosition(IO_SkyStone_Test.leftHookUp); }
+    public void leftHookDown() { leftHook.setPosition(IO_SkyStone_Test.leftHookDown); }
+    public void gripperRotateStowed() { gripperRotate.setPosition(IO_SkyStone_Test.gripperRotateStowed); }
+    public void gripperRotateParallel() { gripperRotate.setPosition(IO_SkyStone_Test.gripperRotateParallel); }
+    public void gripperRotateDown() { gripperRotate.setPosition(IO_SkyStone_Test.gripperRotateDown); }
+    public void gripperPincherOpen() { gripperPincher.setPosition(IO_SkyStone_Test.gripperPincherOpen); }
+    public void gripperPincherClosed() { gripperPincher.setPosition(IO_SkyStone_Test.gripperPincherClosed); }
 
-    public void hookClockwise() {
-        hook.setPower(IO_RoverRuckus_Test.hookClockwise);
-    }
-
-    public void hookCounterClockwise() { hook.setPower(IO_RoverRuckus_Test.hookCounterClockwise); }
-
-    public void markerBoxUp() { markerBox.setPosition(IO_RoverRuckus_Test.markerBoxUp); }
-
-    public void markerBoxDown() { markerBox.setPosition(IO_RoverRuckus_Test.markerBoxDown); }
-
-    public void markerBoxFlat() { markerBox.setPosition(IO_RoverRuckus_Test.markerBoxFlat); }
-
-
-    /*public void jewelArmDown() { jewelArm.setPosition(IO_RoverRuckus_Test.jewelArmDown); }
+    /*public void jewelArmDown() { jewelArm.setPosition(IO_SkyStone_Test.jewelArmDown); }
 
     public void proximityArmUp() {
-        proximityArm.setPosition(IO_RoverRuckus_Test.proximityArmUp);
+        proximityArm.setPosition(IO_SkyStone_Test.proximityArmUp);
     }
 
     public void proximityArmMid() {
-        proximityArm.setPosition(IO_RoverRuckus_Test.proximityArmMid);
+        proximityArm.setPosition(IO_SkyStone_Test.proximityArmMid);
     }*/
 
     /*public void proximityArmDown() {
-        proximityArm.setPosition(IO_RoverRuckus_Test.proximityArmDown);
+        proximityArm.setPosition(IO_SkyStone_Test.proximityArmDown);
     }*/
 
 /*    public void setGyroOffset() {
@@ -283,19 +274,18 @@ public class IO_RoverRuckus_Test {
     }
 
     public void resetDriveEncoders() {
-        rightBackOffset = rightBackDrive.getCurrentPosition();
-        leftBackOffset = leftBackDrive.getCurrentPosition();
-        //chinOffset = chinMotor.getCurrentPosition();
-        dom1Offset = dom1Motor.getCurrentPosition();
-        dom2Offset = dom2Motor.getCurrentPosition();
-        domExtendOffset = domExtendMotor.getCurrentPosition();
 
-        lastRightBackEncoder = 0;
-        lastLeftBackEncoder = 0;
-        lastChinEncoder = 0;
-        //lastDOM1Encoder = 0;
-        //lastDOM2Encoder = 0;
-        //lastDOMExtendEncoder = 0;
+        odometerRightOffset = frontLeftMotor.getCurrentPosition();
+        odometerLeftOffset = frontRightMotor.getCurrentPosition();
+        odometerCenterOffset = backRightMotor.getCurrentPosition();
+        armExtenderOffset = armExtenderMotor.getCurrentPosition();
+        armAngleOffset = armAngleMotor.getCurrentPosition();
+
+        lastOdometerRightEncoder = 0;
+        lastOdometerLeftEncoder = 0;
+        lastOdometerCenterEncoder = 0;
+        lastArmExtenderEncoder = 0;
+        lastArmAngleEncoder = 0;
 
         x = 0;
         y = 0;
@@ -303,15 +293,18 @@ public class IO_RoverRuckus_Test {
         y_ZeroDegree = 0;
     }
     public void updatePosition() {
-        double rightBackEncoder = getRightBackDriveEncoder();
-        double leftBackEncoder = getLeftBackDriveEncoder();
-        double chinEncoder = getChinMotorEncoder();
+        double odometerRightEncoder = getOdometerRightEncoder();
+        double odometerLeftEncoder = getOdometerLeftEncoder();
+        double odometerCenterEncoder = getOdometerCenterEncoder();
+        double armExtenderEncoder = getArmExtenderEncoder();
+        double armAngleEncoder = getArmAngleEncoder();
+
         //double dom1Encoder = getDOM1MotorEncoder();
         //double dom2Encoder = getDOM2MotorEncoder();
         //double domExtendEncoder = getDOMMotorExtendEncoder();
 
         //double averageChange = (leftBackEncoder - lastLeftBackEncoder);
-        double averageChange = ((leftBackEncoder - lastLeftBackEncoder) + (rightBackEncoder - lastRightBackEncoder))/2.0;
+        double averageChange = ((odometerLeftEncoder - lastOdometerLeftEncoder) + (odometerRightEncoder - lastOdometerRightEncoder))/2.0;
 
 
         if (isGoldFound && lastIsGoldFound) {
@@ -351,12 +344,12 @@ public class IO_RoverRuckus_Test {
 
         x_ZeroDegree += averageChange * Math.cos(0);
         y_ZeroDegree += averageChange * Math.sin(0);
-        lastRightBackEncoder = rightBackEncoder;
-        lastLeftBackEncoder = leftBackEncoder;
-        lastChinEncoder = chinEncoder;
-        //lastDOM1Encoder = dom1Encoder;
-        //lastDOM2Encoder = dom2Encoder;
-        //lastDOMExtendEncoder = domExtendEncoder;
+
+        lastOdometerRightEncoder = odometerRightEncoder;
+        lastOdometerLeftEncoder = odometerLeftEncoder;
+        lastOdometerCenterEncoder = odometerCenterEncoder;
+        lastArmExtenderEncoder = armExtenderEncoder;
+        lastArmAngleEncoder = armAngleEncoder;
 
         lastIsGoldFound = isGoldFound;
         lastIsGoldAligned = isGoldAligned;
@@ -485,17 +478,50 @@ public class IO_RoverRuckus_Test {
         angles1[2] = Math.toDegrees(Math.atan2(2.0*(q1.w*q1.z + q1.x*q1.y), 1.0 - 2.0*(q1.y*q1.y + q1.z*q1.z)));
     }
 
-    public double getRightBackDriveEncoder() {
-        return rightBackDrive.getCurrentPosition() - rightBackOffset;
+    public void normalize(double[] wheelPowers)
+    {
+        double maxMagnitude = Math.abs(wheelPowers[0]);
+
+        for (int i = 1; i < wheelPowers.length; i++)
+        {
+            double magnitude = Math.abs(wheelPowers[i]);
+
+            if (magnitude > maxMagnitude)
+            {
+                maxMagnitude = magnitude;
+            }
+        }
+
+        if (maxMagnitude > 1.0)
+        {
+            for (int i = 0; i < wheelPowers.length; i++)
+            {
+                wheelPowers[i] /= maxMagnitude;
+            }
+        }
+    }   //normalize
+
+
+    public double getOdometerRightEncoder() {
+        return frontLeftMotor.getCurrentPosition() - odometerRightOffset;
     }
 
-    public double getLeftBackDriveEncoder() {
-        return leftBackDrive.getCurrentPosition() - leftBackOffset;
+    public double getOdometerLeftEncoder() {
+        return frontRightMotor.getCurrentPosition() - odometerLeftOffset;
     }
 
-    public double getChinMotorEncoder() {
-        return chinMotor.getCurrentPosition() - chinOffset;
+    public double getOdometerCenterEncoder() {
+        return backRightMotor.getCurrentPosition() - odometerCenterOffset;
     }
+
+    public double getArmExtenderEncoder() {
+        return armExtenderMotor.getCurrentPosition() - armExtenderOffset;
+    }
+
+    public double getArmAngleEncoder() {
+        return armAngleMotor.getCurrentPosition() - armAngleOffset;
+    }
+
 
     /*public double getDOM1MotorEncoder() {
         return dom1Motor.getCurrentPosition() - dom1Offset;
@@ -509,12 +535,12 @@ public class IO_RoverRuckus_Test {
         return domExtendMotor.getCurrentPosition() - domExtendOffset;
     }*/
 
-    public double getDOMPotVoltage() {
-        return domPot.getVoltage();
+    public double getArmAnglePotVoltage() {
+        return armAnglePot.getVoltage();
     }
 
-    public double getDOMPotDegrees() {
-        return (270 - (domPot.getVoltage()*DEGREESPERVOLT));
+    public double getArmAnglePotDegrees() {
+        return (270 - (armAnglePot.getVoltage()*DEGREESPERVOLT));
     }
 
     public double getGoldXPosition() {
@@ -525,9 +551,11 @@ public class IO_RoverRuckus_Test {
     }
 
 
-    public void setDrivePower(double left, double right) {
-        rightBackDrive.setPower(right);
-        leftBackDrive.setPower(left);
+    public void setDrivePower(double fl, double fr, double bl, double br) {
+        frontLeftMotor.setPower(fl);
+        frontRightMotor.setPower(fr);
+        backLeftMotor.setPower(bl);
+        backRightMotor.setPower(br);
     }
 
     /*public double getLightReading(){

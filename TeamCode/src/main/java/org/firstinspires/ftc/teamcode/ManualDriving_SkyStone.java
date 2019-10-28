@@ -35,10 +35,10 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.teamcode.commands.ArmAngleMovement;
 import org.firstinspires.ftc.teamcode.commands.BasicCommand;
-import org.firstinspires.ftc.teamcode.commands.DOM1Movement;
-import org.firstinspires.ftc.teamcode.commands.DOM2Movement;
-import org.firstinspires.ftc.teamcode.utilities.IO_RoverRuckus_Test;
+//import org.firstinspires.ftc.teamcode.commands.DOM2Movement;
+import org.firstinspires.ftc.teamcode.utilities.IO_SkyStone_Test;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -61,11 +61,11 @@ import java.util.Iterator;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Manual Driving Rover Ruckus OpMode", group="Iterative Opmode")
+@TeleOp(name="Manual Driving Sky Stone OpMode", group="Iterative Opmode")
 //@Disabled
-public class ManualDriving_RoverRuckus extends OpMode
+public class ManualDriving_SkyStone extends OpMode
 {
-    IO_RoverRuckus_Test io;
+    IO_SkyStone_Test io;
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     //private boolean half_speed_engaged = false;
@@ -82,17 +82,16 @@ public class ManualDriving_RoverRuckus extends OpMode
 
     private boolean full_speed_engaged = false;
     private boolean low_speed_engaged = false;
-    static final double INCREMENT   = 0.05;     // amount to slew servo each CYCLE_MS cycle
+    static final double INCREMENT   = 0.025;     // amount to slew servo each CYCLE_MS cycle
     static final int    CYCLE_MS    =   50;     // period of each cycle
     static final double MAX_POS     =  1.0;     // Maximum rotational position
     static final double MIN_POS     =  0.0;     // Minimum rotational position
 
     // Define class members
-    double  position = 0; //(MAX_POS - MIN_POS) / 2; // Start at halfway position
+    double  position = 1; //(MAX_POS - MIN_POS) / 2; // Start at halfway position
     double  position2 = 1; //(MAX_POS - MIN_POS) / 2; // Start at halfway position
 
-    double initStartingPositionDOM1;
-    double initStartingPositionDOM2;
+    double initStartingPositionArmAngle;
     //double relicRetrievalStartingPositionRPU1;
     //double relicRetrievalStartingPositionRPU2;
     //double relicScoreStartingPositionRPU1;
@@ -113,8 +112,7 @@ public class ManualDriving_RoverRuckus extends OpMode
     //int retrieveRelicScoreStateRPU1;
     //int retrieveRelicScoreStateRPU2;
     //ArrayList<BasicCommand> commands;
-    ArrayList<BasicCommand> commandsInitDOM1;
-    ArrayList<BasicCommand> commandsInitDOM2;
+    ArrayList<BasicCommand> commandsInitArmAngle;
     //ArrayList<BasicCommand> commandsRetrieveRelicRPU1;
     //ArrayList<BasicCommand> commandsRetrieveRelicRPU2;
     //ArrayList<BasicCommand> commandsRetrieveRelicStowRPU1;
@@ -122,8 +120,7 @@ public class ManualDriving_RoverRuckus extends OpMode
     //ArrayList<BasicCommand> commandsRetrieveRelicScoreRPU1;
     //ArrayList<BasicCommand> commandsRetrieveRelicScoreRPU2;
     //BasicCommand currentCommand;
-    BasicCommand currentCommandInitDOM1;
-    BasicCommand currentCommandInitDOM2;
+    BasicCommand currentCommandInitArmAngle;
     //BasicCommand currentCommandRetrieveRelicRPU1;
     //BasicCommand currentCommandRetrieveRelicRPU2;
     //BasicCommand currentCommandRetrieveRelicStowRPU1;
@@ -131,8 +128,7 @@ public class ManualDriving_RoverRuckus extends OpMode
     //BasicCommand currentCommandRetrieveRelicScoreRPU1;
     //BasicCommand currentCommandRetrieveRelicScoreRPU2;
     //Iterator<BasicCommand> iterator;
-    Iterator<BasicCommand> iteratorInitDOM1;
-    Iterator<BasicCommand> iteratorInitDOM2;
+    Iterator<BasicCommand> iteratorInitArmAngle;
     //Iterator<BasicCommand> iteratorRetrieveRelicRPU1;
     //Iterator<BasicCommand> iteratorRetrieveRelicRPU2;
     //Iterator<BasicCommand> iteratorRetrieveRelicStowRPU1;
@@ -146,29 +142,29 @@ public class ManualDriving_RoverRuckus extends OpMode
      */
     @Override
     public void init() {
-        io = new IO_RoverRuckus_Test(hardwareMap, telemetry);
+        io = new IO_SkyStone_Test(hardwareMap, telemetry);
         //io.retractHands();
         //io.openRelicHand();
         //io.jewelArmUp();
         ///io.proximityArmMid();
-        io.hookStop();
-        io.markerBoxFlat();
+        io.gripperRotateStowed();
+        io.leftHookUp();
+        io.rightHookUp();
         io.resetDriveEncoders();
 
         BasicCommand.setIO(io);
         BasicCommand.setTelemetry(telemetry);
 
         //commands = new ArrayList<BasicCommand>();
-        commandsInitDOM1 = new ArrayList<BasicCommand>();
-        commandsInitDOM2 = new ArrayList<BasicCommand>();
+        commandsInitArmAngle = new ArrayList<BasicCommand>();
         //commandsRetrieveRelicRPU1 = new ArrayList<BasicCommand>();
         //commandsRetrieveRelicRPU2 = new ArrayList<BasicCommand>();
         //commandsRetrieveRelicStowRPU1 = new ArrayList<BasicCommand>();
         //commandsRetrieveRelicStowRPU2 = new ArrayList<BasicCommand>();
         //commandsRetrieveRelicScoreRPU1 = new ArrayList<BasicCommand>();
         //commandsRetrieveRelicScoreRPU2 = new ArrayList<BasicCommand>();
-        addInitDOM1Commands();
-        addInitDOM2Commands();
+        addInitArmAngleCommands();
+        //addInitDOM2Commands();
         //addRetrieveRelicRPU1Commands();
         //addRetrieveRelicRPU2Commands();
         //addRetrieveRelicStowRPU1Commands();
@@ -178,8 +174,8 @@ public class ManualDriving_RoverRuckus extends OpMode
         //addCommands();
         //addFinalCommands();
         //iterator = commands.iterator();
-        iteratorInitDOM1 = commandsInitDOM1.iterator();
-        iteratorInitDOM2 = commandsInitDOM2.iterator();
+        iteratorInitArmAngle = commandsInitArmAngle.iterator();
+        //iteratorInitDOM2 = commandsInitDOM2.iterator();
         //iteratorRetrieveRelicRPU1 = commandsRetrieveRelicRPU1.iterator();
         //iteratorRetrieveRelicRPU2 = commandsRetrieveRelicRPU2.iterator();
         //iteratorRetrieveRelicStowRPU1 = commandsRetrieveRelicStowRPU1.iterator();
@@ -187,8 +183,8 @@ public class ManualDriving_RoverRuckus extends OpMode
         //iteratorRetrieveRelicScoreRPU1 = commandsRetrieveRelicScoreRPU1.iterator();
         //iteratorRetrieveRelicScoreRPU2 = commandsRetrieveRelicScoreRPU2.iterator();
         //currentCommand = iterator.next();
-        currentCommandInitDOM1 = iteratorInitDOM1.next();
-        currentCommandInitDOM2 = iteratorInitDOM2.next();
+        currentCommandInitArmAngle = iteratorInitArmAngle.next();
+        //currentCommandInitDOM2 = iteratorInitDOM2.next();
         //currentCommandRetrieveRelicRPU1 = iteratorRetrieveRelicRPU1.next();
         //currentCommandRetrieveRelicRPU2 = iteratorRetrieveRelicRPU2.next();
         //currentCommandRetrieveRelicStowRPU1 = iteratorRetrieveRelicStowRPU1.next();
@@ -196,8 +192,8 @@ public class ManualDriving_RoverRuckus extends OpMode
         //currentCommandRetrieveRelicScoreRPU1 = iteratorRetrieveRelicScoreRPU1.next();
         //currentCommandRetrieveRelicScoreRPU2 = iteratorRetrieveRelicScoreRPU2.next();
 
-        initStartingPositionDOM1 = ((DOM1Movement) currentCommandInitDOM1).targetPosition;
-        initStartingPositionDOM2 = ((DOM2Movement) currentCommandInitDOM2).targetPosition;
+        initStartingPositionArmAngle = ((ArmAngleMovement) currentCommandInitArmAngle).targetPosition;
+        //initStartingPositionDOM2 = ((DOM2Movement) currentCommandInitDOM2).targetPosition;
         //relicRetrievalStartingPositionRPU1 = ((RPU1Movement) currentCommandRetrieveRelicRPU1).targetPosition;
         //relicRetrievalStartingPositionRPU2 = ((RPU2Movement) currentCommandRetrieveRelicRPU2).targetPosition;
         //relicScoreStartingPositionRPU1 = ((RPU1Movement) currentCommandRetrieveRelicScoreRPU1).targetPosition;
@@ -222,6 +218,8 @@ public class ManualDriving_RoverRuckus extends OpMode
                 io.getRightFrontDriveEncoder());
         telemetry.addData("Left Front Drive Encoder",  "Starting at %.2f",
                 io.getLeftFrontDriveEncoder());*/
+        io.calibrateGyroandIMU();
+        io.calibrateGyroandIMU1();
         telemetry.addData("2WD!", "Go");
     }
 
@@ -261,10 +259,34 @@ public class ManualDriving_RoverRuckus extends OpMode
         //leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
         //rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
 
-        double drive =  gamepad1.right_stick_y;
-        double turn  = -gamepad1.right_stick_x;
-        leftPower    = Range.clip(drive - turn, -1.0, 1.0) ;
-        rightPower   = Range.clip(drive + turn, -1.0, 1.0) ;
+
+
+
+        //double cosA = Math.cos(Math.toRadians(io.getIMUHeading()));
+        //double sinA = Math.sin(Math.toRadians(io.getIMUHeading()));
+        double cosA = Math.cos(Math.toRadians(0.0));
+        double sinA = Math.sin(Math.toRadians(0.0));
+        double x1 = -gamepad1.right_stick_x*cosA - gamepad1.right_stick_y*sinA;
+        double y1 = -gamepad1.right_stick_x*sinA + gamepad1.right_stick_y*cosA;
+        double rotation = -gamepad1.left_stick_x;
+
+
+        double[] wheelPowers = new double[4];
+        wheelPowers[0] = x1 + y1 + rotation;   //FL
+        wheelPowers[1] = -x1 + y1 - rotation;  //FR
+        wheelPowers[2] = -x1 + y1 + rotation;  //BL
+        wheelPowers[3] = x1 + y1 - rotation;   //BR
+        io.normalize(wheelPowers);
+
+        double wheelPowerFL = wheelPowers[0];
+        double wheelPowerFR = wheelPowers[1];
+        double wheelPowerBL = wheelPowers[2];
+        double wheelPowerBR = wheelPowers[3];
+
+        //double drive =  gamepad1.right_stick_y;
+        //double turn  = -gamepad1.right_stick_x;
+        //leftPower    = Range.clip(drive - turn, -1.0, 1.0) ;
+        //rightPower   = Range.clip(drive + turn, -1.0, 1.0) ;
 
 
         // Tank Mode uses one stick to control each wheel.
@@ -302,39 +324,50 @@ public class ManualDriving_RoverRuckus extends OpMode
             telemetry.addData("Power", "%.2f%%",((.6 - (.4*gamepad1.left_trigger))*100));
         }
 
+
         if (full_speed_engaged) {
-            io.setDrivePower(leftPower, rightPower);
+            io.setDrivePower(wheelPowerFL, wheelPowerFR, wheelPowerBL, wheelPowerBR);
         } else if (low_speed_engaged) {
-                io.setDrivePower(((.6 - (.4*gamepad1.left_trigger))*leftPower), ((.6 - (.4*gamepad1.left_trigger))*rightPower));
+                io.setDrivePower(((.6 - (.4*gamepad1.left_trigger))*wheelPowerFL), ((.6 - (.4*gamepad1.left_trigger))*wheelPowerFR), ((.6 - (.4*gamepad1.left_trigger))*wheelPowerBL), ((.6 - (.4*gamepad1.left_trigger))*wheelPowerBR));
         } else {
-            io.setDrivePower((leftPower*.6), (rightPower*.6));
+            io.setDrivePower((wheelPowerFL*.6), (wheelPowerFR*.6), (wheelPowerBL*.6), (wheelPowerBR*.6));
         }
 
-        if((io.getChinMotorEncoder() >= 3400) && (gamepad1.y)) {
-            io.chinMotor.setPower(0);
+
+
+
+
+
+
+
+
+
+
+        if((io.getArmExtenderEncoder() <= -2800) && (gamepad1.y)) {
+            io.armExtenderMotor.setPower(0);
         }
-        else if ((io.getChinMotorEncoder() >= 2500) && (gamepad1.y)){
-            io.chinMotor.setPower(((.6 - (.4 * 1)) * 1));
+        else if ((io.getArmExtenderEncoder() <= -2500) && (gamepad1.y)){
+            io.armExtenderMotor.setPower((.75)*-1);
         }
-        else if(((io.getChinMotorEncoder() <= 0) || (io.touchChin.getState() == false)) && (gamepad1.a)){
-            io.chinMotor.setPower(0);
+        else if(((io.getArmExtenderEncoder() >= 0) || (io.touchArmExtender.getState() == false)) && (gamepad1.a)){
+            io.armExtenderMotor.setPower(0);
         }
         else if (gamepad1.y){
             if (low_speed_engaged) {
-                io.chinMotor.setPower(((.6 - (.4 * gamepad1.left_trigger)) * 1));
+                io.armExtenderMotor.setPower(((.6 - (.4 * gamepad1.left_trigger)) * 1)*-1);
             } else {
-                io.chinMotor.setPower(1);
+                io.armExtenderMotor.setPower(-1);
             }
         }
         else if (gamepad1.a){
             if (low_speed_engaged) {
-                io.chinMotor.setPower(((.6 - (.4 * gamepad1.left_trigger)) * -1));
+                io.armExtenderMotor.setPower(((.6 - (.4 * gamepad1.left_trigger))));
             } else {
-                io.chinMotor.setPower(-1);
+                io.armExtenderMotor.setPower(1);
             }
         }
         else {
-            io.chinMotor.setPower(0);
+            io.armExtenderMotor.setPower(0);
         }
 
 
@@ -397,7 +430,7 @@ public class ManualDriving_RoverRuckus extends OpMode
             }
         }*/
 
-        if (gamepad1.x) {
+/*        if (gamepad1.x) {
             io.hookCounterClockwise();
         } else if (gamepad1.b){
             io.hookClockwise();
@@ -411,7 +444,64 @@ public class ManualDriving_RoverRuckus extends OpMode
             io.domSweepMotor.setPower(-1);
         } else {
             io.domSweepMotor.setPower(0);
+        }*/
+
+
+        if (gamepad1.x) {
+            io.rightHookUp();
+            io.leftHookUp();
         }
+
+        if (gamepad1.b) {
+            io.rightHookDown();
+            io.leftHookDown();
+        }
+
+        if (gamepad2.b) {
+            io.gripperRotateStowed();
+            position = 1;
+        }
+
+        if (gamepad2.x) {
+            io.gripperRotateParallel();
+            position = .25;
+        }
+
+        //if (gamepad2.a) {
+        //    io.gripperRotateDown();
+        //}
+
+        if (gamepad2.left_bumper) {
+            io.gripperPincherOpen();
+        }
+
+        if (gamepad2.right_bumper) {
+            io.gripperPincherClosed();
+        }
+
+
+        if (gamepad2.y) {
+            // Keep stepping up until we hit the max value.
+            position += INCREMENT ;
+            if (position >= MAX_POS ) {
+                position = MAX_POS;
+                //rampUp = !rampUp;   // Switch ramp direction
+            }
+        }
+        else if (gamepad2.a) {
+            // Keep stepping down until we hit the min value.
+            position -= INCREMENT ;
+            if (position <= MIN_POS ) {
+                position = MIN_POS;
+                //rampUp = !rampUp;  // Switch ramp direction
+            }
+        }
+
+        io.gripperRotate.setPosition(position);
+
+
+
+
 
         /*if (gamepad2.left_bumper) {
             io.markerBoxUp();
@@ -461,79 +551,49 @@ public class ManualDriving_RoverRuckus extends OpMode
             relic_retrieval_score_engaged_changed = false;
         }*/
 
-        currentCommandInitDOM1.execute();
-        currentCommandInitDOM2.execute();
+        currentCommandInitArmAngle.execute();
+        //currentCommandInitDOM2.execute();
 
         if (gamepad2.left_stick_y == 1) {
             // Keep stepping up until we hit the max value.
-            initStartingPositionDOM1 += 7;
-            initStartingPositionDOM2 += 7;
-            if (initStartingPositionDOM1 >= 240 ) {
-                initStartingPositionDOM1 = 240;
-                //rampUp = !rampUp;   // Switch ramp direction
-            }
-            if (initStartingPositionDOM2 >= 240 ) {
-                initStartingPositionDOM2 = 240;
+            initStartingPositionArmAngle += 7;
+            if ((initStartingPositionArmAngle >= 240) || (io.touchArmAngle.getState() == false) ) {
+                initStartingPositionArmAngle = 240;
                 //rampUp = !rampUp;   // Switch ramp direction
             }
         }
         else if (gamepad2.left_stick_y < 1 && gamepad2.left_stick_y >= .5){
-            initStartingPositionDOM1 += 5;
-            initStartingPositionDOM2 += 5;
-            if (initStartingPositionDOM1 >= 240 ) {
-                initStartingPositionDOM1 = 240;
-                //rampUp = !rampUp;   // Switch ramp direction
-            }
-            if (initStartingPositionDOM2 >= 240 ) {
-                initStartingPositionDOM2 = 240;
+            initStartingPositionArmAngle += 5;
+            if ((initStartingPositionArmAngle >= 240) || (io.touchArmAngle.getState() == false) ) {
+                initStartingPositionArmAngle = 240;
                 //rampUp = !rampUp;   // Switch ramp direction
             }
         }
         else if (gamepad2.left_stick_y < .5 && gamepad2.left_stick_y >= .03){
-            initStartingPositionDOM1 += 2;
-            initStartingPositionDOM2 += 2;
-            if (initStartingPositionDOM1 >= 240 ) {
-                initStartingPositionDOM1 = 240;
-                //rampUp = !rampUp;   // Switch ramp direction
-            }
-            if (initStartingPositionDOM2 >= 240 ) {
-                initStartingPositionDOM2 = 240;
+            initStartingPositionArmAngle += 2;
+            if ((initStartingPositionArmAngle >= 240) || (io.touchArmAngle.getState() == false) ) {
+                initStartingPositionArmAngle = 240;
                 //rampUp = !rampUp;   // Switch ramp direction
             }
         }
         else if (gamepad2.left_stick_y == -1) {
             // Keep stepping down until we hit the min value.
-            initStartingPositionDOM1 -= 7;
-            initStartingPositionDOM2 -= 7;
-            if ((initStartingPositionDOM1 <= 0) || (io.touchDOM.getState() == false)) {
-                initStartingPositionDOM1 = 0;
-                //rampUp = !rampUp;  // Switch ramp direction
-            }
-            if ((initStartingPositionDOM2 <= 0) || (io.touchDOM.getState() == false)) {
-                initStartingPositionDOM2 = 0;
+            initStartingPositionArmAngle -= 7;
+            if (initStartingPositionArmAngle <= 0) {
+                initStartingPositionArmAngle = 0;
                 //rampUp = !rampUp;  // Switch ramp direction
             }
         } else if (gamepad2.left_stick_y > -1 && gamepad2.left_stick_y <= -.5){
-            initStartingPositionDOM1 -= 5;
-            initStartingPositionDOM2 -= 5;
-            if ((initStartingPositionDOM1 <= 0) || (io.touchDOM.getState() == false)) {
-                initStartingPositionDOM1 = 0;
-                //rampUp = !rampUp;  // Switch ramp direction
-            }
-            if ((initStartingPositionDOM2 <= 0) || (io.touchDOM.getState() == false)) {
-                initStartingPositionDOM2 = 0;
+            initStartingPositionArmAngle -= 5;
+            if (initStartingPositionArmAngle <= 0) {
+                initStartingPositionArmAngle = 0;
                 //rampUp = !rampUp;  // Switch ramp direction
             }
         }
         else if (gamepad2.left_stick_y > -.5 && gamepad2.left_stick_y <= -.03){
-            initStartingPositionDOM1 -= 2;
-            initStartingPositionDOM2 -= 2;
-            if ((initStartingPositionDOM1 <= 0) || (io.touchDOM.getState() == false)) {
-                initStartingPositionDOM1 = 0;
-                //rampUp = !rampUp;  // Switch ramp direction
-            }
-            if ((initStartingPositionDOM2 <= 0) || (io.touchDOM.getState() == false)) {
-                initStartingPositionDOM2 = 0;
+            initStartingPositionArmAngle -= 2;
+            if (initStartingPositionArmAngle <= 0) {
+                initStartingPositionArmAngle = 0;
                 //rampUp = !rampUp;  // Switch ramp direction
             }
         }
@@ -543,11 +603,11 @@ public class ManualDriving_RoverRuckus extends OpMode
         /*if((io.getDOMMotorExtendEncoder() >= 9450) && (gamepad2.right_stick_x > 0)) {
             io.domExtendMotor.setPower(0);*/
 
-        if((io.touchDOMExtend.getState() == false) && (gamepad2.right_stick_x < 0)) {
+        /*if((io.touchDOMExtend.getState() == false) && (gamepad2.right_stick_x < 0)) {
             io.domExtendMotor.setPower(0);
         } else {
             io.domExtendMotor.setPower(gamepad2.right_stick_x);
-        }
+        }*/
 
 
         /*if (gamepad2.right_stick_x == 1) {
@@ -567,8 +627,7 @@ public class ManualDriving_RoverRuckus extends OpMode
             }
         }*/
 
-        ((DOM1Movement) currentCommandInitDOM1).dom1PID.setTarget(initStartingPositionDOM1);
-        ((DOM2Movement) currentCommandInitDOM2).dom2PID.setTarget(initStartingPositionDOM2);
+        ((ArmAngleMovement) currentCommandInitArmAngle).armAnglePID.setTarget(initStartingPositionArmAngle);
 
         /*if (!relic_retrieval_engaged && !relic_retrieval_stow_engaged && !relic_retrieval_score_engaged) {
 
@@ -947,13 +1006,16 @@ public class ManualDriving_RoverRuckus extends OpMode
         telemetry.addData("Left Front Drive Encoder",  "Starting at %.2f",
                 io.getLeftFrontDriveEncoder());*/
 
-        telemetry.addData("Right Back Drive Encoder",  "Starting at %.2f",
-                io.getRightBackDriveEncoder());
-        telemetry.addData("Left Back Drive Encoder",  "Starting at %.2f",
-                io.getLeftBackDriveEncoder());
-
-        telemetry.addData("Chin Motor Encoder",  "Starting at %.2f",
-                io.getChinMotorEncoder());
+        telemetry.addData("Odometer Left Encoder",  "Starting at %.2f",
+                io.getOdometerLeftEncoder());
+        telemetry.addData("Odometer Center Encoder",  "Starting at %.2f",
+                io.getOdometerCenterEncoder());
+        telemetry.addData("Odometer Right Encoder",  "Starting at %.2f",
+                io.getOdometerRightEncoder());
+        telemetry.addData("Arm Extender Encoder",  "Starting at %.2f",
+                io.getArmExtenderEncoder());
+        telemetry.addData("Arm Angle Encoder",  "Starting at %.2f",
+                io.getArmAngleEncoder());
         /*telemetry.addData("DOM1 Motor Encoder",  "Starting at %.2f",
                 io.getDOM1MotorEncoder());
         telemetry.addData("DOM2 Motor Encoder",  "Starting at %.2f",
@@ -961,33 +1023,38 @@ public class ManualDriving_RoverRuckus extends OpMode
         telemetry.addData("DOM Motor Extend Encoder",  "Starting at %.2f",
                 io.getDOMMotorExtendEncoder());*/
 
-        telemetry.addData("Left Range", String.format("%.01f in", io.leftDistance.getDistance(DistanceUnit.INCH)));
-        telemetry.addData("Right Range", String.format("%.01f in", io.rightDistance.getDistance(DistanceUnit.INCH)));
-        telemetry.addData("Front Range", String.format("%.01f in", io.frontDistance.getDistance(DistanceUnit.INCH)));
-        telemetry.addData("Back Range", String.format("%.01f in", io.backDistance.getDistance(DistanceUnit.INCH)));
+        telemetry.addData("Left Front Range", String.format("%.01f in", io.leftFrontDistance.getDistance(DistanceUnit.INCH)));
+        telemetry.addData("Right Front Range", String.format("%.01f in", io.rightFrontDistance.getDistance(DistanceUnit.INCH)));
+        //telemetry.addData("Front Range", String.format("%.01f in", io.frontDistance.getDistance(DistanceUnit.INCH)));
+        //telemetry.addData("Back Range", String.format("%.01f in", io.backDistance.getDistance(DistanceUnit.INCH)));
 
-        telemetry.addData("Potentiometer Target DOM1", String.format("%.01f degrees", initStartingPositionDOM1));
-        telemetry.addData("Potentiometer Target DOM2", String.format("%.01f degrees", initStartingPositionDOM2));
-        telemetry.addData("Potentiometer", String.format("%.01f volts", io.getDOMPotVoltage()));
-        telemetry.addData("Potentiometer", String.format("%.01f degrees", (io.getDOMPotDegrees())));
+        telemetry.addData("Potentiometer Target Arm Angle", String.format("%.01f degrees", initStartingPositionArmAngle));
+        telemetry.addData("Potentiometer Arm Angle Voltage", String.format("%.01f volts", io.getArmAnglePotVoltage()));
+        telemetry.addData("Potentiometer Arm Angle Degrees", String.format("%.01f degrees", (io.getArmAnglePotDegrees())));
+        telemetry.addData("Gripper Rotate Servo Position", String.format("%.2f servo increments", position));
 
-        if (io.touchChin.getState() == false) {
-            telemetry.addData("Touch Chin", "Is Pressed");
+        if (io.touchArmExtender.getState() == false) {
+            telemetry.addData("Touch Arm Extender", "Is Pressed");
         } else {
-            telemetry.addData("Touch Chin", "Is Not Pressed");
+            telemetry.addData("Touch Arm Extender", "Is Not Pressed");
         }
 
-        if (io.touchDOM.getState() == false) {
-            telemetry.addData("Touch DOM", "Is Pressed");
+        if (io.touchArmAngle.getState() == false) {
+            telemetry.addData("Touch Arm Angle", "Is Pressed");
         } else {
-            telemetry.addData("Touch DOM", "Is Not Pressed");
+            telemetry.addData("Touch Arm Angle", "Is Not Pressed");
         }
 
-        if (io.touchDOMExtend.getState() == false) {
+        telemetry.addData("IMU Heading",  "Starting at %.2f",
+                io.getIMUHeading());
+        telemetry.addData("IMU1 Heading",  "Starting at %.2f",
+                io.getIMU1Heading());
+
+/*        if (io.touchDOMExtend.getState() == false) {
             telemetry.addData("Touch DOM Extend", "Is Pressed");
         } else {
             telemetry.addData("Touch DOM Extend", "Is Not Pressed");
-        }
+        }*/
 
 
 
@@ -1026,25 +1093,26 @@ public class ManualDriving_RoverRuckus extends OpMode
         while ((touch.isPressed() == false) && (forkLiftMotor.getCurrentPosition() >= 0) && (runtime.seconds() <= .9)){
             forkLiftMotor.setPower(-1);
         }*/
-        io.setDrivePower(0 , 0);
-        io.chinMotor.setPower(0);
-        io.dom1Motor.setPower(0);
-        io.dom2Motor.setPower(0);
+        io.setDrivePower(0 , 0, 0, 0);
+
+        io.armExtenderMotor.setPower(0);
+        io.armAngleMotor.setPower(0);
+        /*io.dom2Motor.setPower(0);
         io.domExtendMotor.setPower(0);
         io.domSweepMotor.setPower(0);
-        io.hookStop();
+        io.hookStop();*/
         /*io.forkLiftMotor.setPower(0);
         io.rpu1Motor.setPower(0);
         io.proximityArmUp();*/
     }
 
-    public void addInitDOM1Commands() {
-        commandsInitDOM1.add(new DOM1Movement(io.getDOMPotDegrees(), DOM1Movement.INCREASINGDIRECTION, .6));
+    public void addInitArmAngleCommands() {
+        commandsInitArmAngle.add(new ArmAngleMovement(io.getArmAnglePotDegrees(), ArmAngleMovement.INCREASINGDIRECTION, .75));
     }
 
-    public void addInitDOM2Commands() {
+    /*public void addInitDOM2Commands() {
         commandsInitDOM2.add(new DOM2Movement(io.getDOMPotDegrees(), DOM2Movement.INCREASINGDIRECTION, .6));
-    }
+    }*/
 
     /*public void addRetrieveRelicRPU1Commands() {
         commandsRetrieveRelicRPU1.add(new RPU1Movement(257, RPU1Movement.INCREASINGDIRECTION, .4));

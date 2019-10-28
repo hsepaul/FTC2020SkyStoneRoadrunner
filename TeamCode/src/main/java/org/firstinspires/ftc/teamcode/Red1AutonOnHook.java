@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.commands.WaitForTime;
  * Created by David Austin on 11/10/2016.
  */
 
-@Autonomous(name="Red Gold On Hook",group="Auton")
+//@Autonomous(name="Red Gold On Hook",group="Auton")
 public class Red1AutonOnHook extends RedAutonOnHook {
     public void addFinalCommands() {
         //commands.add(new DriveForward(18,DriveForward.XGREATERTHAN,.8,0, false, true, true));
