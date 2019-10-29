@@ -91,7 +91,12 @@ public class ManualDriving_SkyStone extends OpMode
     double  position = 1; //(MAX_POS - MIN_POS) / 2; // Start at halfway position
     double  position2 = 1; //(MAX_POS - MIN_POS) / 2; // Start at halfway position
 
+    int skystone_level = 1;
+    boolean skystone_level_changed_up = false;
+    boolean skystone_level_changed_down = false;
+
     double initStartingPositionArmAngle;
+
     //double relicRetrievalStartingPositionRPU1;
     //double relicRetrievalStartingPositionRPU2;
     //double relicScoreStartingPositionRPU1;
@@ -266,9 +271,9 @@ public class ManualDriving_SkyStone extends OpMode
         //double sinA = Math.sin(Math.toRadians(io.getIMUHeading()));
         double cosA = Math.cos(Math.toRadians(0.0));
         double sinA = Math.sin(Math.toRadians(0.0));
-        double x1 = -gamepad1.right_stick_x*cosA - gamepad1.right_stick_y*sinA;
-        double y1 = -gamepad1.right_stick_x*sinA + gamepad1.right_stick_y*cosA;
-        double rotation = -gamepad1.left_stick_x;
+        double x1 = -gamepad1.left_stick_x*cosA - gamepad1.left_stick_y*sinA;
+        double y1 = -gamepad1.left_stick_x*sinA + gamepad1.left_stick_y*cosA;
+        double rotation = -gamepad1.right_stick_x;
 
 
         double[] wheelPowers = new double[4];
@@ -343,23 +348,23 @@ public class ManualDriving_SkyStone extends OpMode
 
 
 
-        if((io.getArmExtenderEncoder() <= -2800) && (gamepad1.y)) {
+        if((io.getArmExtenderEncoder() <= -2800) && (gamepad2.dpad_up)) {
             io.armExtenderMotor.setPower(0);
         }
-        else if ((io.getArmExtenderEncoder() <= -2500) && (gamepad1.y)){
+        else if ((io.getArmExtenderEncoder() <= -2500) && (gamepad2.dpad_up)){
             io.armExtenderMotor.setPower((.75)*-1);
         }
-        else if(((io.getArmExtenderEncoder() >= 0) || (io.touchArmExtender.getState() == false)) && (gamepad1.a)){
+        else if(((io.getArmExtenderEncoder() >= 0) || (io.touchArmExtender.getState() == false)) && (gamepad2.dpad_down)){
             io.armExtenderMotor.setPower(0);
         }
-        else if (gamepad1.y){
+        else if (gamepad2.dpad_up){
             if (low_speed_engaged) {
                 io.armExtenderMotor.setPower(((.6 - (.4 * gamepad1.left_trigger)) * 1)*-1);
             } else {
                 io.armExtenderMotor.setPower(-1);
             }
         }
-        else if (gamepad1.a){
+        else if (gamepad2.dpad_down){
             if (low_speed_engaged) {
                 io.armExtenderMotor.setPower(((.6 - (.4 * gamepad1.left_trigger))));
             } else {
@@ -462,7 +467,7 @@ public class ManualDriving_SkyStone extends OpMode
             position = 1;
         }
 
-        if (gamepad2.x) {
+        if (gamepad2.y) {
             io.gripperRotateParallel();
             position = .25;
         }
@@ -480,7 +485,7 @@ public class ManualDriving_SkyStone extends OpMode
         }
 
 
-        if (gamepad2.y) {
+        if (gamepad2.left_stick_y > 0) {
             // Keep stepping up until we hit the max value.
             position += INCREMENT ;
             if (position >= MAX_POS ) {
@@ -488,7 +493,7 @@ public class ManualDriving_SkyStone extends OpMode
                 //rampUp = !rampUp;   // Switch ramp direction
             }
         }
-        else if (gamepad2.a) {
+        else if (gamepad2.left_stick_y < 0) {
             // Keep stepping down until we hit the min value.
             position -= INCREMENT ;
             if (position <= MIN_POS ) {
@@ -551,7 +556,78 @@ public class ManualDriving_SkyStone extends OpMode
             relic_retrieval_score_engaged_changed = false;
         }*/
 
-        currentCommandInitArmAngle.execute();
+
+        if(gamepad2.left_trigger > 0 && !skystone_level_changed_up){
+            skystone_level += 1;
+            skystone_level_changed_up = true;
+            if (skystone_level >= 6 ) {
+                skystone_level = 6;
+            }
+        } else if (gamepad2.left_trigger == 0 ) {
+            skystone_level_changed_up = false;
+        }
+
+        if(gamepad2.right_trigger > 0 && !skystone_level_changed_down){
+            skystone_level -= 1;
+            skystone_level_changed_down = true;
+            if (skystone_level <= 1 ) {
+                skystone_level = 1;
+            }
+        } else if (gamepad2.right_trigger == 0) {
+            skystone_level_changed_down = false;
+        }
+
+
+
+
+
+        /*currentCommandInitArmAngle.execute();
+
+        if (skystone_level == 1) {
+            initStartingPositionArmAngle = 0;
+            if ((initStartingPositionArmAngle >= 240) || (io.touchArmAngle.getState() == false) ) {
+                initStartingPositionArmAngle = 240;
+                //rampUp = !rampUp;   // Switch ramp direction
+            }
+        }*/
+
+
+
+
+
+        if((io.getArmAngleEncoder() <= -8000) && (gamepad2.right_stick_y > 0)) {
+            io.armAngleMotor.setPower(0);
+        }
+        else if ((io.getArmAngleEncoder() <= -7500) && (gamepad2.right_stick_y > 0)){
+            io.armAngleMotor.setPower((.5)*-1);
+        }
+        else if(((io.getArmAngleEncoder() >= 0) || (io.touchArmAngle.getState() == false)) && (gamepad2.right_stick_y < 0)){
+            io.armAngleMotor.setPower(0);
+        }
+        else if (gamepad2.right_stick_y > 0){
+            if (low_speed_engaged) {
+                io.armAngleMotor.setPower(((.6 - (.4 * gamepad1.left_trigger)) * 1)*-1);
+            } else {
+                io.armAngleMotor.setPower(-1);
+            }
+        }
+        else if (gamepad2.right_stick_y < 0){
+            if (low_speed_engaged) {
+                io.armAngleMotor.setPower(((.6 - (.4 * gamepad1.left_trigger))));
+            } else {
+                io.armAngleMotor.setPower(1);
+            }
+        }
+        else {
+            io.armAngleMotor.setPower(0);
+        }
+
+
+
+
+
+
+        /*currentCommandInitArmAngle.execute();
         //currentCommandInitDOM2.execute();
 
         if (gamepad2.left_stick_y == 1) {
@@ -596,7 +672,7 @@ public class ManualDriving_SkyStone extends OpMode
                 initStartingPositionArmAngle = 0;
                 //rampUp = !rampUp;  // Switch ramp direction
             }
-        }
+        }*/
 
 
 
@@ -1032,6 +1108,14 @@ public class ManualDriving_SkyStone extends OpMode
         telemetry.addData("Potentiometer Arm Angle Voltage", String.format("%.01f volts", io.getArmAnglePotVoltage()));
         telemetry.addData("Potentiometer Arm Angle Degrees", String.format("%.01f degrees", (io.getArmAnglePotDegrees())));
         telemetry.addData("Gripper Rotate Servo Position", String.format("%.2f servo increments", position));
+        telemetry.addData("Sky Stone Level", skystone_level);
+
+
+        telemetry.addData("FL Power", String.format("%.2f FL Power", wheelPowers[0]));
+        telemetry.addData("FR Power", String.format("%.2f FR Power", wheelPowers[1]));
+        telemetry.addData("BL Power", String.format("%.2f BL Power", wheelPowers[2]));
+        telemetry.addData("BR Power", String.format("%.2f BR Power", wheelPowers[3]));
+
 
         if (io.touchArmExtender.getState() == false) {
             telemetry.addData("Touch Arm Extender", "Is Pressed");
@@ -1107,7 +1191,7 @@ public class ManualDriving_SkyStone extends OpMode
     }
 
     public void addInitArmAngleCommands() {
-        commandsInitArmAngle.add(new ArmAngleMovement(io.getArmAnglePotDegrees(), ArmAngleMovement.INCREASINGDIRECTION, .75));
+        commandsInitArmAngle.add(new ArmAngleMovement(io.getArmAngleEncoder(), ArmAngleMovement.INCREASINGDIRECTION, .75));
     }
 
     /*public void addInitDOM2Commands() {
