@@ -55,10 +55,11 @@ public class IO_SkyStone_Test {
     public double heading1 = 0;
     double odometerRightOffset = 0, odometerLeftOffset = 0, odometerCenterOffset = 0, armExtenderOffset = 0, armAngleOffset = 0;
     double lastOdometerRightEncoder = 0, lastOdometerLeftEncoder = 0, lastOdometerCenterEncoder = 0, lastArmExtenderEncoder = 0, lastArmAngleEncoder = 0;
-    double x = 0, y = 0;
+    double x = 0, y = 0, sidewaysdistance = 0;
     double x_ZeroDegree = 0, y_ZeroDegree = 0;
     //double COUNTSPERINCH = 140/1.28;//84/1.28; //used for Rev HD Hex Motor (REV-41-1301) 40:1 motor (Counts per Rotation of the Output Shaft = 1120)
-    double COUNTSPERINCH = 35;//84/1.28; //used for NeveRest Orbital 20 Gearmotor (Counts per Rotation of the Output Shaft = 537.6)
+    //double COUNTSPERINCH = 35;//84/1.28; //used for NeveRest Orbital 20 Gearmotor (Counts per Rotation of the Output Shaft = 537.6)
+    double COUNTSPERINCH = (1440/(2 * Math.PI * 1.5)); //S4T (Counts per Rotation of the Output Shaft = 1440) with 3 inch wheels
     public double DEGREESPERVOLT = 270/3.3; //potentiometer
     public static int RED = 1, BLUE = 2;
     public static int UNKNOWN = 0, LEFT = 1, CENTER = 2, RIGHT = 3;
@@ -113,7 +114,7 @@ public class IO_SkyStone_Test {
     public static double leftHookUp = 1;
     public static double leftHookDown = 0;
     public static double gripperRotateStowed = 1;
-    public static double gripperRotateParallel = .25;
+    public static double gripperRotateParallel = .30;
     public static double gripperRotateDown = 0;
     public static double gripperPincherOpen = 0;
     public static double gripperPincherClosed = 1;
@@ -305,6 +306,7 @@ public class IO_SkyStone_Test {
 
         //double averageChange = (leftBackEncoder - lastLeftBackEncoder);
         double averageChange = ((odometerLeftEncoder - lastOdometerLeftEncoder) + (odometerRightEncoder - lastOdometerRightEncoder))/2.0;
+        double averageChangeSideways = (odometerCenterEncoder - lastOdometerCenterEncoder);
 
 
         if (isGoldFound && lastIsGoldFound) {
@@ -339,6 +341,7 @@ public class IO_SkyStone_Test {
 
         x += averageChange;
         y += averageChange;
+        sidewaysdistance += averageChangeSideways;
 
 
 
@@ -394,6 +397,7 @@ public class IO_SkyStone_Test {
     public double getY() {
         return y / COUNTSPERINCH;
     }
+    public double getSidewaysDistance() { return sidewaysdistance / COUNTSPERINCH; }
 
     public double getX_ZeroDegree() {
         return x_ZeroDegree / COUNTSPERINCH;

@@ -469,7 +469,7 @@ public class ManualDriving_SkyStone extends OpMode
 
         if (gamepad2.y) {
             io.gripperRotateParallel();
-            position = .25;
+            position = .30;
         }
 
         //if (gamepad2.a) {
@@ -623,7 +623,8 @@ public class ManualDriving_SkyStone extends OpMode
         }
 
 
-
+        //keep gripper parallel
+        position = (io.getArmAngleEncoder() + 9223) / 29018;
 
 
 
