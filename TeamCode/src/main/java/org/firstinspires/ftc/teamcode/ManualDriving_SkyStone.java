@@ -467,10 +467,10 @@ public class ManualDriving_SkyStone extends OpMode
             position = 1;
         }
 
-        if (gamepad2.y) {
+        /*if (gamepad2.y) {
             io.gripperRotateParallel();
             position = .30;
-        }
+        }*/
 
         //if (gamepad2.a) {
         //    io.gripperRotateDown();
@@ -501,9 +501,6 @@ public class ManualDriving_SkyStone extends OpMode
                 //rampUp = !rampUp;  // Switch ramp direction
             }
         }
-
-        io.gripperRotate.setPosition(position);
-
 
 
 
@@ -623,8 +620,12 @@ public class ManualDriving_SkyStone extends OpMode
         }
 
 
-        //keep gripper parallel
-        position = (io.getArmAngleEncoder() + 9223) / 29018;
+        if (!gamepad2.y && !gamepad2.b) {
+            //keep gripper parallel
+            position = (io.getArmAngleEncoder() + 9223) / 29018;
+        }
+
+        io.gripperRotate.setPosition(position);
 
 
 
@@ -1117,6 +1118,11 @@ public class ManualDriving_SkyStone extends OpMode
         telemetry.addData("BL Power", String.format("%.2f BL Power", wheelPowers[2]));
         telemetry.addData("BR Power", String.format("%.2f BR Power", wheelPowers[3]));
 
+        telemetry.addData("right_stick_x", String.format("%.2f right_stick_x", gamepad1.right_stick_x));
+        telemetry.addData("right_stick_y", String.format("%.2f right_stick_y", gamepad1.right_stick_y));
+
+        telemetry.addData("left_stick_x", String.format("%.2f left_stick_x", gamepad1.left_stick_x));
+        telemetry.addData("left_stick_y", String.format("%.2f left_stick_y", gamepad1.left_stick_y));
 
         if (io.touchArmExtender.getState() == false) {
             telemetry.addData("Touch Arm Extender", "Is Pressed");

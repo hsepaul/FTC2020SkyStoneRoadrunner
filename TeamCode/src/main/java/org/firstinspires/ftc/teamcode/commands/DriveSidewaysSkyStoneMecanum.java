@@ -66,22 +66,41 @@ public class DriveSidewaysSkyStoneMecanum extends BasicCommand {
                 distanceCorrection = distancePID.getCorrection(io.getSidewaysDistance());
                 break;
         }
+
+/*#REMOVE
+        double cosA = Math.cos(Math.toRadians(0.0));
+        double sinA = Math.sin(Math.toRadians(0.0));
+        double x1 = -gamepad1.left_stick_x*cosA - gamepad1.left_stick_y*sinA;
+        double y1 = -gamepad1.left_stick_x*sinA + gamepad1.left_stick_y*cosA;
+        double rotation = -gamepad1.right_stick_x;
+
+
+        double[] wheelPowers = new double[4];
+        wheelPowers[0] = x1 + y1 + rotation;   //FL
+        wheelPowers[1] = -x1 + y1 - rotation;  //FR
+        wheelPowers[2] = -x1 + y1 + rotation;  //BL
+        wheelPowers[3] = x1 + y1 - rotation;   //BR
+        // #REMOVE*/
+
+
+
+
         distanceCorrection = Range.clip(Math.abs(distanceCorrection),0,1);
         correction = Range.clip(correction,-1,1);
-        double frontleftSpeed = (driveSpeed * distanceCorrection) + correction;
-        double frontrightSpeed = (-driveSpeed * distanceCorrection) - correction;
-        double backleftSpeed = (-driveSpeed * distanceCorrection) + correction;
-        double backrightSpeed = (driveSpeed * distanceCorrection) - correction;
+        double frontleftSpeed = (-driveSpeed * distanceCorrection) - correction;
+        double frontrightSpeed = (driveSpeed * distanceCorrection) + correction;
+        double backleftSpeed = (driveSpeed * distanceCorrection) - correction;
+        double backrightSpeed = (-driveSpeed * distanceCorrection) + correction;
         if (driveSpeed > 0) {
-            frontleftSpeed = Range.clip(frontleftSpeed, 0, 1);
-            frontrightSpeed = Range.clip(frontrightSpeed, -1, 0);
-            backleftSpeed = Range.clip(backleftSpeed, -1, 0);
-            backrightSpeed = Range.clip(backrightSpeed, 0, 1);
-        } else {
             frontleftSpeed = Range.clip(frontleftSpeed, -1, 0);
             frontrightSpeed = Range.clip(frontrightSpeed, 0, 1);
             backleftSpeed = Range.clip(backleftSpeed, 0, 1);
             backrightSpeed = Range.clip(backrightSpeed, -1, 0);
+        } else {
+            frontleftSpeed = Range.clip(frontleftSpeed, 0, 1);
+            frontrightSpeed = Range.clip(frontrightSpeed, -1, 0);
+            backleftSpeed = Range.clip(backleftSpeed, -1, 0);
+            backrightSpeed = Range.clip(backrightSpeed, 0, 1);
         }
 
         io.setDrivePower(frontleftSpeed,frontrightSpeed,backleftSpeed,backrightSpeed);
