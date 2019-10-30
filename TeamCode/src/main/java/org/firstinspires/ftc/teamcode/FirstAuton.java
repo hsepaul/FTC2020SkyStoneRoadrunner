@@ -48,6 +48,9 @@ public abstract class FirstAuton extends OpMode {
         BasicCommand.setIO(io);
         BasicCommand.setMap(hardwareMap);
         BasicCommand.setTelemetry(telemetry);
+        io.gripperRotateStowed();
+        io.leftHookUp();
+        io.rightHookUp();
         //io.retractHands();
         //io.openRelicHand();
         //io.jewelArmUp();

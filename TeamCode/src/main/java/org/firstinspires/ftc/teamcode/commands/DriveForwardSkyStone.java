@@ -23,11 +23,11 @@ public class DriveForwardSkyStone extends BasicCommand {
     double targetHeading;
     boolean coast = false;
     public DriveForwardSkyStone(double targetPosition, int test, double spd, double targetHeading){
-        headingPID = new PID(0.08,0,0);
+        headingPID = new PID(0.03,0.00,0);
         //headingPID = new PID(0.02, 0.02, 0);
         //headingPID = new PID(0.05, 0, 0);
         headingPID.setTarget(targetHeading);
-        distancePID = new PID(.3,0,0);
+        distancePID = new PID(.4,0,0);
         //distancePID = new PID(.2,0,0);
         distancePID.setTarget(targetPosition);
         this.targetPosition = targetPosition;
@@ -60,12 +60,12 @@ public class DriveForwardSkyStone extends BasicCommand {
         switch(test) {
             case XGREATERTHAN:
             case XLESSTHAN:
-                distanceCorrection = distancePID.getCorrection(io.getX());
+                distanceCorrection = distancePID.getCorrection(-io.getX());
                 break;
             case YGREATERTHAN:
             case YLESSTHAN:
             default:
-                distanceCorrection = distancePID.getCorrection(io.getY());
+                distanceCorrection = distancePID.getCorrection(-io.getY());
                 break;
         }
         distanceCorrection = Range.clip(Math.abs(distanceCorrection),0,1);
@@ -115,14 +115,14 @@ public class DriveForwardSkyStone extends BasicCommand {
         //telemetry.addData("Right Speed: ", (driveSpeed * distancePID.getCorrection(io.getY())) + headingPID.getCorrection(io.getHeading()));
         switch(test) {
             case XGREATERTHAN:
-                return io.getX() > targetPosition;
+                return -io.getX() > targetPosition;
             case XLESSTHAN:
-                return io.getX() < targetPosition;
+                return -io.getX() < targetPosition;
             case YGREATERTHAN:
-                return io.getY() > targetPosition;
+                return -io.getY() > targetPosition;
             case YLESSTHAN:
             default:
-                return io.getY() < targetPosition;
+                return -io.getY() < targetPosition;
         }
     }
 

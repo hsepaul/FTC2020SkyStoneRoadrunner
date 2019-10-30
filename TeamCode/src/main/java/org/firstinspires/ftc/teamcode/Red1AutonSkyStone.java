@@ -1,28 +1,25 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+
 import org.firstinspires.ftc.teamcode.commands.DriveForward;
-import org.firstinspires.ftc.teamcode.commands.DriveForwardHeadingandDistanceSensor;
 import org.firstinspires.ftc.teamcode.commands.DriveForwardHeavySkyStone;
-import org.firstinspires.ftc.teamcode.commands.DriveForwardHeavySkyStoneBlue;
+import org.firstinspires.ftc.teamcode.commands.DriveForwardHeavySkyStoneRed;
 import org.firstinspires.ftc.teamcode.commands.DriveForwardSkyStone;
 import org.firstinspires.ftc.teamcode.commands.DriveSidewaysSkyStoneMecanum;
 import org.firstinspires.ftc.teamcode.commands.HooksDown;
 import org.firstinspires.ftc.teamcode.commands.HooksUp;
-import org.firstinspires.ftc.teamcode.commands.MarkerboxDown;
 import org.firstinspires.ftc.teamcode.commands.ResetDriveEncoders;
-import org.firstinspires.ftc.teamcode.commands.Rotate;
-import org.firstinspires.ftc.teamcode.commands.SetIMUOffset;
 import org.firstinspires.ftc.teamcode.commands.WaitForTime;
 
 /**
  * Created by David Austin on 11/10/2016.
  */
 
-@Autonomous(name="Blue Sky Stone Platform",group="Auton")
-public class Blue1AutonSkyStone extends BlueAutonSkyStone {
+@Autonomous(name="Red Sky Stone Platform",group="Auton")
+public class Red1AutonSkyStone extends RedAutonSkyStone {
     public void addFinalCommands() {
-        commands.add(new DriveSidewaysSkyStoneMecanum(-12,DriveForward.XLESSTHAN,-.85,0));
+        commands.add(new DriveSidewaysSkyStoneMecanum(12,DriveForward.XGREATERTHAN,.85,0));
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());
         commands.add(new WaitForTime(250));
@@ -31,13 +28,13 @@ public class Blue1AutonSkyStone extends BlueAutonSkyStone {
         commands.add(new WaitForTime(500));
         commands.add(new HooksDown());
         commands.add(new WaitForTime(1000));
-        commands.add(new DriveForwardHeavySkyStoneBlue(-30,DriveForward.XLESSTHAN,-.75,0));
+        commands.add(new DriveForwardHeavySkyStoneRed(-30,DriveForward.XLESSTHAN,-.75,0));
         commands.add(new WaitForTime(500));
         commands.add(new HooksUp());
         commands.add(new WaitForTime(1000));
         commands.add(new ResetDriveEncoders());
         commands.add(new WaitForTime(250));
-        commands.add(new DriveSidewaysSkyStoneMecanum(38,DriveForward.XGREATERTHAN,.85,0));
+        commands.add(new DriveSidewaysSkyStoneMecanum(-38,DriveForward.XLESSTHAN,-.85,0));
         //commands.add(new DriveForward(18,DriveForward.XGREATERTHAN,.8,0, false, true, true));
     }
 }

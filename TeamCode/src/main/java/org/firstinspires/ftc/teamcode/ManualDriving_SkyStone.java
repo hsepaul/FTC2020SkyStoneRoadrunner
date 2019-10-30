@@ -271,11 +271,22 @@ public class ManualDriving_SkyStone extends OpMode
 
         //double cosA = Math.cos(Math.toRadians(io.getIMUHeading()));
         //double sinA = Math.sin(Math.toRadians(io.getIMUHeading()));
+
+        if (Math.abs(gamepad1.left_stick_x) <.25) {
+            gamepad1.left_stick_x = 0;
+        }
+
+        if (Math.abs(gamepad1.left_stick_y) <.25) {
+            gamepad1.left_stick_y = 0;
+        }
+
+
+
         double cosA = Math.cos(Math.toRadians(0.0));
         double sinA = Math.sin(Math.toRadians(0.0));
         double x1 = -gamepad1.left_stick_x*cosA - gamepad1.left_stick_y*sinA;
         double y1 = -gamepad1.left_stick_x*sinA + gamepad1.left_stick_y*cosA;
-        double rotation = -gamepad1.right_stick_x;
+        double rotation = -gamepad1.right_stick_x * .6;
 
 
         double[] wheelPowers = new double[4];
