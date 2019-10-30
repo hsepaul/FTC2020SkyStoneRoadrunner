@@ -70,14 +70,14 @@ public class DriveForwardSkyStone extends BasicCommand {
         }
         distanceCorrection = Range.clip(Math.abs(distanceCorrection),0,1);
         correction = Range.clip(correction,-1,1);
-        double leftSpeed = (driveSpeed * distanceCorrection) + correction;
-        double rightSpeed = (driveSpeed * distanceCorrection) - correction;
+        double leftSpeed = (-driveSpeed * distanceCorrection) - correction;
+        double rightSpeed = (-driveSpeed * distanceCorrection) + correction;
         if (driveSpeed > 0) {
-            leftSpeed = Range.clip(leftSpeed, 0, 1);
-            rightSpeed = Range.clip(rightSpeed, 0, 1);
-        } else {
             leftSpeed = Range.clip(leftSpeed, -1, 0);
             rightSpeed = Range.clip(rightSpeed, -1, 0);
+        } else {
+            leftSpeed = Range.clip(leftSpeed, 0, 1);
+            rightSpeed = Range.clip(rightSpeed, 0, 1);
         }
 
         io.setDrivePower(leftSpeed,rightSpeed, leftSpeed,rightSpeed);

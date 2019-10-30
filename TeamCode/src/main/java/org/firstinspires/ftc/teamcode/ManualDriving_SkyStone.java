@@ -94,6 +94,8 @@ public class ManualDriving_SkyStone extends OpMode
     int skystone_level = 1;
     boolean skystone_level_changed_up = false;
     boolean skystone_level_changed_down = false;
+    boolean gripper_rotate_stowed_changed = false;
+    boolean gripper_rotate_stowed_commanded = false;
 
     double initStartingPositionArmAngle;
 
@@ -462,7 +464,7 @@ public class ManualDriving_SkyStone extends OpMode
             io.leftHookDown();
         }
 
-        if (gamepad2.b) {
+        if (gamepad2.left_trigger > 0) {
             io.gripperRotateStowed();
             position = 1;
         }
@@ -620,12 +622,25 @@ public class ManualDriving_SkyStone extends OpMode
         }
 
 
-        if (!gamepad2.y && !gamepad2.b) {
+
+
+        if(gamepad2.left_trigger > 0 && !gripper_rotate_stowed_changed){
+            gripper_rotate_stowed_changed = true;
+            gripper_rotate_stowed_commanded = !gripper_rotate_stowed_commanded;
+        } else if (gamepad2.left_trigger == 0) {
+            gripper_rotate_stowed_changed = false;
+        }
+
+
+
+        if (!gamepad2.y && !gripper_rotate_stowed_commanded) {
             //keep gripper parallel
             position = (io.getArmAngleEncoder() + 9223) / 29018;
         }
 
         io.gripperRotate.setPosition(position);
+
+
 
 
 

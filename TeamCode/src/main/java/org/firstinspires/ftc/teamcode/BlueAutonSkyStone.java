@@ -47,13 +47,14 @@ public abstract class BlueAutonSkyStone extends FirstAuton {
         commands.add(new DriveSidewaysSkyStoneMecanum(20,DriveForward.XGREATERTHAN,.85,0));
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());
+        commands.add(new DriveForwardSkyStone(30,DriveForward.XGREATERTHAN,.85,0));
 
-        CommandGroup group = new CommandGroup();
+        //CommandGroup group = new CommandGroup();
         //group.addCommand(new IdentifyGoldMineral());
         //group.addCommand(new FindGoldMineral());
         //group.addCommand(new AlignwithGoldMineral());
-        commands.add(group);
-        commands.add(new WaitForTime(250));
-        commands.add(new ResetDriveEncoders());
+        //commands.add(group);
+        //commands.add(new WaitForTime(250));
+        //commands.add(new ResetDriveEncoders());
     }
 }
