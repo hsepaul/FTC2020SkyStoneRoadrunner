@@ -8,6 +8,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
+import org.firstinspires.ftc.robotcore.internal.vuforia.VuforiaLocalizerImpl;
 import org.firstinspires.ftc.teamcode.utilities.PID;
 
 import java.util.List;
@@ -23,16 +24,11 @@ public class DriveSidewaysSkyStoneMecanumTensorFlow extends BasicCommand {
     PID distancePID;
     PID distanceForwardBack;
     PID headingPID;
-    public static final int YGREATERTHAN = 0;
-    public static final int XGREATERTHAN = 1;
-    public static final int YLESSTHAN = 2;
-    public static final int XLESSTHAN = 3;
-    int test;
     long endTime;
     double targetHeading;
     boolean coast = false;
 
-    double angleSkystone;
+    double angleSkystone = 100;
 
     WebcamName webcamName;
 
@@ -40,12 +36,13 @@ public class DriveSidewaysSkyStoneMecanumTensorFlow extends BasicCommand {
     private static final String LABEL_FIRST_ELEMENT = "Stone";
     private static final String LABEL_SECOND_ELEMENT = "Skystone";
 
-    private static final String VUFORIA_KEY =
+    /*private static final String VUFORIA_KEY =
             "Ae+uGTX/////AAABmQV3De8djUCDjn2zDZDbCssvJv8/irA8Dzm+UnPYeGcgN7Y/V1EFU/DgmBcA3x5TxqeooD4B02M6PR+5IBifNlYVIXezFdgl/f9PKHDE7KAl3yeEV993njRk8ocjpNJwYDqcN1vZP6yWRqe4Y9QdAJH+KZPQeR+eN5wT87m4ZNHhsC5DidIkFYuhVNVdM+Gn9CLUphmjX1woXqSLqK3BdmU6XEfKU730USi7clKwVidBUMCcFcL878gUG0Mn5JL7dcPUO3r1q+8ODt1wInwPWgSQlXrrY4wWSeHJ5VwwihGnisIZ2Ps41yqf1QtrzK7FsDz5P5aQaQ7rVtzntFLZZ+ftIy0aJ+YelBy1QtZX+dc8";
-    private VuforiaLocalizer vuforia;
+*//*    private static VuforiaLocalizer vuforia;
+    private static VuforiaLocalizer.Parameters parameters;*/
     private TFObjectDetector tfod;
 
-    public DriveSidewaysSkyStoneMecanumTensorFlow(double targetPosition, int test, double spd, double targetHeading){
+    public DriveSidewaysSkyStoneMecanumTensorFlow(double targetPosition, double spd, double targetHeading){
         headingPID = new PID(0.03,0.00,0);
         //headingPID = new PID(0.02, 0.02, 0);
         //headingPID = new PID(0.05, 0, 0);
@@ -56,20 +53,20 @@ public class DriveSidewaysSkyStoneMecanumTensorFlow extends BasicCommand {
         distancePID.setTarget(targetPosition);
         distanceForwardBack.setTarget(0);
         this.targetPosition = targetPosition;
-        this.test = test;
+        //this.test = test;
         driveSpeed = spd;
         this.targetHeading = targetHeading;
     }
-    public DriveSidewaysSkyStoneMecanumTensorFlow(double targetPosition, int test, double spd, double targetHeading, boolean coast){
-        this(targetPosition,test,spd,targetHeading);
+    public DriveSidewaysSkyStoneMecanumTensorFlow(double targetPosition, double spd, double targetHeading, boolean coast){
+        this(targetPosition,spd,targetHeading);
         this.coast=coast;
     }
 
     public DriveSidewaysSkyStoneMecanumTensorFlow(double dist) {
-        this(dist, YGREATERTHAN, 0.5, 0.0);
+        this(dist, 0.5, 0.0);
     }
 
-    public void init(){
+    public void init() {
 
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
@@ -78,14 +75,26 @@ public class DriveSidewaysSkyStoneMecanumTensorFlow extends BasicCommand {
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
          */
 
-        webcamName = io.webcamName;
-        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
+        /*webcamName = io.webcamName;
 
-        parameters.vuforiaLicenseKey = VUFORIA_KEY;
-        parameters.cameraName = webcamName;
+        if(parameters==null) {
+            parameters = new VuforiaLocalizer.Parameters();
+
+            parameters.vuforiaLicenseKey = VUFORIA_KEY;
+            parameters.cameraName = webcamName;
+        }
+        //parameters.cameraName = map.get(WebcamName.class, "Webcam 1");
+
+        //telemetry.addData("webcamName.isAttached(): ",webcamName.isAttached());
+        //telemetry.addData("vuforia==null: ",vuforia==null);
 
         //  Instantiate the Vuforia engine
-        vuforia = ClassFactory.getInstance().createVuforia(parameters);
+        if (vuforia == null) {
+        //if (!webcamName.isAttached()) {
+            vuforia = ClassFactory.getInstance().createVuforia(parameters);
+        }
+        //}*/
+
 
         // Loading trackables is not necessary for the TensorFlow Object Detection engine.
 
@@ -94,11 +103,11 @@ public class DriveSidewaysSkyStoneMecanumTensorFlow extends BasicCommand {
                     "tfodMonitorViewId", "id", map.appContext.getPackageName());
             TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
             tfodParameters.minimumConfidence = 0.6;
-            tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
+            tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, io.vuforia);
 
             // Try to only load Skystone
-            tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_SECOND_ELEMENT);
-            //tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_FIRST_ELEMENT, LABEL_SECOND_ELEMENT);
+            //tfod.loadModelFromAsset(TFOD_MODEL_ASSET, null, LABEL_SECOND_ELEMENT);
+            tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_FIRST_ELEMENT, LABEL_SECOND_ELEMENT);
         } else {
             telemetry.addData("Sorry!", "This device is not compatible with TFOD");
         }
@@ -112,7 +121,7 @@ public class DriveSidewaysSkyStoneMecanumTensorFlow extends BasicCommand {
         }
 
 
-        endTime = System.currentTimeMillis() + 10000;
+        endTime = System.currentTimeMillis() + 300000;
 
         /*if (usebutton){
             this.proximitybutton = io.proximityArmButtonPushed;
@@ -135,14 +144,17 @@ public class DriveSidewaysSkyStoneMecanumTensorFlow extends BasicCommand {
                 // step through the list of recognitions and display boundary info.
                 int i = 0;
                 for (Recognition recognition : updatedRecognitions) {
-                    angleSkystone = recognition.estimateAngleToObject(AngleUnit.DEGREES);
-                    telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
-                    telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
-                            recognition.getLeft(), recognition.getTop());
-                    telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
-                            recognition.getRight(), recognition.getBottom());
-                    telemetry.addData(String.format("  estimated angle (%d)", i), "%.03f",
-                            recognition.estimateAngleToObject(AngleUnit.DEGREES));
+                    if (recognition.getLabel() == "Skystone") {
+                        angleSkystone = recognition.estimateAngleToObject(AngleUnit.DEGREES);
+                        telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
+                        telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
+                                recognition.getLeft(), recognition.getTop());
+                        telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
+                                recognition.getRight(), recognition.getBottom());
+                        telemetry.addData(String.format("  estimated angle (%d)", i), "%.03f",
+                                recognition.estimateAngleToObject(AngleUnit.DEGREES));
+                        break;
+                    }
                 }
                 telemetry.update();
             } else {
@@ -150,7 +162,11 @@ public class DriveSidewaysSkyStoneMecanumTensorFlow extends BasicCommand {
             }
         }
 
-        switch(test) {
+        distanceCorrection = distancePID.getCorrection(angleSkystone);
+        distanceCorrectionForwardBack = distanceForwardBack.getCorrection(io.getX());
+
+
+        /*switch(test) {
             case XGREATERTHAN:
             case XLESSTHAN:
                 distanceCorrection = distancePID.getCorrection(angleSkystone);
@@ -160,7 +176,7 @@ public class DriveSidewaysSkyStoneMecanumTensorFlow extends BasicCommand {
                 distanceCorrection = distancePID.getCorrection(angleSkystone);
                 distanceCorrectionForwardBack = distanceForwardBack.getCorrection(io.getX());
                 break;
-        }
+        }*/
 
 /*#REMOVE
         double cosA = Math.cos(Math.toRadians(0.0));
@@ -200,10 +216,10 @@ public class DriveSidewaysSkyStoneMecanumTensorFlow extends BasicCommand {
             backrightSpeed = Range.clip(backrightSpeed, 0, 1);
         }
 
-        io.setDrivePower(frontleftSpeed,frontrightSpeed,backleftSpeed,backrightSpeed);
+        //io.setDrivePower(frontleftSpeed,frontrightSpeed,backleftSpeed,backrightSpeed);
 
-        telemetry.addData("x: ",io.getX());
-        telemetry.addData("y: ",io.getY());
+        //telemetry.addData("x: ",io.getX());
+        //telemetry.addData("y: ",io.getY());
         telemetry.addData("sideways: ",io.getSidewaysDistance());
         telemetry.addData("Target Heading:", targetHeading);
         telemetry.addData("Heading:", heading);
@@ -222,7 +238,7 @@ public class DriveSidewaysSkyStoneMecanumTensorFlow extends BasicCommand {
     }
 
     public boolean isFinished(){
-        if (System.currentTimeMillis() >= endTime) return true;
+        //if (System.currentTimeMillis() >= endTime) return true;
         /*if ((io.touchProximity.getState() == false) && (usebutton == false)){
             io.proximityArmButtonPushed = true;
             return true;
@@ -242,16 +258,20 @@ public class DriveSidewaysSkyStoneMecanumTensorFlow extends BasicCommand {
             io.skystone1Found = true;
             io.skystone2Found = false;
             io.skystone1Distance = io.getSidewaysDistance();
-        }
-
-        if ((Math.abs(angleSkystone - targetPosition) <= 2.75) && io.skystone1Found && !io.skystone2Found) {
+        } else if ((Math.abs(angleSkystone - targetPosition) <= 2.75) && io.skystone1Found && !io.skystone2Found){
             io.skystone1Found = true;
             io.skystone2Found = true;
             io.skystone2Distance = io.getSidewaysDistance();
         }
 
+        telemetry.addData("skystone1Found: ",io.skystone1Found);
+        telemetry.addData("skystone1Distance: ",io.skystone1Distance);
+        telemetry.addData("skystone2Found: ",io.skystone2Found);
+        telemetry.addData("skystone2Distance: ",io.skystone2Distance);
+        telemetry.addData("angleSkystone: ",angleSkystone);
+        telemetry.addData("targetPosition: ",targetPosition);
 
-        return Math.abs(angleSkystone - targetPosition) <= 2.75 || System.currentTimeMillis() >= endTime;
+        return Math.abs(angleSkystone - targetPosition) <= 5 || System.currentTimeMillis() >= endTime;
         /*switch(test) {
             case XGREATERTHAN:
                 return io.getSidewaysDistance() > targetPosition;
@@ -266,6 +286,10 @@ public class DriveSidewaysSkyStoneMecanumTensorFlow extends BasicCommand {
         if (tfod != null) {
             tfod.shutdown();
         }
+
+        //vuforia.getCamera().close();
+        //webcamName.close();
+        //io.webcamName.close();
         if (!coast) io.setDrivePower(0.0,0.0, 0.0, 0.0);
     }
 

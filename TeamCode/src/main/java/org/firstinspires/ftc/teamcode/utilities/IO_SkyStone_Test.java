@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
@@ -18,6 +19,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.Quaternion;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 
 import java.util.Locale;
 
@@ -45,6 +47,8 @@ public class IO_SkyStone_Test {
     public AnalogInput armAnglePot;
 
     public WebcamName webcamName;
+    public VuforiaLocalizer vuforia;
+    public VuforiaLocalizer.Parameters vfparameters;
 
     public BNO055IMU imu;
     public BNO055IMU imu1;
@@ -76,9 +80,11 @@ public class IO_SkyStone_Test {
     public boolean skystone1Found = false;
     public boolean skystone2Found = false;
 
-    public double stoneOffsetDistanceToTape = 10;
+    public double stoneOffsetDistanceToTape = 32;
+
     public double skystone1Distance = 0;
     public double skystone2Distance = 0;
+
     public boolean isGoldFound = false;
     public boolean isGoldAligned = false;
     public boolean isGoldCentered = false;
@@ -171,6 +177,14 @@ public class IO_SkyStone_Test {
         /*touchProximity = map.digitalChannel.get("touchproximity");
         touchLowerRelicArm = map.digitalChannel.get("touchlowerrelicarm");
         touchUpperRelicArm = map.digitalChannel.get("touchupperrelicarm");*/
+
+        String VUFORIA_KEY =
+                "Ae+uGTX/////AAABmQV3De8djUCDjn2zDZDbCssvJv8/irA8Dzm+UnPYeGcgN7Y/V1EFU/DgmBcA3x5TxqeooD4B02M6PR+5IBifNlYVIXezFdgl/f9PKHDE7KAl3yeEV993njRk8ocjpNJwYDqcN1vZP6yWRqe4Y9QdAJH+KZPQeR+eN5wT87m4ZNHhsC5DidIkFYuhVNVdM+Gn9CLUphmjX1woXqSLqK3BdmU6XEfKU730USi7clKwVidBUMCcFcL878gUG0Mn5JL7dcPUO3r1q+8ODt1wInwPWgSQlXrrY4wWSeHJ5VwwihGnisIZ2Ps41yqf1QtrzK7FsDz5P5aQaQ7rVtzntFLZZ+ftIy0aJ+YelBy1QtZX+dc8";
+        vfparameters = new VuforiaLocalizer.Parameters();
+        vfparameters.vuforiaLicenseKey = VUFORIA_KEY;
+        vfparameters.cameraName = webcamName;
+        vuforia = ClassFactory.getInstance().createVuforia(vfparameters);
+
 
         //gyro = map.gyroSensor.get("gyro");
         imu = map.get(BNO055IMU.class, "imu");
