@@ -72,6 +72,13 @@ public class IO_SkyStone_Test {
     //public double rightProximityAverage = 0;
     //public double proximityCorrection = 0;
     //public boolean proximityArmButtonPushed = false;
+
+    public boolean skystone1Found = false;
+    public boolean skystone2Found = false;
+
+    public double stoneOffsetDistanceToTape = 10;
+    public double skystone1Distance = 0;
+    public double skystone2Distance = 0;
     public boolean isGoldFound = false;
     public boolean isGoldAligned = false;
     public boolean isGoldCentered = false;
