@@ -216,7 +216,7 @@ public class DriveSidewaysSkyStoneMecanumTensorFlow extends BasicCommand {
             backrightSpeed = Range.clip(backrightSpeed, 0, 1);
         }
 
-        //io.setDrivePower(frontleftSpeed,frontrightSpeed,backleftSpeed,backrightSpeed);
+        io.setDrivePower(frontleftSpeed,frontrightSpeed,backleftSpeed,backrightSpeed);
 
         //telemetry.addData("x: ",io.getX());
         //telemetry.addData("y: ",io.getY());
@@ -254,11 +254,11 @@ public class DriveSidewaysSkyStoneMecanumTensorFlow extends BasicCommand {
         //telemetry.addData("Left Speed: ", (driveSpeed * distancePID.getCorrection(io.getY())) - headingPID.getCorrection(io.getHeading()));
         //telemetry.addData("Right Speed: ", (driveSpeed * distancePID.getCorrection(io.getY())) + headingPID.getCorrection(io.getHeading()));
 
-        if ((Math.abs(angleSkystone - targetPosition) <= 2.75) && !io.skystone1Found && !io.skystone2Found) {
+        if ((Math.abs(angleSkystone - targetPosition) <= 4) && !io.skystone1Found && !io.skystone2Found) {
             io.skystone1Found = true;
             io.skystone2Found = false;
             io.skystone1Distance = io.getSidewaysDistance();
-        } else if ((Math.abs(angleSkystone - targetPosition) <= 2.75) && io.skystone1Found && !io.skystone2Found){
+        } else if ((Math.abs(angleSkystone - targetPosition) <= 4) && io.skystone1Found && !io.skystone2Found){
             io.skystone1Found = true;
             io.skystone2Found = true;
             io.skystone2Distance = io.getSidewaysDistance();
@@ -271,7 +271,7 @@ public class DriveSidewaysSkyStoneMecanumTensorFlow extends BasicCommand {
         telemetry.addData("angleSkystone: ",angleSkystone);
         telemetry.addData("targetPosition: ",targetPosition);
 
-        return Math.abs(angleSkystone - targetPosition) <= 5 || System.currentTimeMillis() >= endTime;
+        return Math.abs(angleSkystone - targetPosition) <= 4 || System.currentTimeMillis() >= endTime;
         /*switch(test) {
             case XGREATERTHAN:
                 return io.getSidewaysDistance() > targetPosition;

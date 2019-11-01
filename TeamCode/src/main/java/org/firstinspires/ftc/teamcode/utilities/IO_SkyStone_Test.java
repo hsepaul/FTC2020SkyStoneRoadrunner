@@ -80,7 +80,7 @@ public class IO_SkyStone_Test {
     public boolean skystone1Found = false;
     public boolean skystone2Found = false;
 
-    public double stoneOffsetDistanceToTape = 32;
+    public double skystoneOffsetDistanceToTape = 31;
 
     public double skystone1Distance = 0;
     public double skystone2Distance = 0;
@@ -311,6 +311,7 @@ public class IO_SkyStone_Test {
 
         x = 0;
         y = 0;
+        sidewaysdistance = 0;
         x_ZeroDegree = 0;
         y_ZeroDegree = 0;
     }

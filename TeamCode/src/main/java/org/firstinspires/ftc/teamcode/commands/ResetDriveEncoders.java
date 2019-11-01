@@ -18,12 +18,16 @@ public class ResetDriveEncoders extends BasicCommand {
             telemetry.addData("Mode:", "Reset Drive Encoders");
             telemetry.addData("x after reset: ",io.getX());
             telemetry.addData("y after reset: ",io.getY());
+            telemetry.addData("center after reset: ",io.getSidewaysDistance());
         }
 
         public boolean isFinished(){
             telemetry.addData("Mode:", "Reset Drive Encoders");
             telemetry.addData("x after reset: ",io.getX());
             telemetry.addData("y after reset: ",io.getY());
+            telemetry.addData("center after reset get sideways distance: ",io.getSidewaysDistance());
+            telemetry.addData("center after reset get odometer center encoder: ",io.getOdometerCenterEncoder());
+            telemetry.addData("center after reset back right motor encoder: ",io.backRightMotor.getCurrentPosition());
             return true;
         }
         public void stop() {

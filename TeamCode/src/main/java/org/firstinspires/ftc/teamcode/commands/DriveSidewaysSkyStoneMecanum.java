@@ -48,7 +48,19 @@ public class DriveSidewaysSkyStoneMecanum extends BasicCommand {
     }
 
     public void init(){
-        endTime = System.currentTimeMillis() + 10000;
+        endTime = System.currentTimeMillis() + 30000;
+
+        //target position override for tensorflow
+        if(io.skystone2Found){
+            this.targetPosition = targetPosition * (Math.abs(io.skystone1Distance) + Math.abs(io.skystone2Distance) + io.skystoneOffsetDistanceToTape - 12);
+            distancePID.setTarget(this.targetPosition);
+        }else if(io.skystone1Found){
+            this.targetPosition = targetPosition * (Math.abs(io.skystone1Distance) + io.skystoneOffsetDistanceToTape);
+            distancePID.setTarget(this.targetPosition);
+        }
+
+
+
 
         /*if (usebutton){
             this.proximitybutton = io.proximityArmButtonPushed;
@@ -112,10 +124,27 @@ public class DriveSidewaysSkyStoneMecanum extends BasicCommand {
         }
 
         io.setDrivePower(frontleftSpeed,frontrightSpeed,backleftSpeed,backrightSpeed);
-        telemetry.addData("x: ",io.getX());
-        telemetry.addData("y: ",io.getY());
+        //telemetry.addData("x: ",io.getX());
+        //telemetry.addData("y: ",io.getY());
         telemetry.addData("sideways: ",io.getSidewaysDistance());
-        telemetry.addData("Target Heading:", targetHeading);
+        telemetry.addData("skystone1Distance: ",io.skystone1Distance);
+        telemetry.addData("skystoneOffsetDistanceToTape: ",io.skystoneOffsetDistanceToTape);
+        telemetry.addData("skystone2Distance: ",io.skystone2Distance);
+
+        /*telemetry.addData("center after reset get sideways distance: ",io.getSidewaysDistance());
+        telemetry.addData("center after reset get odometer center encoder: ",io.getOdometerCenterEncoder());
+        telemetry.addData("center after reset back right motor encoder: ",io.backRightMotor.getCurrentPosition());
+
+        telemetry.addData("right after reset get x distance: ",io.getX());
+        telemetry.addData("right after reset get odometer right encoder: ",io.getOdometerRightEncoder());
+        telemetry.addData("right after reset back right motor encoder: ",io.frontLeftMotor.getCurrentPosition());
+
+        telemetry.addData("left after reset get x distance: ",io.getX());
+        telemetry.addData("left after reset get odometer right encoder: ",io.getOdometerLeftEncoder());
+        telemetry.addData("left after reset back right motor encoder: ",io.frontRightMotor.getCurrentPosition());*/
+
+
+        /*telemetry.addData("Target Heading:", targetHeading);
         telemetry.addData("Heading:", heading);
         telemetry.addData("Heading Correction: ", correction);
         telemetry.addData("Distance Correction: ", distanceCorrection);
@@ -123,7 +152,7 @@ public class DriveSidewaysSkyStoneMecanum extends BasicCommand {
         telemetry.addData("Front Left Speed: ", frontleftSpeed);
         telemetry.addData("Front Right Speed: ", frontrightSpeed);
         telemetry.addData("Back Left Speed: ", backleftSpeed);
-        telemetry.addData("Back Right Speed: ", backrightSpeed);
+        telemetry.addData("Back Right Speed: ", backrightSpeed);*/
         //telemetry.addData("Jewel Color is Unknown, Red, Blue: ", io.getJewelColor());
         telemetry.addData("Alliance Color is Unknown, Red, Blue: ", io.getAllianceColor());
         //telemetry.addData("VuMark from IdentifyVuMark from IO", io.getVuMark());
