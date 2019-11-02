@@ -652,7 +652,7 @@ public class ManualDriving_SkyStone extends OpMode
         if (gamepad2.b) {
             gripper_rotate_stowed_locked = false;
         }
-        
+
         if (!gamepad2.y && !gripper_rotate_stowed_commanded && !gripper_rotate_stowed_locked) {
             //keep gripper parallel
             position = (io.getArmAngleEncoder() + 9223) / 29018;

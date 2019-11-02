@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.utilities.PID;
  * Created by David Austin on 10/27/2016.
  */
 
-public class DriveSidewaysSkyStoneMecanum extends BasicCommand {
+public class DriveSidewaysSkyStoneMecanumNoSkystones extends BasicCommand {
     double targetPosition;
     double endDistance;
     double driveSpeed;
@@ -23,7 +23,7 @@ public class DriveSidewaysSkyStoneMecanum extends BasicCommand {
     long endTime;
     double targetHeading;
     boolean coast = false;
-    public DriveSidewaysSkyStoneMecanum(double targetPosition, int test, double spd, double targetHeading){
+    public DriveSidewaysSkyStoneMecanumNoSkystones(double targetPosition, int test, double spd, double targetHeading){
         headingPID = new PID(0.03,0.00,0);
         //headingPID = new PID(0.02, 0.02, 0);
         //headingPID = new PID(0.05, 0, 0);
@@ -38,29 +38,17 @@ public class DriveSidewaysSkyStoneMecanum extends BasicCommand {
         driveSpeed = spd;
         this.targetHeading = targetHeading;
     }
-    public DriveSidewaysSkyStoneMecanum(double targetPosition, int test, double spd, double targetHeading, boolean coast){
+    public DriveSidewaysSkyStoneMecanumNoSkystones(double targetPosition, int test, double spd, double targetHeading, boolean coast){
         this(targetPosition,test,spd,targetHeading);
         this.coast=coast;
     }
 
-    public DriveSidewaysSkyStoneMecanum(double dist) {
+    public DriveSidewaysSkyStoneMecanumNoSkystones(double dist) {
         this(dist, YGREATERTHAN, 0.5, 0.0);
     }
 
     public void init(){
-        endTime = System.currentTimeMillis() + 12000;
-
-        //target position override for tensorflow
-        if(io.skystone2Found){
-            this.targetPosition = targetPosition * (Math.abs(io.skystone1Distance) + Math.abs(io.skystone2Distance) + io.skystoneOffsetDistanceToTape - 5);
-            distancePID.setTarget(this.targetPosition);
-        }else if(io.skystone1Found){
-            this.targetPosition = targetPosition * (Math.abs(io.skystone1Distance) + io.skystoneOffsetDistanceToTape);
-            distancePID.setTarget(this.targetPosition);
-        }
-
-
-
+        endTime = System.currentTimeMillis() + 30000;
 
         /*if (usebutton){
             this.proximitybutton = io.proximityArmButtonPushed;

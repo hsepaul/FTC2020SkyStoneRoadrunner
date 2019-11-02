@@ -65,7 +65,7 @@ public class Rotate extends BasicCommand {
         double correction = headingPID.getCorrection(Math.toDegrees(io.heading));
         correction = Range.clip(correction,-1,1);
         //correction = Range.clip(correction,0,1);
-        io.setDrivePower(correction*leftSpd,-correction*rightSpd, correction*leftSpd,-correction*rightSpd);
+        io.setDrivePower(-correction*leftSpd,correction*rightSpd, -correction*leftSpd,correction*rightSpd);
         telemetry.addData("Target Heading:", heading);
         //telemetry.addData("Heading: ", io.getHeading());
         telemetry.addData("Heading: ", Math.toDegrees(io.heading));

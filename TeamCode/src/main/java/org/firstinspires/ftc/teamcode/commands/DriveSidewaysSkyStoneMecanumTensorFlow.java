@@ -121,7 +121,7 @@ public class DriveSidewaysSkyStoneMecanumTensorFlow extends BasicCommand {
         }
 
 
-        endTime = System.currentTimeMillis() + 300000;
+        endTime = System.currentTimeMillis() + 12000;
 
         /*if (usebutton){
             this.proximitybutton = io.proximityArmButtonPushed;
