@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.commands.ArmAngleDown;
 import org.firstinspires.ftc.teamcode.commands.ArmAngleUp;
+import org.firstinspires.ftc.teamcode.commands.CommandGroup;
 import org.firstinspires.ftc.teamcode.commands.DriveForward;
 import org.firstinspires.ftc.teamcode.commands.DriveForwardHeadingandDistanceSensorSkyStone;
 import org.firstinspires.ftc.teamcode.commands.DriveForwardSkyStone;
@@ -23,15 +24,26 @@ import org.firstinspires.ftc.teamcode.commands.WaitForTime;
 @Autonomous(name="Red Sky Stone Blocks",group="Auton")
 public class Red2AutonSkyStone extends RedAutonSkyStone {
     public void addFinalCommands() {
-        commands.add(new GripperRotateParallel());
-        commands.add(new WaitForTime(500));
-        commands.add(new GripperPincherOpen());
-        commands.add(new WaitForTime(250));
-        commands.add((new ArmAngleUp()));
-        commands.add(new WaitForTime(500));
-        commands.add(new DriveForwardSkyStone(16,DriveForwardSkyStone.XGREATERTHAN,.5,0));
+        CommandGroup group = new CommandGroup();
+        group.addCommand(new GripperRotateParallel());
+        group.addCommand(new GripperPincherOpen());
+        group.addCommand(new ArmAngleUp());
+        group.addCommand(new DriveForwardSkyStone(16,DriveForwardSkyStone.XGREATERTHAN,.5,0));
+        commands.add(group);
+
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());
+
+        //commands.add(new GripperRotateParallel());
+        //commands.add(new WaitForTime(500));
+        //commands.add(new GripperPincherOpen());
+        //commands.add(new WaitForTime(250));
+        //commands.add((new ArmAngleUp()));
+        //commands.add(new WaitForTime(500));
+        //commands.add(new DriveForwardSkyStone(16,DriveForwardSkyStone.XGREATERTHAN,.5,0));
+        //commands.add(new WaitForTime(250));
+        //commands.add(new ResetDriveEncoders());
+
         commands.add(new DriveSidewaysSkyStoneMecanumTensorFlow(0,-.4,0));
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());

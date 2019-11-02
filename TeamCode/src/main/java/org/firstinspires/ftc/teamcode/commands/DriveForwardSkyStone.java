@@ -81,7 +81,7 @@ public class DriveForwardSkyStone extends BasicCommand {
         }
 
         io.setDrivePower(leftSpeed,rightSpeed, leftSpeed,rightSpeed);
-        telemetry.addData("x: ",io.getX());
+        /*telemetry.addData("x: ",io.getX());
         telemetry.addData("y: ",io.getY());
         telemetry.addData("Target Heading:", targetHeading);
         telemetry.addData("Heading:", heading);
@@ -91,7 +91,7 @@ public class DriveForwardSkyStone extends BasicCommand {
         telemetry.addData("Left Speed: ", leftSpeed);
         telemetry.addData("Right Speed: ", rightSpeed);
         //telemetry.addData("Jewel Color is Unknown, Red, Blue: ", io.getJewelColor());
-        telemetry.addData("Alliance Color is Unknown, Red, Blue: ", io.getAllianceColor());
+        telemetry.addData("Alliance Color is Unknown, Red, Blue: ", io.getAllianceColor());*/
         //telemetry.addData("VuMark from IdentifyVuMark from IO", io.getVuMark());
         //telemetry.addData("VuMark from IdentifyVuMark from IO", "%s visible", io.vuMark);
         telemetry.addData("Mode:", "Drive Forward");

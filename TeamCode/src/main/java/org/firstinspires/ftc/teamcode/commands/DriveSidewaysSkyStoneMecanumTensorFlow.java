@@ -220,7 +220,7 @@ public class DriveSidewaysSkyStoneMecanumTensorFlow extends BasicCommand {
 
         //telemetry.addData("x: ",io.getX());
         //telemetry.addData("y: ",io.getY());
-        telemetry.addData("sideways: ",io.getSidewaysDistance());
+        /*telemetry.addData("sideways: ",io.getSidewaysDistance());
         telemetry.addData("Target Heading:", targetHeading);
         telemetry.addData("Heading:", heading);
         telemetry.addData("Heading Correction: ", correction);
@@ -233,7 +233,7 @@ public class DriveSidewaysSkyStoneMecanumTensorFlow extends BasicCommand {
         //telemetry.addData("Jewel Color is Unknown, Red, Blue: ", io.getJewelColor());
         telemetry.addData("Alliance Color is Unknown, Red, Blue: ", io.getAllianceColor());
         //telemetry.addData("VuMark from IdentifyVuMark from IO", io.getVuMark());
-        //telemetry.addData("VuMark from IdentifyVuMark from IO", "%s visible", io.vuMark);
+        //telemetry.addData("VuMark from IdentifyVuMark from IO", "%s visible", io.vuMark);*/
         telemetry.addData("Mode:", "Drive Sideways");
     }
 
@@ -264,12 +264,12 @@ public class DriveSidewaysSkyStoneMecanumTensorFlow extends BasicCommand {
             io.skystone2Distance = io.getSidewaysDistance();
         }
 
-        telemetry.addData("skystone1Found: ",io.skystone1Found);
+        /*telemetry.addData("skystone1Found: ",io.skystone1Found);
         telemetry.addData("skystone1Distance: ",io.skystone1Distance);
         telemetry.addData("skystone2Found: ",io.skystone2Found);
         telemetry.addData("skystone2Distance: ",io.skystone2Distance);
         telemetry.addData("angleSkystone: ",angleSkystone);
-        telemetry.addData("targetPosition: ",targetPosition);
+        telemetry.addData("targetPosition: ",targetPosition);*/
 
         return Math.abs(angleSkystone - targetPosition) <= 4 || System.currentTimeMillis() >= endTime;
         /*switch(test) {

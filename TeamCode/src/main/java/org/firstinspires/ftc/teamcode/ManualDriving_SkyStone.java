@@ -97,6 +97,8 @@ public class ManualDriving_SkyStone extends OpMode
     boolean gripper_rotate_stowed_changed = false;
     boolean gripper_rotate_stowed_commanded = false;
 
+    boolean gripper_rotate_stowed_locked = true;
+
     double initStartingPositionArmAngle;
 
     //double relicRetrievalStartingPositionRPU1;
@@ -226,7 +228,7 @@ public class ManualDriving_SkyStone extends OpMode
         telemetry.addData("Left Front Drive Encoder",  "Starting at %.2f",
                 io.getLeftFrontDriveEncoder());*/
         io.calibrateGyroandIMU();
-        io.calibrateGyroandIMU1();
+        //io.calibrateGyroandIMU1();
         telemetry.addData("2WD!", "Go");
     }
 
@@ -480,6 +482,11 @@ public class ManualDriving_SkyStone extends OpMode
             position = 1;
         }
 
+        if (gripper_rotate_stowed_locked) {
+            io.gripperRotateStowed();
+            position = 1;
+        }
+
         /*if (gamepad2.y) {
             io.gripperRotateParallel();
             position = .30;
@@ -642,9 +649,11 @@ public class ManualDriving_SkyStone extends OpMode
             gripper_rotate_stowed_changed = false;
         }
 
-
-
-        if (!gamepad2.y && !gripper_rotate_stowed_commanded) {
+        if (gamepad2.b) {
+            gripper_rotate_stowed_locked = false;
+        }
+        
+        if (!gamepad2.y && !gripper_rotate_stowed_commanded && !gripper_rotate_stowed_locked) {
             //keep gripper parallel
             position = (io.getArmAngleEncoder() + 9223) / 29018;
         }
@@ -1110,7 +1119,7 @@ public class ManualDriving_SkyStone extends OpMode
         telemetry.addData("Left Front Drive Encoder",  "Starting at %.2f",
                 io.getLeftFrontDriveEncoder());*/
 
-        telemetry.addData("Odometer Left Encoder",  "Starting at %.2f",
+        /*telemetry.addData("Odometer Left Encoder",  "Starting at %.2f",
                 io.getOdometerLeftEncoder());
         telemetry.addData("Odometer Center Encoder",  "Starting at %.2f",
                 io.getOdometerCenterEncoder());
@@ -1119,7 +1128,7 @@ public class ManualDriving_SkyStone extends OpMode
         telemetry.addData("Arm Extender Encoder",  "Starting at %.2f",
                 io.getArmExtenderEncoder());
         telemetry.addData("Arm Angle Encoder",  "Starting at %.2f",
-                io.getArmAngleEncoder());
+                io.getArmAngleEncoder());*/
         /*telemetry.addData("DOM1 Motor Encoder",  "Starting at %.2f",
                 io.getDOM1MotorEncoder());
         telemetry.addData("DOM2 Motor Encoder",  "Starting at %.2f",
@@ -1127,7 +1136,7 @@ public class ManualDriving_SkyStone extends OpMode
         telemetry.addData("DOM Motor Extend Encoder",  "Starting at %.2f",
                 io.getDOMMotorExtendEncoder());*/
 
-        telemetry.addData("Left Front Range", String.format("%.01f in", io.leftFrontDistance.getDistance(DistanceUnit.INCH)));
+        /*telemetry.addData("Left Front Range", String.format("%.01f in", io.leftFrontDistance.getDistance(DistanceUnit.INCH)));
         telemetry.addData("Right Front Range", String.format("%.01f in", io.rightFrontDistance.getDistance(DistanceUnit.INCH)));
         //telemetry.addData("Front Range", String.format("%.01f in", io.frontDistance.getDistance(DistanceUnit.INCH)));
         //telemetry.addData("Back Range", String.format("%.01f in", io.backDistance.getDistance(DistanceUnit.INCH)));
@@ -1148,9 +1157,9 @@ public class ManualDriving_SkyStone extends OpMode
         telemetry.addData("right_stick_y", String.format("%.2f right_stick_y", gamepad1.right_stick_y));
 
         telemetry.addData("left_stick_x", String.format("%.2f left_stick_x", gamepad1.left_stick_x));
-        telemetry.addData("left_stick_y", String.format("%.2f left_stick_y", gamepad1.left_stick_y));
+        telemetry.addData("left_stick_y", String.format("%.2f left_stick_y", gamepad1.left_stick_y));*/
 
-        if (io.touchArmExtender.getState() == false) {
+        /*if (io.touchArmExtender.getState() == false) {
             telemetry.addData("Touch Arm Extender", "Is Pressed");
         } else {
             telemetry.addData("Touch Arm Extender", "Is Not Pressed");
@@ -1165,7 +1174,7 @@ public class ManualDriving_SkyStone extends OpMode
         telemetry.addData("IMU Heading",  "Starting at %.2f",
                 io.getIMUHeading());
         telemetry.addData("IMU1 Heading",  "Starting at %.2f",
-                io.getIMU1Heading());
+                io.getIMU1Heading());*/
 
 /*        if (io.touchDOMExtend.getState() == false) {
             telemetry.addData("Touch DOM Extend", "Is Pressed");

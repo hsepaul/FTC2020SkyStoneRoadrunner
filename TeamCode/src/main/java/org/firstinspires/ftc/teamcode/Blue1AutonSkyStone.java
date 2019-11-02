@@ -37,7 +37,7 @@ public class Blue1AutonSkyStone extends BlueAutonSkyStone {
         commands.add(new WaitForTime(1000));
         commands.add(new ResetDriveEncoders());
         commands.add(new WaitForTime(250));
-        commands.add(new DriveSidewaysSkyStoneMecanum(38,DriveSidewaysSkyStoneMecanum.XGREATERTHAN,.85,0));
+        commands.add(new DriveSidewaysSkyStoneMecanum(50,DriveSidewaysSkyStoneMecanum.XGREATERTHAN,.85,0));
         //commands.add(new DriveForward(18,DriveForward.XGREATERTHAN,.8,0, false, true, true));
     }
 }

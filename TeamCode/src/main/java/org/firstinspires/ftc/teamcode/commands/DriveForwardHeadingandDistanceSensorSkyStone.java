@@ -72,7 +72,7 @@ public class DriveForwardHeadingandDistanceSensorSkyStone extends BasicCommand {
         }
 
         io.setDrivePower(leftSpeed,rightSpeed,leftSpeed,rightSpeed);
-        telemetry.addData("Front Distance: ",io.leftFrontDistance.getDistance(DistanceUnit.INCH));
+        /*telemetry.addData("Front Distance: ",io.leftFrontDistance.getDistance(DistanceUnit.INCH));
         //telemetry.addData("Back Distance: ",io.backDistance.getDistance(DistanceUnit.INCH));
         telemetry.addData("Target Heading:", targetHeading);
         telemetry.addData("Heading:", heading);
@@ -81,13 +81,13 @@ public class DriveForwardHeadingandDistanceSensorSkyStone extends BasicCommand {
         telemetry.addData("Drive Speed: ", driveSpeed);
         telemetry.addData("Left Speed: ", leftSpeed);
         telemetry.addData("Right Speed: ", rightSpeed);
-        telemetry.addData("Alliance Color is Unknown, Red, Blue: ", io.getAllianceColor());
+        telemetry.addData("Alliance Color is Unknown, Red, Blue: ", io.getAllianceColor());*/
         telemetry.addData("Mode:", "Drive Forward Heading and Distance Sensor");
     }
 
     public boolean isFinished(){
         if (System.currentTimeMillis() >= endTime) return true;
-        telemetry.addData("Front Distance: ",io.leftFrontDistance.getDistance(DistanceUnit.INCH));
+        /*telemetry.addData("Front Distance: ",io.leftFrontDistance.getDistance(DistanceUnit.INCH));
         //telemetry.addData("Back Distance: ",io.backDistance.getDistance(DistanceUnit.INCH));
         telemetry.addData("Target Heading:", targetHeading);
         telemetry.addData("Heading:", heading);
@@ -96,7 +96,7 @@ public class DriveForwardHeadingandDistanceSensorSkyStone extends BasicCommand {
         telemetry.addData("Drive Speed: ", driveSpeed);
         telemetry.addData("Left Speed: ", leftSpeed);
         telemetry.addData("Right Speed: ", rightSpeed);
-        telemetry.addData("Alliance Color is Unknown, Red, Blue: ", io.getAllianceColor());
+        telemetry.addData("Alliance Color is Unknown, Red, Blue: ", io.getAllianceColor());*/
         telemetry.addData("Mode:", "Drive Forward Heading and Distance Sensor");
 
         switch(test) {

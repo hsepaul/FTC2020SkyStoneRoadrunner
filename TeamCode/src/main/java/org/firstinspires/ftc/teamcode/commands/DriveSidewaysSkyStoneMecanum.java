@@ -126,10 +126,10 @@ public class DriveSidewaysSkyStoneMecanum extends BasicCommand {
         io.setDrivePower(frontleftSpeed,frontrightSpeed,backleftSpeed,backrightSpeed);
         //telemetry.addData("x: ",io.getX());
         //telemetry.addData("y: ",io.getY());
-        telemetry.addData("sideways: ",io.getSidewaysDistance());
+        /*telemetry.addData("sideways: ",io.getSidewaysDistance());
         telemetry.addData("skystone1Distance: ",io.skystone1Distance);
         telemetry.addData("skystoneOffsetDistanceToTape: ",io.skystoneOffsetDistanceToTape);
-        telemetry.addData("skystone2Distance: ",io.skystone2Distance);
+        telemetry.addData("skystone2Distance: ",io.skystone2Distance);*/
 
         /*telemetry.addData("center after reset get sideways distance: ",io.getSidewaysDistance());
         telemetry.addData("center after reset get odometer center encoder: ",io.getOdometerCenterEncoder());
@@ -154,7 +154,7 @@ public class DriveSidewaysSkyStoneMecanum extends BasicCommand {
         telemetry.addData("Back Left Speed: ", backleftSpeed);
         telemetry.addData("Back Right Speed: ", backrightSpeed);*/
         //telemetry.addData("Jewel Color is Unknown, Red, Blue: ", io.getJewelColor());
-        telemetry.addData("Alliance Color is Unknown, Red, Blue: ", io.getAllianceColor());
+        //telemetry.addData("Alliance Color is Unknown, Red, Blue: ", io.getAllianceColor());
         //telemetry.addData("VuMark from IdentifyVuMark from IO", io.getVuMark());
         //telemetry.addData("VuMark from IdentifyVuMark from IO", "%s visible", io.vuMark);
         telemetry.addData("Mode:", "Drive Sideways");

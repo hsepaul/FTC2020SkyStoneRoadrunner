@@ -19,7 +19,7 @@ import org.firstinspires.ftc.teamcode.commands.WaitForTime;
  * Created by David Austin on 11/10/2016.
  */
 
-@Autonomous(name="Red Sky Stone Blocks TEST",group="Auton")
+//@Autonomous(name="Red Sky Stone Blocks TEST",group="Auton")
 public class Red2AutonSkyStoneTEST extends RedAutonSkyStone {
     public void addFinalCommands() {
         commands.add(new DriveSidewaysSkyStoneMecanum(-12, DriveSidewaysSkyStoneMecanum.XLESSTHAN,-.85,0));

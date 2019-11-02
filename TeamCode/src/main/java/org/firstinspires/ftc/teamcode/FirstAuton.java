@@ -105,11 +105,11 @@ public abstract class FirstAuton extends OpMode {
             telemetry.addData(">", "IMU Calibrated.");
         }
 
-        if (!io.imu1.isGyroCalibrated()) {
+        /*if (!io.imu1.isGyroCalibrated()) {
             telemetry.addData(">", "IMU1 Calibrating. Do Not Move!");
         } else {
             telemetry.addData(">", "IMU1 Calibrated");
-        }
+        }*/
 
         //telemetry.addData("VuMark from IdentifyVuMark from IO", io.getVuMark());
 
