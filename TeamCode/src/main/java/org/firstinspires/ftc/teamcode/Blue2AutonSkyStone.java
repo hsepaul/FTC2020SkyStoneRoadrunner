@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.commands.ArmAngleDown;
 import org.firstinspires.ftc.teamcode.commands.ArmAngleUp;
+import org.firstinspires.ftc.teamcode.commands.CalibrationSkystoneCommand;
 import org.firstinspires.ftc.teamcode.commands.CommandGroup;
 import org.firstinspires.ftc.teamcode.commands.DriveForwardHeadingandDistanceSensorSkyStone;
 import org.firstinspires.ftc.teamcode.commands.DriveForwardSkyStone;
@@ -99,6 +100,7 @@ public class Blue2AutonSkyStone extends BlueAutonSkyStone {
         //commands.add((new ArmAngleDown()));
         //commands.add(new WaitForTime(500));
         commands.add(new GripperPincherOpen());
+        commands.add( new CalibrationSkystoneCommand());
         //commands.add(new WaitForTime(250));
         //commands.add((new ArmAngleUp()));
 

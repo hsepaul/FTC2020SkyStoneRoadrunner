@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.commands.ArmAngleDown;
 import org.firstinspires.ftc.teamcode.commands.ArmAngleUp;
+import org.firstinspires.ftc.teamcode.commands.CalibrationSkystoneCommand;
 import org.firstinspires.ftc.teamcode.commands.CommandGroup;
 import org.firstinspires.ftc.teamcode.commands.DriveForwardHeadingandDistanceSensorSkyStone;
 import org.firstinspires.ftc.teamcode.commands.DriveForwardSkyStone;
@@ -47,7 +48,7 @@ public class Red2AutonSkyStoneOneBlock extends RedAutonSkyStone {
         commands.add(new DriveSidewaysSkyStoneMecanumTensorFlow(0,-.4,0));
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());
-        commands.add(new DriveForwardHeadingandDistanceSensorSkyStone(3.5, DriveForwardHeadingandDistanceSensorSkyStone.RIGHTLESSTHAN,.4,0));
+        commands.add(new DriveForwardHeadingandDistanceSensorSkyStone(3.5, DriveForwardHeadingandDistanceSensorSkyStone.LEFTLESSTHAN,.4,0));
         commands.add(new WaitForTime(500));
         commands.add((new ArmAngleDown()));
         commands.add(new WaitForTime(500));
@@ -80,5 +81,6 @@ public class Red2AutonSkyStoneOneBlock extends RedAutonSkyStone {
         commands.add(new DriveSidewaysSkyStoneMecanumNoSkystones(-8, DriveSidewaysSkyStoneMecanum.XLESSTHAN,-.5,90));
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());
+        commands.add( new CalibrationSkystoneCommand());
     }
 }

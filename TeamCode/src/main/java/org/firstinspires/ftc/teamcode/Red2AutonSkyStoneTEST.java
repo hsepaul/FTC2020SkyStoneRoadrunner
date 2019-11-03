@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.commands.ArmAngleDown;
 import org.firstinspires.ftc.teamcode.commands.ArmAngleUp;
+import org.firstinspires.ftc.teamcode.commands.CalibrationSkystoneCommand;
 import org.firstinspires.ftc.teamcode.commands.DriveForwardHeadingandDistanceSensorSkyStone;
 import org.firstinspires.ftc.teamcode.commands.DriveForwardSkyStone;
 import org.firstinspires.ftc.teamcode.commands.DriveSidewaysSkyStoneMecanum;
@@ -22,14 +23,15 @@ import org.firstinspires.ftc.teamcode.commands.WaitForTime;
 //@Autonomous(name="Red Sky Stone Blocks TEST",group="Auton")
 public class Red2AutonSkyStoneTEST extends RedAutonSkyStone {
     public void addFinalCommands() {
-        commands.add(new DriveSidewaysSkyStoneMecanum(-12, DriveSidewaysSkyStoneMecanum.XLESSTHAN,-.85,0));
-        commands.add(new WaitForTime(250));
+        commands.add( new CalibrationSkystoneCommand());
+        //commands.add(new DriveSidewaysSkyStoneMecanum(-12, DriveSidewaysSkyStoneMecanum.XLESSTHAN,-.85,0));
+        /*commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());
         commands.add(new WaitForTime(250));
         commands.add(new DriveSidewaysSkyStoneMecanum(12, DriveSidewaysSkyStoneMecanum.XGREATERTHAN,.85,0));
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());
-        commands.add(new WaitForTime(250));
+        commands.add(new WaitForTime(250));*/
 
         /*commands.add(new DriveForwardSkyStone(-12,DriveForwardSkyStone.XLESSTHAN,-.5,0));
         commands.add(new WaitForTime(250));
