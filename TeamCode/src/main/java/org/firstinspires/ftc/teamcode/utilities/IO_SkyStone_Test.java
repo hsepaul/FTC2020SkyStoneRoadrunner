@@ -222,10 +222,16 @@ public class IO_SkyStone_Test {
         touchLowerRelicArm.setMode(DigitalChannel.Mode.INPUT);
         touchUpperRelicArm.setMode(DigitalChannel.Mode.INPUT);*/
 
-        backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE); //REV 20:1
+        backLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD); //REV 20:1
+        frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE); //REV 20:1
+        frontLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD); //REV 20:1
+        
+
+        //backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD); //REV 40:1
+        //backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE); //REV 40:1
+        //frontRightMotor.setDirection(DcMotorSimple.Direction.FORWARD); //REV 40:1
+        //frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE); //REV 40:1
         armExtenderMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         armAngleMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
