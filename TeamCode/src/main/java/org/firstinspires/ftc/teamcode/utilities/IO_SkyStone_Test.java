@@ -21,6 +21,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.Quaternion;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 
+import org.openftc.revextensions2.ExpansionHubEx;
+import org.openftc.revextensions2.ExpansionHubMotor;
+import org.openftc.revextensions2.RevBulkData;
+
 import java.util.Locale;
 
 import static org.firstinspires.ftc.teamcode.utilities.Sleep.sleep;
@@ -30,13 +34,24 @@ import static org.firstinspires.ftc.teamcode.utilities.Sleep.sleep;
  */
 
 public class IO_SkyStone_Test {
-    public DcMotor backRightMotor, backLeftMotor, frontRightMotor, frontLeftMotor, armExtenderMotor, armAngleMotor;
+    //public DcMotor backRightMotor, backLeftMotor, frontRightMotor, frontLeftMotor, armExtenderMotor, armAngleMotor;
+
+
+    public ExpansionHubEx hub2; //For RevBulkData
+    public ExpansionHubEx hub3; //For RevBulkData
+    public ExpansionHubMotor backRightMotor, backLeftMotor, frontRightMotor, frontLeftMotor, armExtenderMotor, armAngleMotor; //RevBulkData
+
+    public RevBulkData bulkData2; //For RevBulkData
+    public RevBulkData bulkData3; //For RevBulkData
+
     //public GyroSensor gyro;
     //public CRServo hook;
     public Servo rightHook;
     public Servo leftHook;
     public Servo gripperRotate;
-    public Servo gripperPincher;
+    //public Servo gripperPincher; //servo
+    public CRServo gripperPincher;
+    public CRServo gripperPincher2;
     public DistanceSensor leftFrontDistance;
     public DistanceSensor rightFrontDistance;
 
@@ -129,8 +144,18 @@ public class IO_SkyStone_Test {
     public static double gripperRotateStowed = 1;
     public static double gripperRotateParallel = .30;
     public static double gripperRotateDown = 0;
-    public static double gripperPincherOpen = 0;
-    public static double gripperPincherClosed = 1;
+    //public static double gripperPincherOpen = 0; //servo
+    //public static double gripperPincherClosed = 1; //servo
+
+
+    public static double gripperPincherOpen = .85;
+    public static double gripperPincherStopped = 0;
+    public static double gripperPincherClosed = -.85;
+
+
+    public static double gripperPincher2Open = -.85;
+    public static double gripperPincher2Stopped = 0;
+    public static double gripperPincher2Closed = .85;
 
     // State used for updating telemetry
     public Orientation angles;
@@ -151,18 +176,31 @@ public class IO_SkyStone_Test {
     public IO_SkyStone_Test(HardwareMap map, Telemetry telemetry) {
         this.telemetry = telemetry;
         this.map = map;
-        backRightMotor = map.dcMotor.get("motorBR");
-        backLeftMotor = map.dcMotor.get("motorBL");
-        frontRightMotor = map.dcMotor.get("motorFR");
-        frontLeftMotor = map.dcMotor.get("motorFL");
-        armExtenderMotor = map.dcMotor.get("motorAE");
-        armAngleMotor = map.dcMotor.get("motorAA");
+
+        hub2 = map.get(ExpansionHubEx.class, "Expansion Hub 2"); //For RevBulkData
+        hub3 = map.get(ExpansionHubEx.class, "Expansion Hub 3"); //For RevBulkData
+
+        //backRightMotor = map.dcMotor.get("motorBR");
+        //backLeftMotor = map.dcMotor.get("motorBL");
+        //frontRightMotor = map.dcMotor.get("motorFR");
+        //frontLeftMotor = map.dcMotor.get("motorFL");
+        //armExtenderMotor = map.dcMotor.get("motorAE");
+        //armAngleMotor = map.dcMotor.get("motorAA");
+
+        backRightMotor = map.get(ExpansionHubMotor.class, "motorBR"); //For RevBulkData
+        backLeftMotor = map.get(ExpansionHubMotor.class, "motorBL"); //For RevBulkData
+        frontRightMotor = map.get(ExpansionHubMotor.class, "motorFR"); //For RevBulkData
+        frontLeftMotor = map.get(ExpansionHubMotor.class, "motorFL"); //For RevBulkData
+        armExtenderMotor = map.get(ExpansionHubMotor.class, "motorAE"); //For RevBulkData
+        armAngleMotor = map.get(ExpansionHubMotor.class, "motorAA"); //For RevBulkData
 
         //hook = map.crservo.get("hook");
         rightHook = map.servo.get("servoRH");
         leftHook = map.servo.get("servoLH");
         gripperRotate = map.servo.get("servoGR");
-        gripperPincher = map.servo.get("servoGP");
+        //gripperPincher = map.servo.get("servoGP"); //servo
+        gripperPincher = map.crservo.get("servoGP");
+        gripperPincher2 = map.crservo.get("servoGP2");
         /*rightHand = map.servo.get("right_hand");
         jewelArm = map.servo.get("jewel_arm");
         proximityArm = map.servo.get("proximity_arm");
@@ -226,7 +264,7 @@ public class IO_SkyStone_Test {
         backLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD); //REV 20:1
         frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE); //REV 20:1
         frontLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD); //REV 20:1
-        
+
 
         //backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD); //REV 40:1
         //backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE); //REV 40:1
@@ -271,8 +309,17 @@ public class IO_SkyStone_Test {
     public void gripperRotateStowed() { gripperRotate.setPosition(IO_SkyStone_Test.gripperRotateStowed); }
     public void gripperRotateParallel() { gripperRotate.setPosition(IO_SkyStone_Test.gripperRotateParallel); }
     public void gripperRotateDown() { gripperRotate.setPosition(IO_SkyStone_Test.gripperRotateDown); }
-    public void gripperPincherOpen() { gripperPincher.setPosition(IO_SkyStone_Test.gripperPincherOpen); }
-    public void gripperPincherClosed() { gripperPincher.setPosition(IO_SkyStone_Test.gripperPincherClosed); }
+    //public void gripperPincherOpen() { gripperPincher.setPosition(IO_SkyStone_Test.gripperPincherOpen); } //servo
+    //public void gripperPincherClosed() { gripperPincher.setPosition(IO_SkyStone_Test.gripperPincherClosed); } //servo
+
+    public void gripperPincherOpen() { gripperPincher.setPower(IO_SkyStone_Test.gripperPincherOpen); }
+    public void gripperPincherClosed() { gripperPincher.setPower(IO_SkyStone_Test.gripperPincherClosed); }
+    public void gripperPincherStopped() { gripperPincher.setPower(IO_SkyStone_Test.gripperPincherStopped); }
+
+    public void gripperPincher2Open() { gripperPincher2.setPower(IO_SkyStone_Test.gripperPincher2Open); }
+    public void gripperPincher2Closed() { gripperPincher2.setPower(IO_SkyStone_Test.gripperPincher2Closed); }
+    public void gripperPincher2Stopped() { gripperPincher2.setPower(IO_SkyStone_Test.gripperPincher2Stopped); }
+
 
     /*public void jewelArmDown() { jewelArm.setPosition(IO_SkyStone_Test.jewelArmDown); }
 
@@ -303,11 +350,20 @@ public class IO_SkyStone_Test {
 
     public void resetDriveEncoders() {
 
-        odometerRightOffset = frontLeftMotor.getCurrentPosition();
-        odometerLeftOffset = frontRightMotor.getCurrentPosition();
-        odometerCenterOffset = backRightMotor.getCurrentPosition();
-        armExtenderOffset = armExtenderMotor.getCurrentPosition();
-        armAngleOffset = armAngleMotor.getCurrentPosition();
+        bulkData2 = hub2.getBulkInputData(); //For RevBulkData
+        bulkData3 = hub3.getBulkInputData(); //For RevBulkData
+
+        odometerRightOffset = bulkData2.getMotorCurrentPosition(frontLeftMotor); //For RevBulkData
+        odometerLeftOffset = bulkData3.getMotorCurrentPosition(frontRightMotor); //For RevBulkData
+        odometerCenterOffset = bulkData3.getMotorCurrentPosition(backRightMotor); //For RevBulkData
+        armExtenderOffset = bulkData3.getMotorCurrentPosition(armExtenderMotor); //For RevBulkData
+        armAngleOffset = bulkData3.getMotorCurrentPosition(armAngleMotor); //For RevBulkData
+
+        //odometerRightOffset = frontLeftMotor.getCurrentPosition();
+        //odometerLeftOffset = frontRightMotor.getCurrentPosition();
+        //odometerCenterOffset = backRightMotor.getCurrentPosition();
+        //armExtenderOffset = armExtenderMotor.getCurrentPosition();
+        //armAngleOffset = armAngleMotor.getCurrentPosition();
 
         lastOdometerRightEncoder = 0;
         lastOdometerLeftEncoder = 0;
@@ -322,6 +378,9 @@ public class IO_SkyStone_Test {
         y_ZeroDegree = 0;
     }
     public void updatePosition() {
+        bulkData2 = hub2.getBulkInputData(); //For RevBulkData
+        bulkData3 = hub3.getBulkInputData(); //For RevBulkData
+
         double odometerRightEncoder = getOdometerRightEncoder();
         double odometerLeftEncoder = getOdometerLeftEncoder();
         double odometerCenterEncoder = getOdometerCenterEncoder();
@@ -535,23 +594,28 @@ public class IO_SkyStone_Test {
 
 
     public double getOdometerRightEncoder() {
-        return frontLeftMotor.getCurrentPosition() - odometerRightOffset;
+        return bulkData2.getMotorCurrentPosition(frontLeftMotor) - odometerRightOffset; //For RevBulkData
+        //return frontLeftMotor.getCurrentPosition() - odometerRightOffset;
     }
 
     public double getOdometerLeftEncoder() {
-        return frontRightMotor.getCurrentPosition() - odometerLeftOffset;
+        return bulkData3.getMotorCurrentPosition(frontRightMotor) - odometerLeftOffset; //For RevBulkData
+        //return frontRightMotor.getCurrentPosition() - odometerLeftOffset;
     }
 
     public double getOdometerCenterEncoder() {
-        return backRightMotor.getCurrentPosition() - odometerCenterOffset;
+        return bulkData3.getMotorCurrentPosition(backRightMotor) - odometerCenterOffset; //For RevBulkData
+        //return backRightMotor.getCurrentPosition() - odometerCenterOffset;
     }
 
     public double getArmExtenderEncoder() {
-        return armExtenderMotor.getCurrentPosition() - armExtenderOffset;
+        return bulkData3.getMotorCurrentPosition(armExtenderMotor) - armExtenderOffset; //For RevBulkData
+        //return armExtenderMotor.getCurrentPosition() - armExtenderOffset;
     }
 
     public double getArmAngleEncoder() {
-        return armAngleMotor.getCurrentPosition() - armAngleOffset;
+        return bulkData3.getMotorCurrentPosition(armAngleMotor) - armAngleOffset; //For RevBulkData
+        //return armAngleMotor.getCurrentPosition() - armAngleOffset;
     }
 
 
