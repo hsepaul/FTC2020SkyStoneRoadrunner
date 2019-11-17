@@ -1124,7 +1124,7 @@ public class ManualDriving_SkyStone extends OpMode
         telemetry.addData("Left Front Drive Encoder",  "Starting at %.2f",
                 io.getLeftFrontDriveEncoder());*/
 
-        telemetry.addData("Odometer Left Encoder",  "Starting at %.2f",
+        /*telemetry.addData("Odometer Left Encoder",  "Starting at %.2f",
                 io.getOdometerLeftEncoder());
         telemetry.addData("Odometer Center Encoder",  "Starting at %.2f",
                 io.getOdometerCenterEncoder());
@@ -1133,7 +1133,7 @@ public class ManualDriving_SkyStone extends OpMode
         telemetry.addData("Arm Extender Encoder",  "Starting at %.2f",
                 io.getArmExtenderEncoder());
         telemetry.addData("Arm Angle Encoder",  "Starting at %.2f",
-                io.getArmAngleEncoder());
+                io.getArmAngleEncoder());*/
 
         /*telemetry.addData("DOM1 Motor Encoder",  "Starting at %.2f",
                 io.getDOM1MotorEncoder());
