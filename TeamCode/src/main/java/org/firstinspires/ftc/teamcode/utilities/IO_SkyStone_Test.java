@@ -49,6 +49,7 @@ public class IO_SkyStone_Test {
     public Servo rightHook;
     public Servo leftHook;
     public Servo gripperRotate;
+    public Servo capStone;
     //public Servo gripperPincher; //servo
     public CRServo gripperPincher;
     public CRServo gripperPincher2;
@@ -138,12 +139,18 @@ public class IO_SkyStone_Test {
     //public static double relicHandClosed = 1;
 
     public static double rightHookUp = 0;
+    public static double rightHookMid = .65;
     public static double rightHookDown = 1;
     public static double leftHookUp = 1;
+    public static double leftHookMid = .35;
     public static double leftHookDown = 0;
-    public static double gripperRotateStowed = 1;
+    //public static double gripperRotateStowed = 1;
+    public static double gripperRotateStowed = .9;
     public static double gripperRotateParallel = .30;
     public static double gripperRotateDown = 0;
+    public static double capStoneUp = 1;
+    public static double capStoneDown = 0;
+
     //public static double gripperPincherOpen = 0; //servo
     //public static double gripperPincherClosed = 1; //servo
 
@@ -198,6 +205,7 @@ public class IO_SkyStone_Test {
         rightHook = map.servo.get("servoRH");
         leftHook = map.servo.get("servoLH");
         gripperRotate = map.servo.get("servoGR");
+        capStone = map.servo.get("servoCS");
         //gripperPincher = map.servo.get("servoGP"); //servo
         gripperPincher = map.crservo.get("servoGP");
         gripperPincher2 = map.crservo.get("servoGP2");
@@ -303,12 +311,17 @@ public class IO_SkyStone_Test {
     }*/
 
     public void rightHookUp() { rightHook.setPosition(IO_SkyStone_Test.rightHookUp); }
+    public void rightHookMid() { rightHook.setPosition(IO_SkyStone_Test.rightHookMid); }
     public void rightHookDown() { rightHook.setPosition(IO_SkyStone_Test.rightHookDown); }
     public void leftHookUp() { leftHook.setPosition(IO_SkyStone_Test.leftHookUp); }
+    public void leftHookMid() { leftHook.setPosition(IO_SkyStone_Test.leftHookMid); }
     public void leftHookDown() { leftHook.setPosition(IO_SkyStone_Test.leftHookDown); }
     public void gripperRotateStowed() { gripperRotate.setPosition(IO_SkyStone_Test.gripperRotateStowed); }
     public void gripperRotateParallel() { gripperRotate.setPosition(IO_SkyStone_Test.gripperRotateParallel); }
     public void gripperRotateDown() { gripperRotate.setPosition(IO_SkyStone_Test.gripperRotateDown); }
+    public void capStoneUp() { capStone.setPosition(IO_SkyStone_Test.capStoneUp); }
+    public void capStoneDown() { capStone.setPosition(IO_SkyStone_Test.capStoneDown); }
+
     //public void gripperPincherOpen() { gripperPincher.setPosition(IO_SkyStone_Test.gripperPincherOpen); } //servo
     //public void gripperPincherClosed() { gripperPincher.setPosition(IO_SkyStone_Test.gripperPincherClosed); } //servo
 
@@ -422,7 +435,7 @@ public class IO_SkyStone_Test {
         //double heading = Math.toRadians(getHeading());
         //heading from imu
         heading = Math.toRadians(getIMUHeading());
-        heading1 = Math.toRadians(getIMU1Heading());
+        //heading1 = Math.toRadians(getIMU1Heading());
         //x += averageChange * Math.cos(heading);
         //y += averageChange * Math.sin(heading);
 

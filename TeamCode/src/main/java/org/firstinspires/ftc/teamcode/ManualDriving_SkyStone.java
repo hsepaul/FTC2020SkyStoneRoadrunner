@@ -159,8 +159,11 @@ public class ManualDriving_SkyStone extends OpMode
         io.gripperRotateStowed();
         io.gripperPincherStopped();
         io.gripperPincher2Stopped();
-        io.leftHookUp();
-        io.rightHookUp();
+        io.leftHookMid();
+        io.rightHookMid();
+        //io.leftHookUp();
+        //io.rightHookUp();
+        io.capStoneUp();
         io.resetDriveEncoders();
 
         BasicCommand.setIO(io);
@@ -471,8 +474,10 @@ public class ManualDriving_SkyStone extends OpMode
 
 
         if (gamepad1.x) {
-            io.rightHookUp();
-            io.leftHookUp();
+            //io.rightHookUp();
+            //io.leftHookUp();
+            io.rightHookMid();
+            io.leftHookMid();
         }
 
         if (gamepad1.b) {
@@ -480,14 +485,24 @@ public class ManualDriving_SkyStone extends OpMode
             io.leftHookDown();
         }
 
+        if (gamepad2.x) {
+            io.capStoneUp();
+        }
+
+        if (gamepad2.a) {
+            io.capStoneDown();
+        }
+
         if (gamepad2.left_trigger > 0) {
             io.gripperRotateStowed();
-            position = 1;
+            //position = 1;
+            position = .9;
         }
 
         if (gripper_rotate_stowed_locked) {
             io.gripperRotateStowed();
-            position = 1;
+            //position = 1;
+            position = .9;
         }
 
         /*if (gamepad2.y) {
@@ -510,24 +525,24 @@ public class ManualDriving_SkyStone extends OpMode
             io.gripperPincher2Stopped();
         }
 
-        if (gamepad2.left_stick_y > 0) {
-            // Keep stepping up until we hit the max value.
-            position += INCREMENT ;
-            if (position >= MAX_POS ) {
-                position = MAX_POS;
-                //rampUp = !rampUp;   // Switch ramp direction
+
+        if (!gripper_rotate_stowed_locked && !gripper_rotate_stowed_commanded) {
+            if (gamepad2.left_stick_y > 0) {
+                // Keep stepping up until we hit the max value.
+                position += INCREMENT;
+                if (position >= MAX_POS) {
+                    position = MAX_POS;
+                    //rampUp = !rampUp;   // Switch ramp direction
+                }
+            } else if (gamepad2.left_stick_y < 0) {
+                // Keep stepping down until we hit the min value.
+                position -= INCREMENT;
+                if (position <= MIN_POS) {
+                    position = MIN_POS;
+                    //rampUp = !rampUp;  // Switch ramp direction
+                }
             }
         }
-        else if (gamepad2.left_stick_y < 0) {
-            // Keep stepping down until we hit the min value.
-            position -= INCREMENT ;
-            if (position <= MIN_POS ) {
-                position = MIN_POS;
-                //rampUp = !rampUp;  // Switch ramp direction
-            }
-        }
-
-
 
 
         /*if (gamepad2.left_bumper) {
@@ -654,7 +669,7 @@ public class ManualDriving_SkyStone extends OpMode
             gripper_rotate_stowed_changed = false;
         }
 
-        if (gamepad2.b) {
+        if (gamepad2.b && !gamepad2.start) {
             gripper_rotate_stowed_locked = false;
         }
 
