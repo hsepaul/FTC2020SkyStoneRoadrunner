@@ -294,7 +294,8 @@ public class ManualDriving_SkyStone extends OpMode
         double sinA = Math.sin(Math.toRadians(0.0));
         double x1 = -gamepad1.left_stick_x*cosA - gamepad1.left_stick_y*sinA;
         double y1 = -gamepad1.left_stick_x*sinA + gamepad1.left_stick_y*cosA;
-        double rotation = -gamepad1.right_stick_x * .6;
+        //double rotation = -gamepad1.right_stick_x * .6;
+        double rotation = -gamepad1.right_stick_x;
 
 
         double[] wheelPowers = new double[4];
