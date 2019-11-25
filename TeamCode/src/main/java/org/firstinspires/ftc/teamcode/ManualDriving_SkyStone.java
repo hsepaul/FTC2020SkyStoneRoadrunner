@@ -233,7 +233,7 @@ public class ManualDriving_SkyStone extends OpMode
         telemetry.addData("Left Front Drive Encoder",  "Starting at %.2f",
                 io.getLeftFrontDriveEncoder());*/
         io.calibrateGyroandIMU();
-        io.calibrateGyroandIMU1();
+        //io.calibrateGyroandIMU1();
         telemetry.addData("2WD!", "Go");
     }
 
