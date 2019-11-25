@@ -234,7 +234,7 @@ public class ManualDriving_SkyStone extends OpMode
                 io.getLeftFrontDriveEncoder());*/
         io.calibrateGyroandIMU();
         //io.calibrateGyroandIMU1();
-        telemetry.addData("2WD!", "Go");
+        telemetry.addData("4WD!", "Go");
     }
 
     /*
