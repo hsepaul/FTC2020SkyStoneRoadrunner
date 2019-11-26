@@ -159,9 +159,10 @@ public class ManualDriving_SkyStone extends OpMode
         io.gripperRotateStowed();
         io.gripperPincherStopped();
         io.gripperPincher2Stopped();
-        io.leftHookMid();
-        io.rightHookMid();
-        //io.leftHookUp();
+        //io.leftHookMid();
+        //io.rightHookMid();
+        io.rightHookMidDown();
+        io.leftHookUp();
         //io.rightHookUp();
         io.capStoneUp();
         io.resetDriveEncoders();
@@ -476,9 +477,10 @@ public class ManualDriving_SkyStone extends OpMode
 
         if (gamepad1.x) {
             //io.rightHookUp();
-            //io.leftHookUp();
-            io.rightHookMid();
-            io.leftHookMid();
+            io.leftHookUp();
+            //io.rightHookMid();
+            io.rightHookMidDown();
+            //io.leftHookMid();
         }
 
         if (gamepad1.b) {
@@ -495,13 +497,13 @@ public class ManualDriving_SkyStone extends OpMode
         }
 
         if (gamepad2.left_trigger > 0) {
-            io.gripperRotateStowed();
+            //io.gripperRotateStowed();
             //position = 1;
             position = .9;
         }
 
         if (gripper_rotate_stowed_locked) {
-            io.gripperRotateStowed();
+            //io.gripperRotateStowed();
             //position = 1;
             position = .9;
         }
@@ -676,7 +678,11 @@ public class ManualDriving_SkyStone extends OpMode
 
         if (!gamepad2.y && !gripper_rotate_stowed_commanded && !gripper_rotate_stowed_locked) {
             //keep gripper parallel
-            position = (io.getArmAngleEncoder() + 9223) / 29018;
+            //position = (io.getArmAngleEncoder() + 9223) / 29018;
+            //position = (io.getArmAngleEncoder() + 7363.3) / 36000;
+            //position = (io.getArmAngleEncoder() + 7772.1) / 29018;
+            //position = (io.getArmAngleEncoder() + 8100.1) / 27821;
+            position = (io.getArmAngleEncoder() + 7896.4) / 28053;
         }
 
         io.gripperRotate.setPosition(position);

@@ -140,6 +140,7 @@ public class IO_SkyStone_Test {
 
     public static double rightHookUp = 0;
     public static double rightHookMid = .65;
+    public static double rightHookMidDown = .75;
     public static double rightHookDown = 1;
     public static double leftHookUp = 1;
     public static double leftHookMid = .35;
@@ -312,6 +313,7 @@ public class IO_SkyStone_Test {
 
     public void rightHookUp() { rightHook.setPosition(IO_SkyStone_Test.rightHookUp); }
     public void rightHookMid() { rightHook.setPosition(IO_SkyStone_Test.rightHookMid); }
+    public void rightHookMidDown() { rightHook.setPosition(IO_SkyStone_Test.rightHookMidDown); }
     public void rightHookDown() { rightHook.setPosition(IO_SkyStone_Test.rightHookDown); }
     public void leftHookUp() { leftHook.setPosition(IO_SkyStone_Test.leftHookUp); }
     public void leftHookMid() { leftHook.setPosition(IO_SkyStone_Test.leftHookMid); }
@@ -409,7 +411,7 @@ public class IO_SkyStone_Test {
         double averageChangeSideways = (odometerCenterEncoder - lastOdometerCenterEncoder);
 
 
-        if (isGoldFound && lastIsGoldFound) {
+        /*if (isGoldFound && lastIsGoldFound) {
             twoCyclesIsGoldFound = true;
         } else {
             twoCyclesIsGoldFound = false;
@@ -425,7 +427,7 @@ public class IO_SkyStone_Test {
             twoCyclesIsGoldCentered = true;
         } else {
             twoCyclesIsGoldCentered = false;
-        }
+        }*/
 
         //gravity  = imu.getGravity();
         //getIMUHeading();
@@ -454,9 +456,9 @@ public class IO_SkyStone_Test {
         lastArmExtenderEncoder = armExtenderEncoder;
         lastArmAngleEncoder = armAngleEncoder;
 
-        lastIsGoldFound = isGoldFound;
+        /*lastIsGoldFound = isGoldFound;
         lastIsGoldAligned = isGoldAligned;
-        lastIsGoldCentered = isGoldCentered;
+        lastIsGoldCentered = isGoldCentered;*/
 
         //lastRightBackEncoder = rightBackEncoder;
         //lastLeftBackEncoder = leftBackEncoder;
@@ -476,8 +478,8 @@ public class IO_SkyStone_Test {
 
         telemetry.addData("IMU Heading",  "Starting at %.2f",
                 getIMUHeading());
-        telemetry.addData("IMU1 Heading",  "Starting at %.2f",
-                getIMU1Heading());
+        /*telemetry.addData("IMU1 Heading",  "Starting at %.2f",
+                getIMU1Heading());*/
 
 /*        telemetry.addData("IMU Y",  "Starting at %.2f",
                 angles.secondAngle);
