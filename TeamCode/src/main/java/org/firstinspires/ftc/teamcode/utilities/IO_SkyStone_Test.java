@@ -149,7 +149,7 @@ public class IO_SkyStone_Test {
     public static double gripperRotateStowed = .9;
     public static double gripperRotateParallel = .30;
     public static double gripperRotateDown = 0;
-    public static double capStoneUp = 1;
+    public static double capStoneUp = .9;
     public static double capStoneDown = 0;
 
     //public static double gripperPincherOpen = 0; //servo
@@ -157,13 +157,18 @@ public class IO_SkyStone_Test {
 
 
     public static double gripperPincherOpen = .85;
+    public static double gripperPincherOpenSlow = .40;
     public static double gripperPincherStopped = 0;
     public static double gripperPincherClosed = -.85;
+    public static double gripperPincherClosedSlow = -.40;
+
 
 
     public static double gripperPincher2Open = -.85;
+    public static double gripperPincher2OpenSlow = -.40;
     public static double gripperPincher2Stopped = 0;
     public static double gripperPincher2Closed = .85;
+    public static double gripperPincher2ClosedSlow = .40;
 
     // State used for updating telemetry
     public Orientation angles;
@@ -328,11 +333,15 @@ public class IO_SkyStone_Test {
     //public void gripperPincherClosed() { gripperPincher.setPosition(IO_SkyStone_Test.gripperPincherClosed); } //servo
 
     public void gripperPincherOpen() { gripperPincher.setPower(IO_SkyStone_Test.gripperPincherOpen); }
+    public void gripperPincherOpenSlow() { gripperPincher.setPower(IO_SkyStone_Test.gripperPincherOpenSlow); }
     public void gripperPincherClosed() { gripperPincher.setPower(IO_SkyStone_Test.gripperPincherClosed); }
+    public void gripperPincherClosedSlow() { gripperPincher.setPower(IO_SkyStone_Test.gripperPincherClosedSlow); }
     public void gripperPincherStopped() { gripperPincher.setPower(IO_SkyStone_Test.gripperPincherStopped); }
 
     public void gripperPincher2Open() { gripperPincher2.setPower(IO_SkyStone_Test.gripperPincher2Open); }
+    public void gripperPincher2OpenSlow() { gripperPincher2.setPower(IO_SkyStone_Test.gripperPincher2OpenSlow); }
     public void gripperPincher2Closed() { gripperPincher2.setPower(IO_SkyStone_Test.gripperPincher2Closed); }
+    public void gripperPincher2ClosedSlow() { gripperPincher2.setPower(IO_SkyStone_Test.gripperPincher2ClosedSlow); }
     public void gripperPincher2Stopped() { gripperPincher2.setPower(IO_SkyStone_Test.gripperPincher2Stopped); }
 
 
