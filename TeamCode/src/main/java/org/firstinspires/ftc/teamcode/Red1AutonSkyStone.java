@@ -3,9 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.commands.CalibrationSkystoneCommand;
-import org.firstinspires.ftc.teamcode.commands.DriveForward;
-import org.firstinspires.ftc.teamcode.commands.DriveForwardHeavySkyStone;
-import org.firstinspires.ftc.teamcode.commands.DriveForwardHeavySkyStoneRed;
+import org.firstinspires.ftc.teamcode.commands.DriveForwardHeavySkyStonewithSlideRight;
 import org.firstinspires.ftc.teamcode.commands.DriveForwardSkyStone;
 import org.firstinspires.ftc.teamcode.commands.DriveSidewaysSkyStoneMecanum;
 import org.firstinspires.ftc.teamcode.commands.HooksDown;
@@ -28,11 +26,11 @@ public class Red1AutonSkyStone extends RedAutonSkyStone {
         commands.add(new ResetDriveEncoders());
         commands.add(new WaitForTime(500));
         commands.add(new HooksDown());
-        commands.add(new WaitForTime(1000));
-        commands.add(new DriveForwardHeavySkyStoneRed(-30,DriveForwardHeavySkyStoneRed.XLESSTHAN,-.75,0));
+        commands.add(new WaitForTime(1500));
+        commands.add(new DriveForwardHeavySkyStonewithSlideRight(-30, DriveForwardHeavySkyStonewithSlideRight.XLESSTHAN,-.75,0));
         commands.add(new WaitForTime(500));
         commands.add(new HooksUp());
-        commands.add(new WaitForTime(1000));
+        commands.add(new WaitForTime(1500));
         commands.add(new ResetDriveEncoders());
         commands.add(new WaitForTime(250));
         commands.add(new DriveSidewaysSkyStoneMecanum(-50,DriveSidewaysSkyStoneMecanum.XLESSTHAN,-.85,0));

@@ -131,17 +131,17 @@ public class DriveSidewaysSkyStoneMecanum extends BasicCommand {
         telemetry.addData("skystoneOffsetDistanceToTape: ",io.skystoneOffsetDistanceToTape);
         telemetry.addData("skystone2Distance: ",io.skystone2Distance);*/
 
-        /*telemetry.addData("center after reset get sideways distance: ",io.getSidewaysDistance());
+        telemetry.addData("center after reset get sideways distance: ",io.getSidewaysDistance());
         telemetry.addData("center after reset get odometer center encoder: ",io.getOdometerCenterEncoder());
-        telemetry.addData("center after reset back right motor encoder: ",io.backRightMotor.getCurrentPosition());
+        //telemetry.addData("center after reset back right motor encoder: ",io.backRightMotor.getCurrentPosition());
 
         telemetry.addData("right after reset get x distance: ",io.getX());
         telemetry.addData("right after reset get odometer right encoder: ",io.getOdometerRightEncoder());
-        telemetry.addData("right after reset back right motor encoder: ",io.frontLeftMotor.getCurrentPosition());
+        //telemetry.addData("right after reset back right motor encoder: ",io.frontLeftMotor.getCurrentPosition());
 
         telemetry.addData("left after reset get x distance: ",io.getX());
         telemetry.addData("left after reset get odometer right encoder: ",io.getOdometerLeftEncoder());
-        telemetry.addData("left after reset back right motor encoder: ",io.frontRightMotor.getCurrentPosition());*/
+        //telemetry.addData("left after reset back right motor encoder: ",io.frontRightMotor.getCurrentPosition());
 
 
         /*telemetry.addData("Target Heading:", targetHeading);

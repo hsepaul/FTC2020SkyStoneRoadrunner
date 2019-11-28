@@ -147,28 +147,29 @@ public class IO_SkyStone_Test {
     public static double leftHookDown = 0;
     //public static double gripperRotateStowed = 1;
     public static double gripperRotateStowed = .9;
-    public static double gripperRotateParallel = .30;
+    public static double gripperRotateParallel = .33;
     public static double gripperRotateDown = 0;
-    public static double capStoneUp = .9;
-    public static double capStoneDown = 0;
+    public static double capStoneUp = .8;
+    //public static double capStoneDown = 0;
+    public static double capStoneDown = .5;
 
     //public static double gripperPincherOpen = 0; //servo
     //public static double gripperPincherClosed = 1; //servo
 
 
     public static double gripperPincherOpen = .85;
-    public static double gripperPincherOpenSlow = .40;
+    public static double gripperPincherOpenSlow = .60;
     public static double gripperPincherStopped = 0;
     public static double gripperPincherClosed = -.85;
-    public static double gripperPincherClosedSlow = -.40;
+    public static double gripperPincherClosedSlow = -.60;
 
 
 
     public static double gripperPincher2Open = -.85;
-    public static double gripperPincher2OpenSlow = -.40;
+    public static double gripperPincher2OpenSlow = -.60;
     public static double gripperPincher2Stopped = 0;
     public static double gripperPincher2Closed = .85;
-    public static double gripperPincher2ClosedSlow = .40;
+    public static double gripperPincher2ClosedSlow = .60;
 
     // State used for updating telemetry
     public Orientation angles;
@@ -503,12 +504,12 @@ public class IO_SkyStone_Test {
     }
 
     public double getX() {
-        return x / COUNTSPERINCH;
+        return -x / COUNTSPERINCH;
     }
     public double getY() {
-        return y / COUNTSPERINCH;
+        return -y / COUNTSPERINCH;
     }
-    public double getSidewaysDistance() { return sidewaysdistance / COUNTSPERINCH; }
+    public double getSidewaysDistance() { return -sidewaysdistance / COUNTSPERINCH; }
 
     public double getX_ZeroDegree() {
         return x_ZeroDegree / COUNTSPERINCH;

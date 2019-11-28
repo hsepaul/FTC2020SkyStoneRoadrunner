@@ -20,7 +20,7 @@ public class CalibrationSkystoneCommand extends BasicCommand {
     public void init() {
         timeOut = System.currentTimeMillis() + 8000;
 
-        io.gripperRotateStowed();
+        //io.gripperRotateStowed();
         io.resetDriveEncoders();
 
         // Tell the driver that initialization is complete.
@@ -41,7 +41,7 @@ public class CalibrationSkystoneCommand extends BasicCommand {
     }
 
     public void execute(){
-        io.gripperRotateStowed();
+        //io.gripperRotateStowed();
 
         if ((io.touchArmExtender.getState() == true) && !calibrationArmExtenderDone) {
             io.armExtenderMotor.setPower(.5);

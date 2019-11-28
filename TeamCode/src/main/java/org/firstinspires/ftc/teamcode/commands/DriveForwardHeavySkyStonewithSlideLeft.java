@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.utilities.PID;
  * Created by David Austin on 10/27/2016.
  */
 
-public class DriveForwardHeavySkyStoneRed extends BasicCommand {
+public class DriveForwardHeavySkyStonewithSlideLeft extends BasicCommand {
     double targetPosition;
     double endDistance;
     double driveSpeed;
@@ -22,7 +22,7 @@ public class DriveForwardHeavySkyStoneRed extends BasicCommand {
     long endTime;
     double targetHeading;
     boolean coast = false;
-    public DriveForwardHeavySkyStoneRed(double targetPosition, int test, double spd, double targetHeading){
+    public DriveForwardHeavySkyStonewithSlideLeft(double targetPosition, int test, double spd, double targetHeading){
         headingPID = new PID(0.07,0,0);
         //headingPID = new PID(0.02, 0.02, 0);
         //headingPID = new PID(0.05, 0, 0);
@@ -35,12 +35,12 @@ public class DriveForwardHeavySkyStoneRed extends BasicCommand {
         driveSpeed = spd;
         this.targetHeading = targetHeading;
     }
-    public DriveForwardHeavySkyStoneRed(double targetPosition, int test, double spd, double targetHeading, boolean coast){
+    public DriveForwardHeavySkyStonewithSlideLeft(double targetPosition, int test, double spd, double targetHeading, boolean coast){
         this(targetPosition,test,spd,targetHeading);
         this.coast=coast;
     }
 
-    public DriveForwardHeavySkyStoneRed(double dist) {
+    public DriveForwardHeavySkyStonewithSlideLeft(double dist) {
         this(dist, YGREATERTHAN, 0.5, 0.0);
     }
 
@@ -72,10 +72,12 @@ public class DriveForwardHeavySkyStoneRed extends BasicCommand {
         correction = Range.clip(correction,-1,1);
 
 
-        double frontleftSpeed = (-driveSpeed * distanceCorrection) - correction - .25;
-        double frontrightSpeed = (-driveSpeed * distanceCorrection) + correction + .25;
-        double backleftSpeed = (-driveSpeed * distanceCorrection) - correction + .25;
-        double backrightSpeed = (-driveSpeed * distanceCorrection) + correction - .25;
+        double frontleftSpeed = (-driveSpeed * distanceCorrection) - correction + .35;
+        double frontrightSpeed = (-driveSpeed * distanceCorrection) + correction - .35;
+        double backleftSpeed = (-driveSpeed * distanceCorrection) - correction - .35;
+        double backrightSpeed = (-driveSpeed * distanceCorrection) + correction + .35;
+
+
 
         if (driveSpeed > 0) {
             frontleftSpeed = Range.clip(frontleftSpeed, -1, 0);
@@ -90,10 +92,6 @@ public class DriveForwardHeavySkyStoneRed extends BasicCommand {
         }
 
         io.setDrivePower(frontleftSpeed,frontrightSpeed,backleftSpeed,backrightSpeed);
-
-
-
-
 
 
         //double leftSpeed = (-driveSpeed * distanceCorrection) - correction;

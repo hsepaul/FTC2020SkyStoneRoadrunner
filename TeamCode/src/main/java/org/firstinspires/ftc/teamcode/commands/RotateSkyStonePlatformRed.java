@@ -1,35 +1,34 @@
 package org.firstinspires.ftc.teamcode.commands;
 
 import com.qualcomm.robotcore.util.Range;
+
 import org.firstinspires.ftc.teamcode.utilities.PID;
-import org.firstinspires.ftc.teamcode.utilities.HSPID;
 
 /**
  * Created by David Austin on 10/27/2016.
  */
 
-public class Rotate extends BasicCommand {
+public class RotateSkyStonePlatformRed extends BasicCommand {
     double heading,leftSpd,rightSpd;
     PID headingPID;
     long timeOut;
     boolean rotatetodepot = false;
     boolean rotateafterhook = false;
 
-    public Rotate (double heading,double leftSpd,double rightSpd){
+    public RotateSkyStonePlatformRed(double heading, double leftSpd, double rightSpd){
         this.heading = heading;
         this.leftSpd = leftSpd;
         this.rightSpd = rightSpd;
-        //headingPID = new PID(0.07,0,0); //was 0.05
-        headingPID = new PID(0.04,0,0); //was 0.05
+        headingPID = new PID(0.07,0,0); //was 0.05
         headingPID.setTarget(heading);
     }
 
-    public Rotate (double heading,double leftSpd,double rightSpd, boolean rotatetodepot){
+    public RotateSkyStonePlatformRed(double heading, double leftSpd, double rightSpd, boolean rotatetodepot){
         this(heading, leftSpd, rightSpd);
         this.rotatetodepot = rotatetodepot;
     }
 
-    public Rotate (double heading,double leftSpd,double rightSpd, boolean rotatetodepot, boolean rotateafterhook){
+    public RotateSkyStonePlatformRed(double heading, double leftSpd, double rightSpd, boolean rotatetodepot, boolean rotateafterhook){
         this(heading, leftSpd, rightSpd);
         this.rotateafterhook = rotateafterhook;
     }
@@ -66,7 +65,29 @@ public class Rotate extends BasicCommand {
         double correction = headingPID.getCorrection(Math.toDegrees(io.heading));
         correction = Range.clip(correction,-1,1);
         //correction = Range.clip(correction,0,1);
-        io.setDrivePower(-correction*leftSpd,correction*rightSpd, -correction*leftSpd,correction*rightSpd);
+
+
+
+
+        double frontleftSpeed = (-correction*leftSpd) + .25;
+        double frontrightSpeed = (correction*rightSpd) - .25;
+        double backleftSpeed = (-correction*leftSpd)  - .25;
+        double backrightSpeed = (correction*rightSpd) + .25;
+
+
+
+        frontleftSpeed = Range.clip(frontleftSpeed, -1, 1);
+        backleftSpeed = Range.clip(backleftSpeed, -1, 1);
+        frontrightSpeed = Range.clip(frontrightSpeed, -1, 1);
+        backrightSpeed = Range.clip(backrightSpeed, -1, 1);
+
+
+
+        io.setDrivePower(frontleftSpeed,frontrightSpeed,backleftSpeed,backrightSpeed);
+
+
+
+        //io.setDrivePower(-correction*leftSpd,(correction*rightSpd)+.35, (-correction*leftSpd)+.35,correction*rightSpd);
         telemetry.addData("Target Heading:", heading);
         //telemetry.addData("Heading: ", io.getHeading());
         telemetry.addData("Heading: ", Math.toDegrees(io.heading));

@@ -83,6 +83,7 @@ public class ManualDriving_SkyStone extends OpMode
     private boolean full_speed_engaged = false;
     private boolean low_speed_engaged = false;
     static final double INCREMENT   = 0.025;     // amount to slew servo each CYCLE_MS cycle
+    static final double INCREMENTSLOW   = 0.01;     // amount to slew servo each CYCLE_MS cycle
     static final int    CYCLE_MS    =   50;     // period of each cycle
     static final double MAX_POS     =  1.0;     // Maximum rotational position
     static final double MIN_POS     =  0.0;     // Minimum rotational position
@@ -90,6 +91,8 @@ public class ManualDriving_SkyStone extends OpMode
     // Define class members
     double  position = 1; //(MAX_POS - MIN_POS) / 2; // Start at halfway position
     double  position2 = 1; //(MAX_POS - MIN_POS) / 2; // Start at halfway position
+
+    //double positionCapstone = .9;
 
     int skystone_level = 1;
     boolean skystone_level_changed_up = false;
@@ -490,10 +493,19 @@ public class ManualDriving_SkyStone extends OpMode
 
         if (gamepad2.x) {
             io.capStoneUp();
+            //positionCapstone = .9;
         }
 
         if (gamepad2.a) {
             io.capStoneDown();
+
+            /*positionCapstone -= INCREMENTSLOW;
+            if (positionCapstone <= MIN_POS) {
+                positionCapstone = MIN_POS;
+                //rampUp = !rampUp;  // Switch ramp direction
+            }*/
+
+            //io.capStone.setPosition(positionCapstone);
         }
 
         if (gamepad2.left_trigger > 0) {
@@ -522,6 +534,11 @@ public class ManualDriving_SkyStone extends OpMode
             io.gripperPincherOpenSlow();
             //io.gripperPincher2Open();
             io.gripperPincher2OpenSlow();
+            if (io.getArmAngleEncoder() <= -8000){
+                io.armAngleMotor.setPower(0);
+            } else {
+                io.armAngleMotor.setPower(-1);
+            }
         } else if (gamepad2.right_bumper) {
             io.gripperPincherClosed();
             io.gripperPincher2Closed();
@@ -661,7 +678,10 @@ public class ManualDriving_SkyStone extends OpMode
             }
         }
         else {
-            io.armAngleMotor.setPower(0);
+            if (!gamepad2.left_bumper){
+                io.armAngleMotor.setPower(0);
+            }
+            //io.armAngleMotor.setPower(0);
         }
 
 

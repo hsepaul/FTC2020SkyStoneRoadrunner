@@ -24,12 +24,12 @@ public class DriveSidewaysSkyStoneMecanumNoSkystones extends BasicCommand {
     double targetHeading;
     boolean coast = false;
     public DriveSidewaysSkyStoneMecanumNoSkystones(double targetPosition, int test, double spd, double targetHeading){
-        headingPID = new PID(0.03,0.00,0);
+        headingPID = new PID(0.02,0.00,0);
         //headingPID = new PID(0.02, 0.02, 0);
         //headingPID = new PID(0.05, 0, 0);
         headingPID.setTarget(targetHeading);
-        distancePID = new PID(.4,0,0);
-        distanceForwardBack = new PID(.4,0,0);
+        distancePID = new PID(.3,0,0);
+        distanceForwardBack = new PID(.3,0,0);
         //distancePID = new PID(.2,0,0);
         distancePID.setTarget(targetPosition);
         distanceForwardBack.setTarget(0);
