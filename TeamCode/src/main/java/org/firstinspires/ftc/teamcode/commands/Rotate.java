@@ -12,31 +12,33 @@ public class Rotate extends BasicCommand {
     double heading,leftSpd,rightSpd;
     PID headingPID;
     long timeOut;
+    long wakeupTime;
     boolean rotatetodepot = false;
     boolean rotateafterhook = false;
 
-    public Rotate (double heading,double leftSpd,double rightSpd){
+    public Rotate (double heading,double leftSpd,double rightSpd, long timeOut){
         this.heading = heading;
         this.leftSpd = leftSpd;
         this.rightSpd = rightSpd;
+        this.timeOut = timeOut;
         //headingPID = new PID(0.07,0,0); //was 0.05
         headingPID = new PID(0.04,0,0); //was 0.05
         headingPID.setTarget(heading);
     }
 
-    public Rotate (double heading,double leftSpd,double rightSpd, boolean rotatetodepot){
-        this(heading, leftSpd, rightSpd);
+    public Rotate (double heading,double leftSpd,double rightSpd, long timeOut, boolean rotatetodepot){
+        this(heading, leftSpd, rightSpd, timeOut);
         this.rotatetodepot = rotatetodepot;
     }
 
-    public Rotate (double heading,double leftSpd,double rightSpd, boolean rotatetodepot, boolean rotateafterhook){
-        this(heading, leftSpd, rightSpd);
+    public Rotate (double heading,double leftSpd,double rightSpd, long timeOut, boolean rotatetodepot, boolean rotateafterhook){
+        this(heading, leftSpd, rightSpd, timeOut);
         this.rotateafterhook = rotateafterhook;
     }
 
     public void init() {
-
-        timeOut = System.currentTimeMillis() + 4000;
+        wakeupTime = System.currentTimeMillis() + timeOut;
+        //timeOut = System.currentTimeMillis() + 4000;
 
         if (rotatetodepot){
             if (io.isGoldTheCenterMineral) {
@@ -95,7 +97,7 @@ public class Rotate extends BasicCommand {
         telemetry.addData("isGoldTheRightMineralh: ", io.isGoldTheRightMineral );
         //telemetry.addData("VuMark from IdentifyVuMark from IO", io.getVuMark());
         //return Math.abs(io.getHeading() - heading) <=2 || System.currentTimeMillis() >= timeOut;
-        return Math.abs(Math.toDegrees(io.heading) - heading) <=2.75 || System.currentTimeMillis() >= timeOut;
+        return Math.abs(Math.toDegrees(io.heading) - heading) <=2.75 || System.currentTimeMillis() >= wakeupTime;
         //return System.currentTimeMillis() >= timeOut;
     }
     public void stop() {

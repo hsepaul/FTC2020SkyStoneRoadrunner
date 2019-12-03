@@ -59,7 +59,7 @@ public abstract class RedAutonOnHook extends FirstAuton {
         //commands.add(new ReleaseCage());
         //commands.add(new CageHome());
         //commands.add(new SetIMUOffset());
-        commands.add(new Rotate(0, .60, .60, false, true));
+        commands.add(new Rotate(0, .60, .60, 4000, false, true));
         commands.add(new WaitForTime(50));
         commands.add(new ResetDriveEncoders());
         /*commands.add(new RobotDown());

@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+//import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -62,9 +62,9 @@ public class IO_SkyStone_Test {
 
     public AnalogInput armAnglePot;
 
-    public WebcamName webcamName;
+    //public WebcamName webcamName;
     public VuforiaLocalizer vuforia;
-    public VuforiaLocalizer.Parameters vfparameters;
+    //public VuforiaLocalizer.Parameters vfparameters;
 
     public BNO055IMU imu;
     public BNO055IMU imu1;
@@ -226,17 +226,17 @@ public class IO_SkyStone_Test {
 
         armAnglePot = map.analogInput.get("potAA");
 
-        webcamName = map.get(WebcamName.class, "Webcam 1");
+        //webcamName = map.get(WebcamName.class, "Webcam 1");
         /*touchProximity = map.digitalChannel.get("touchproximity");
         touchLowerRelicArm = map.digitalChannel.get("touchlowerrelicarm");
         touchUpperRelicArm = map.digitalChannel.get("touchupperrelicarm");*/
 
-        String VUFORIA_KEY =
-                "Ae+uGTX/////AAABmQV3De8djUCDjn2zDZDbCssvJv8/irA8Dzm+UnPYeGcgN7Y/V1EFU/DgmBcA3x5TxqeooD4B02M6PR+5IBifNlYVIXezFdgl/f9PKHDE7KAl3yeEV993njRk8ocjpNJwYDqcN1vZP6yWRqe4Y9QdAJH+KZPQeR+eN5wT87m4ZNHhsC5DidIkFYuhVNVdM+Gn9CLUphmjX1woXqSLqK3BdmU6XEfKU730USi7clKwVidBUMCcFcL878gUG0Mn5JL7dcPUO3r1q+8ODt1wInwPWgSQlXrrY4wWSeHJ5VwwihGnisIZ2Ps41yqf1QtrzK7FsDz5P5aQaQ7rVtzntFLZZ+ftIy0aJ+YelBy1QtZX+dc8";
-        vfparameters = new VuforiaLocalizer.Parameters();
-        vfparameters.vuforiaLicenseKey = VUFORIA_KEY;
-        vfparameters.cameraName = webcamName;
-        vuforia = ClassFactory.getInstance().createVuforia(vfparameters);
+/*        String VUFORIA_KEY =
+                "Ae+uGTX/////AAABmQV3De8djUCDjn2zDZDbCssvJv8/irA8Dzm+UnPYeGcgN7Y/V1EFU/DgmBcA3x5TxqeooD4B02M6PR+5IBifNlYVIXezFdgl/f9PKHDE7KAl3yeEV993njRk8ocjpNJwYDqcN1vZP6yWRqe4Y9QdAJH+KZPQeR+eN5wT87m4ZNHhsC5DidIkFYuhVNVdM+Gn9CLUphmjX1woXqSLqK3BdmU6XEfKU730USi7clKwVidBUMCcFcL878gUG0Mn5JL7dcPUO3r1q+8ODt1wInwPWgSQlXrrY4wWSeHJ5VwwihGnisIZ2Ps41yqf1QtrzK7FsDz5P5aQaQ7rVtzntFLZZ+ftIy0aJ+YelBy1QtZX+dc8";*/
+        //vfparameters = new VuforiaLocalizer.Parameters();
+        //vfparameters.vuforiaLicenseKey = VUFORIA_KEY;
+        //vfparameters.cameraName = webcamName;
+        //vuforia = ClassFactory.getInstance().createVuforia(vfparameters);
 
 
         //gyro = map.gyroSensor.get("gyro");
@@ -688,7 +688,7 @@ public class IO_SkyStone_Test {
         telemetry.addData(">", "IMU Calibrating. Do Not Move!");
         //telemetry.update();
 
-        sleep(500);
+        //sleep(500);
 
         //Thread.sleep(1000); // wait 1 second for gyro to stabilize (may be movement from initializing servo)
         //gyro.calibrate();
@@ -700,7 +700,7 @@ public class IO_SkyStone_Test {
         telemetry.addData(">", "IMU1 Calibrating. Do Not Move!");
         //telemetry.update();
 
-        sleep(500);
+        //sleep(500);
 
         //Thread.sleep(1000); // wait 1 second for gyro to stabilize (may be movement from initializing servo)
         //gyro.calibrate();

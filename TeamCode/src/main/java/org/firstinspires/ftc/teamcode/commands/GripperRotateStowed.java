@@ -7,16 +7,16 @@ package org.firstinspires.ftc.teamcode.commands;
 
 public class GripperRotateStowed extends BasicCommand {
     long timeOut;
+    long wakeupTime;
 
     boolean gripperRotateStowed = false;
 
 
-    public GripperRotateStowed(){
-
-    }
+    public GripperRotateStowed(long timeOut){ this.timeOut = timeOut; }
 
     public void init() {
-        timeOut = System.currentTimeMillis() + 3000;
+        wakeupTime = System.currentTimeMillis() + timeOut;
+        //timeOut = System.currentTimeMillis() + 3000;
         gripperRotateStowed = false;
     }
 
@@ -27,7 +27,7 @@ public class GripperRotateStowed extends BasicCommand {
     }
 
     public boolean isFinished(){
-        return gripperRotateStowed || System.currentTimeMillis() >= timeOut;
+        return gripperRotateStowed || System.currentTimeMillis() >= wakeupTime;
     }
     public void stop() {
         io.setDrivePower(0,0, 0, 0);

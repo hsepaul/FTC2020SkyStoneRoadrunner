@@ -35,7 +35,7 @@ public class Blue2Auton extends BlueAuton {
         //commands.add(new WaitForTime(50));
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());
-        commands.add(new Rotate(-62.5, .60, .60));
+        commands.add(new Rotate(-62.5, .60, .60, 4000));
         //commands.add(new WaitForTime(50));
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());
@@ -51,7 +51,7 @@ public class Blue2Auton extends BlueAuton {
         //commands.add(new WaitForTime(50));
         //commands.add(new ResetDriveEncoders());
 
-        commands.add(new Rotate(-55, .55, .55));
+        commands.add(new Rotate(-55, .55, .55, 4000));
         //commands.add(new WaitForTime(50));
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());
@@ -67,7 +67,7 @@ public class Blue2Auton extends BlueAuton {
         //commands.add(new ResetDriveEncoders());
 
         //commands.add(new WaitForTime(50));
-        commands.add(new Rotate(-15, .60, .60));
+        commands.add(new Rotate(-15, .60, .60, 4000));
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());
 

@@ -60,7 +60,7 @@ public abstract class BlueAutonold extends FirstAuton {
         //commands.add(new IdentifyJewel());
         //commands.add(new Rotate(-15,.7,0));
         commands.add(new WaitForTime(250));
-        commands.add(new Rotate(0,.5,.5));
+        commands.add(new Rotate(0,.5,.5, 4000));
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());
         //BasicCommand.getIO().resetDriveEncoders();

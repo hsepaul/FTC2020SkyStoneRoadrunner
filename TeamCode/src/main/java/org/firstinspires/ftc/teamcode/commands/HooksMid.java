@@ -7,16 +7,15 @@ package org.firstinspires.ftc.teamcode.commands;
 
 public class HooksMid extends BasicCommand {
     long timeOut;
+    long wakeupTime;
 
     boolean hooksMid = false;
 
-
-    public HooksMid(){
-
-    }
+    public HooksMid(long timeOut){ this.timeOut = timeOut; }
 
     public void init() {
-        timeOut = System.currentTimeMillis() + 3000;
+        wakeupTime = System.currentTimeMillis() + timeOut;
+        //timeOut = System.currentTimeMillis() + 3000;
         hooksMid = false;
     }
 
@@ -28,7 +27,7 @@ public class HooksMid extends BasicCommand {
     }
 
     public boolean isFinished(){
-        return hooksMid || System.currentTimeMillis() >= timeOut;
+        return hooksMid || System.currentTimeMillis() >= wakeupTime;
     }
     public void stop() {
         io.setDrivePower(0,0, 0, 0);

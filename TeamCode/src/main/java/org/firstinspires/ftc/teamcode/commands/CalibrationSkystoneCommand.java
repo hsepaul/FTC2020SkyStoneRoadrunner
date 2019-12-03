@@ -7,18 +7,18 @@ package org.firstinspires.ftc.teamcode.commands;
 
 public class CalibrationSkystoneCommand extends BasicCommand {
     long timeOut;
+    long wakeupTime;
     boolean calibrationComplete = false;
 
     boolean calibrationArmExtenderDone = false;
     boolean calibrationArmAngleDone = false;
 
 
-    public CalibrationSkystoneCommand(){
-
-    }
+    public CalibrationSkystoneCommand(long timeOut){ this.timeOut = timeOut; }
 
     public void init() {
-        timeOut = System.currentTimeMillis() + 8000;
+        wakeupTime = System.currentTimeMillis() + timeOut;
+        //timeOut = System.currentTimeMillis() + 8000;
 
         //io.gripperRotateStowed();
         io.resetDriveEncoders();
@@ -71,7 +71,7 @@ public class CalibrationSkystoneCommand extends BasicCommand {
     }
 
     public boolean isFinished(){
-        return calibrationComplete && System.currentTimeMillis() >= timeOut;
+        return calibrationComplete && System.currentTimeMillis() >= wakeupTime;
     }
     public void stop() {
         //io.hookStop();

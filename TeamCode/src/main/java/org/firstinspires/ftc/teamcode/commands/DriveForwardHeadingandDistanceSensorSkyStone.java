@@ -25,10 +25,12 @@ public class DriveForwardHeadingandDistanceSensorSkyStone extends BasicCommand {
     public static final int LEFTLESSTHAN = 2;
     public static final int RIGHTLESSTHAN = 3;
     int test;
-    long endTime;
+    //long endTime;
+    long timeOut;
+    long wakeupTime;
     double targetHeading;
     boolean coast = false;
-    public DriveForwardHeadingandDistanceSensorSkyStone(double targetPosition, int test, double spd, double targetHeading){
+    public DriveForwardHeadingandDistanceSensorSkyStone(double targetPosition, int test, double spd, double targetHeading, long timeOut){
         headingPID = new PID(0.03,0,0);
         headingPID.setTarget(targetHeading);
         distancePID = new PID(0.4,0,0);
@@ -37,10 +39,17 @@ public class DriveForwardHeadingandDistanceSensorSkyStone extends BasicCommand {
         this.test = test;
         driveSpeed = spd;
         this.targetHeading = targetHeading;
+        this.timeOut = timeOut;
+    }
+
+    public DriveForwardHeadingandDistanceSensorSkyStone(double targetPosition, int test, double spd, double targetHeading, long timeOut, boolean coast){
+        this(targetPosition,test,spd,targetHeading, timeOut);
+        this.coast=coast;
     }
 
     public void init(){
-        endTime = System.currentTimeMillis() + 5000;
+        wakeupTime = System.currentTimeMillis() + timeOut;
+        //endTime = System.currentTimeMillis() + 5000;
     }
 
     public void execute(){
@@ -86,7 +95,7 @@ public class DriveForwardHeadingandDistanceSensorSkyStone extends BasicCommand {
     }
 
     public boolean isFinished(){
-        if (System.currentTimeMillis() >= endTime) return true;
+        if (System.currentTimeMillis() >= wakeupTime) return true;
         /*telemetry.addData("Front Distance: ",io.leftFrontDistance.getDistance(DistanceUnit.INCH));
         //telemetry.addData("Back Distance: ",io.backDistance.getDistance(DistanceUnit.INCH));
         telemetry.addData("Target Heading:", targetHeading);

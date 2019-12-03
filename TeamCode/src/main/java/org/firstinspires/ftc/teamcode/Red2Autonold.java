@@ -19,7 +19,7 @@ public class Red2Autonold extends RedAutonold {
         commands.add(new DriveForward(-25,DriveForward.XLESSTHAN,-.35,0));
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());
-        commands.add(new Rotate(90,.35,.35));
+        commands.add(new Rotate(90,.35,.35, 4000));
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());
         commands.add(new DriveForwardGlyph(.35, "Red2"));
@@ -28,7 +28,7 @@ public class Red2Autonold extends RedAutonold {
         //commands.add(new ResetGyro());
         //commands.add(new SetGyroOffset());
         commands.add(new SetIMUOffset());
-        commands.add(new Rotate(90,.35,.35));
+        commands.add(new Rotate(90,.35,.35, 4000));
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());
         commands.add(new DriveForward(12,DriveForward.YGREATERTHAN,.35,90));

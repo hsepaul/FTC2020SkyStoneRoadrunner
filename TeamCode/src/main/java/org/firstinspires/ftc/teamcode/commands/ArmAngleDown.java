@@ -7,14 +7,13 @@ package org.firstinspires.ftc.teamcode.commands;
 
 public class ArmAngleDown extends BasicCommand {
     long timeOut;
+    long wakeupTime;
 
-
-    public ArmAngleDown(){
-
-    }
+    public ArmAngleDown(long timeOut){ this.timeOut = timeOut; }
 
     public void init() {
-        timeOut = System.currentTimeMillis() + 5000;
+        wakeupTime = System.currentTimeMillis() + timeOut;
+        //timeOut = System.currentTimeMillis() + 5000;
         io.resetDriveEncoders();
     }
 
@@ -24,7 +23,7 @@ public class ArmAngleDown extends BasicCommand {
     }
 
     public boolean isFinished(){
-        return io.touchArmAngle.getState() == false || System.currentTimeMillis() >= timeOut;
+        return io.touchArmAngle.getState() == false || System.currentTimeMillis() >= wakeupTime;
     }
     public void stop() {
         io.setDrivePower(0,0, 0,0);

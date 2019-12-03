@@ -18,13 +18,13 @@ public class Blue2Autonold extends BlueAutonold {
         commands.add(new DriveForward(25,DriveForward.XGREATERTHAN,.35,0));
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());
-        commands.add(new Rotate(90,.6,.6));
+        commands.add(new Rotate(90,.6,.6, 4000));
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());
         commands.add(new DriveForwardGlyph(.35, "Blue2"));
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());
-        commands.add(new Rotate(0,.6,.6));
+        commands.add(new Rotate(0,.6,.6, 4000));
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());
         commands.add(new DriveForward(8,DriveForward.XGREATERTHAN,.35,0));

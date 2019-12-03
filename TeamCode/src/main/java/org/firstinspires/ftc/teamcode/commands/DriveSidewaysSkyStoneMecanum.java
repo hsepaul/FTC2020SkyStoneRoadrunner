@@ -20,10 +20,12 @@ public class DriveSidewaysSkyStoneMecanum extends BasicCommand {
     public static final int YLESSTHAN = 2;
     public static final int XLESSTHAN = 3;
     int test;
-    long endTime;
+    //long endTime;
+    long timeOut;
+    long wakeupTime;
     double targetHeading;
     boolean coast = false;
-    public DriveSidewaysSkyStoneMecanum(double targetPosition, int test, double spd, double targetHeading){
+    public DriveSidewaysSkyStoneMecanum(double targetPosition, int test, double spd, double targetHeading, long timeOut){
         headingPID = new PID(0.03,0.00,0);
         //headingPID = new PID(0.02, 0.02, 0);
         //headingPID = new PID(0.05, 0, 0);
@@ -37,18 +39,20 @@ public class DriveSidewaysSkyStoneMecanum extends BasicCommand {
         this.test = test;
         driveSpeed = spd;
         this.targetHeading = targetHeading;
+        this.timeOut = timeOut;
     }
-    public DriveSidewaysSkyStoneMecanum(double targetPosition, int test, double spd, double targetHeading, boolean coast){
-        this(targetPosition,test,spd,targetHeading);
+    public DriveSidewaysSkyStoneMecanum(double targetPosition, int test, double spd, double targetHeading, long timeOut, boolean coast){
+        this(targetPosition,test,spd,targetHeading, timeOut);
         this.coast=coast;
     }
 
     public DriveSidewaysSkyStoneMecanum(double dist) {
-        this(dist, YGREATERTHAN, 0.5, 0.0);
+        this(dist, YGREATERTHAN, 0.5, 0.0, 5000);
     }
 
     public void init(){
-        endTime = System.currentTimeMillis() + 12000;
+        wakeupTime = System.currentTimeMillis() + timeOut;
+        //endTime = System.currentTimeMillis() + 12000;
 
         //target position override for tensorflow
         if(io.skystone2Found){
@@ -161,7 +165,7 @@ public class DriveSidewaysSkyStoneMecanum extends BasicCommand {
     }
 
     public boolean isFinished(){
-        if (System.currentTimeMillis() >= endTime) return true;
+        if (System.currentTimeMillis() >= wakeupTime) return true;
         /*if ((io.touchProximity.getState() == false) && (usebutton == false)){
             io.proximityArmButtonPushed = true;
             return true;

@@ -34,7 +34,7 @@ public class Red2AutonOnHook extends RedAutonOnHook {
         //commands.add(new WaitForTime(50));
         commands.add(new WaitForTime(100));
         commands.add(new ResetDriveEncoders());
-        commands.add(new Rotate(-62.5, .60, .60));
+        commands.add(new Rotate(-62.5, .60, .60, 4000));
         //commands.add(new WaitForTime(50));
         commands.add(new WaitForTime(100));
         commands.add(new ResetDriveEncoders());
@@ -57,7 +57,7 @@ public class Red2AutonOnHook extends RedAutonOnHook {
         //commands.add(new WaitForTime(50));
         //commands.add(new ResetDriveEncoders());
 
-        commands.add(new Rotate(-55, .55, .55));
+        commands.add(new Rotate(-55, .55, .55, 4000));
         //commands.add(new WaitForTime(50));
         commands.add(new WaitForTime(100));
         commands.add(new ResetDriveEncoders());
@@ -73,7 +73,7 @@ public class Red2AutonOnHook extends RedAutonOnHook {
         //commands.add(new ResetDriveEncoders());
 
         //commands.add(new WaitForTime(50));
-        commands.add(new Rotate(-15, .60, .60));
+        commands.add(new Rotate(-15, .60, .60, 4000));
         commands.add(new WaitForTime(100));
         commands.add(new ResetDriveEncoders());
 
@@ -97,7 +97,7 @@ public class Red2AutonOnHook extends RedAutonOnHook {
         commands.add(new MarkerboxDown());
 
         //WAS -THIS IS NEW added due to wheel change at States
-        commands.add(new Rotate(-20, .75, .75));
+        commands.add(new Rotate(-20, .75, .75, 4000));
         commands.add(new WaitForTime(100));
         commands.add(new ResetDriveEncoders());
 

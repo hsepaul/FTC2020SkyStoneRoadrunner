@@ -159,7 +159,7 @@ public class ManualDriving_SkyStone extends OpMode
         //io.openRelicHand();
         //io.jewelArmUp();
         ///io.proximityArmMid();
-        io.gripperRotateStowed();
+        //io.gripperRotateStowed();
         io.gripperPincherStopped();
         io.gripperPincher2Stopped();
         //io.leftHookMid();

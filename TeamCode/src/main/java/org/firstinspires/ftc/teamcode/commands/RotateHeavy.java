@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.utilities.PID;
  * Created by David Austin on 10/27/2016.
  */
 
-public class RotateSkyStonePlatformRed extends BasicCommand {
+public class RotateHeavy extends BasicCommand {
     double heading,leftSpd,rightSpd;
     PID headingPID;
     long timeOut;
@@ -16,21 +16,22 @@ public class RotateSkyStonePlatformRed extends BasicCommand {
     boolean rotatetodepot = false;
     boolean rotateafterhook = false;
 
-    public RotateSkyStonePlatformRed(double heading, double leftSpd, double rightSpd, long timeOut){
+    public RotateHeavy(double heading, double leftSpd, double rightSpd, long timeOut){
         this.heading = heading;
         this.leftSpd = leftSpd;
         this.rightSpd = rightSpd;
         this.timeOut = timeOut;
+        //headingPID = new PID(0.07,0,0); //was 0.05
         headingPID = new PID(0.07,0,0); //was 0.05
         headingPID.setTarget(heading);
     }
 
-    public RotateSkyStonePlatformRed(double heading, double leftSpd, double rightSpd, long timeOut, boolean rotatetodepot){
+    public RotateHeavy(double heading, double leftSpd, double rightSpd, long timeOut, boolean rotatetodepot){
         this(heading, leftSpd, rightSpd, timeOut);
         this.rotatetodepot = rotatetodepot;
     }
 
-    public RotateSkyStonePlatformRed(double heading, double leftSpd, double rightSpd, long timeOut, boolean rotatetodepot, boolean rotateafterhook){
+    public RotateHeavy(double heading, double leftSpd, double rightSpd, long timeOut, boolean rotatetodepot, boolean rotateafterhook){
         this(heading, leftSpd, rightSpd, timeOut);
         this.rotateafterhook = rotateafterhook;
     }
@@ -67,29 +68,7 @@ public class RotateSkyStonePlatformRed extends BasicCommand {
         double correction = headingPID.getCorrection(Math.toDegrees(io.heading));
         correction = Range.clip(correction,-1,1);
         //correction = Range.clip(correction,0,1);
-
-
-
-
-        double frontleftSpeed = (-correction*leftSpd) + .25;
-        double frontrightSpeed = (correction*rightSpd) - .25;
-        double backleftSpeed = (-correction*leftSpd)  - .25;
-        double backrightSpeed = (correction*rightSpd) + .25;
-
-
-
-        frontleftSpeed = Range.clip(frontleftSpeed, -1, 1);
-        backleftSpeed = Range.clip(backleftSpeed, -1, 1);
-        frontrightSpeed = Range.clip(frontrightSpeed, -1, 1);
-        backrightSpeed = Range.clip(backrightSpeed, -1, 1);
-
-
-
-        io.setDrivePower(frontleftSpeed,frontrightSpeed,backleftSpeed,backrightSpeed);
-
-
-
-        //io.setDrivePower(-correction*leftSpd,(correction*rightSpd)+.35, (-correction*leftSpd)+.35,correction*rightSpd);
+        io.setDrivePower(-correction*leftSpd,correction*rightSpd, -correction*leftSpd,correction*rightSpd);
         telemetry.addData("Target Heading:", heading);
         //telemetry.addData("Heading: ", io.getHeading());
         telemetry.addData("Heading: ", Math.toDegrees(io.heading));

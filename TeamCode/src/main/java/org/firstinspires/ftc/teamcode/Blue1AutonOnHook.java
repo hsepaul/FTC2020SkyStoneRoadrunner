@@ -26,7 +26,7 @@ public class Blue1AutonOnHook extends BlueAutonOnHook {
         //commands.add(new WaitForTime(50));
 
 
-        commands.add(new Rotate(0, .6, .6, true));
+        commands.add(new Rotate(0, .6, .6, 4000,true));
         commands.add(new WaitForTime(100));
         commands.add(new ResetDriveEncoders());
         //commands.add(new SetIMUOffset());
@@ -41,7 +41,7 @@ public class Blue1AutonOnHook extends BlueAutonOnHook {
         //commands.add(new ResetDriveEncoders());
         //commands.add(new WaitForTime(50));
 
-        commands.add(new Rotate(-135, .55, .55));
+        commands.add(new Rotate(-135, .55, .55, 4000));
         //commands.add(new WaitForTime(50));
         commands.add(new WaitForTime(100));
         commands.add(new ResetDriveEncoders());
@@ -61,13 +61,13 @@ public class Blue1AutonOnHook extends BlueAutonOnHook {
         //commands.add(new WaitForTime(50));
         commands.add(new WaitForTime(100));
         commands.add(new ResetDriveEncoders());
-        commands.add(new Rotate(18.5, .55, .55));
+        commands.add(new Rotate(18.5, .55, .55, 4000));
         commands.add(new WaitForTime(100));
         commands.add(new ResetDriveEncoders());
         commands.add(new DriveForward(12,DriveForward.XGREATERTHAN,.65,18.5));
         commands.add(new WaitForTime(100));
         commands.add(new ResetDriveEncoders());
-        commands.add(new Rotate(10, .65, .65));
+        commands.add(new Rotate(10, .65, .65, 4000));
         commands.add(new WaitForTime(100));
         commands.add(new ResetDriveEncoders());
 

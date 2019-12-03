@@ -24,7 +24,9 @@ public class DriveSidewaysSkyStoneMecanumTensorFlow extends BasicCommand {
     PID distancePID;
     PID distanceForwardBack;
     PID headingPID;
-    long endTime;
+    //long endTime;
+    long timeOut;
+    long wakeupTime;
     double targetHeading;
     boolean coast = false;
 
@@ -42,7 +44,7 @@ public class DriveSidewaysSkyStoneMecanumTensorFlow extends BasicCommand {
     private static VuforiaLocalizer.Parameters parameters;*/
     private TFObjectDetector tfod;
 
-    public DriveSidewaysSkyStoneMecanumTensorFlow(double targetPosition, double spd, double targetHeading){
+    public DriveSidewaysSkyStoneMecanumTensorFlow(double targetPosition, double spd, double targetHeading, long timeOut){
         headingPID = new PID(0.03,0.00,0);
         //headingPID = new PID(0.02, 0.02, 0);
         //headingPID = new PID(0.05, 0, 0);
@@ -56,14 +58,15 @@ public class DriveSidewaysSkyStoneMecanumTensorFlow extends BasicCommand {
         //this.test = test;
         driveSpeed = spd;
         this.targetHeading = targetHeading;
+        this.timeOut = timeOut;
     }
-    public DriveSidewaysSkyStoneMecanumTensorFlow(double targetPosition, double spd, double targetHeading, boolean coast){
-        this(targetPosition,spd,targetHeading);
+    public DriveSidewaysSkyStoneMecanumTensorFlow(double targetPosition, double spd, double targetHeading, long timeOut, boolean coast){
+        this(targetPosition,spd,targetHeading, timeOut);
         this.coast=coast;
     }
 
     public DriveSidewaysSkyStoneMecanumTensorFlow(double dist) {
-        this(dist, 0.5, 0.0);
+        this(dist, 0.5, 0.0, 5000);
     }
 
     public void init() {
@@ -120,8 +123,8 @@ public class DriveSidewaysSkyStoneMecanumTensorFlow extends BasicCommand {
             tfod.activate();
         }
 
-
-        endTime = System.currentTimeMillis() + 12000;
+        wakeupTime = System.currentTimeMillis() + timeOut;
+        //endTime = System.currentTimeMillis() + 12000;
 
         /*if (usebutton){
             this.proximitybutton = io.proximityArmButtonPushed;
@@ -271,7 +274,7 @@ public class DriveSidewaysSkyStoneMecanumTensorFlow extends BasicCommand {
         telemetry.addData("angleSkystone: ",angleSkystone);
         telemetry.addData("targetPosition: ",targetPosition);*/
 
-        return Math.abs(angleSkystone - targetPosition) <= 4 || System.currentTimeMillis() >= endTime;
+        return Math.abs(angleSkystone - targetPosition) <= 4 || System.currentTimeMillis() >= wakeupTime;
         /*switch(test) {
             case XGREATERTHAN:
                 return io.getSidewaysDistance() > targetPosition;

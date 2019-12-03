@@ -18,7 +18,7 @@ public class Red1Autonold extends RedAutonold {
         commands.add(new DriveForwardGlyph(-.35, "Red1"));
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());
-        commands.add(new Rotate(-90,.6,.6));
+        commands.add(new Rotate(-90,.6,.6, 4000));
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());
         commands.add(new DriveForward(-10,DriveForward.YLESSTHAN,.5,-90));

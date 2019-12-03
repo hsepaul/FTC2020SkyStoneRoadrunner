@@ -64,7 +64,7 @@ public abstract class RedAutonold extends FirstAuton {
         //commands.add(new IdentifyJewel());
         //commands.add(new Rotate(-15,.7,0));
         commands.add(new WaitForTime(250));
-        commands.add(new Rotate(0,.6,.6));
+        commands.add(new Rotate(0,.6,.6, 4000));
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());
         //BasicCommand.getIO().resetDriveEncoders();
