@@ -210,12 +210,15 @@ public abstract class FirstAuton extends OpMode {
             telemetry.addData("Alliance", "RED");
             if (valLeft == 0) {
                 telemetry.addData("Skystone", "Left");
+                io.skystoneDirection = -1;
             }
             if (valMid == 0) {
                 telemetry.addData("Skystone", "Middle");
+                io.skystoneDirection = 0;
             }
             if (valRight == 0) {
                 telemetry.addData("Skystone", "Right");
+                io.skystoneDirection = 1;
             }
         }
 
@@ -223,12 +226,15 @@ public abstract class FirstAuton extends OpMode {
             telemetry.addData("Alliance", "BLUE");
             if (valLeft == 0) {
                 telemetry.addData("Skystone", "Left");
+                io.skystoneDirection = -1;
             }
             if (valMid == 0) {
                 telemetry.addData("Skystone", "Middle");
+                io.skystoneDirection = 0;
             }
             if (valRight == 0) {
                 telemetry.addData("Skystone", "Right");
+                io.skystoneDirection = 1;
             }
         }
 

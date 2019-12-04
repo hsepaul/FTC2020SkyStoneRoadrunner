@@ -19,11 +19,11 @@ public class ArmAngleUp extends BasicCommand {
 
     public void execute(){
         telemetry.addData("Mode:", "Arm Angle Up");
-        io.armAngleMotor.setPower(-.6);
+        io.armAngleMotor.setPower(-1);
     }
 
     public boolean isFinished(){
-        return io.getArmAngleEncoder() <= -1500 || System.currentTimeMillis() >= wakeupTime;
+        return io.getArmAngleEncoder() <= -2000 || System.currentTimeMillis() >= wakeupTime;
     }
     public void stop() {
         io.setDrivePower(0,0, 0,0);

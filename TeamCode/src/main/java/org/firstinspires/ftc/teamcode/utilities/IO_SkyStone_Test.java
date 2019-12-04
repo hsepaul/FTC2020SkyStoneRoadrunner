@@ -93,13 +93,23 @@ public class IO_SkyStone_Test {
     //public double proximityCorrection = 0;
     //public boolean proximityArmButtonPushed = false;
 
-    public boolean skystone1Found = false;
-    public boolean skystone2Found = false;
+    public double skystoneWidth = 7.5; //OpenCV
+    public double backupClearance = 7; //OpenCV
+    public double approachDistance = 6; //OpenCV
+    public double distanceToTape = 22; //OpenCV
+    public double distancePastTape = 4; //OpenCV
+    public double distanceBetweenSkystones = 24; //OpenCV
 
-    public double skystoneOffsetDistanceToTape = 31;
+    public int skystoneDirection;
 
-    public double skystone1Distance = 0;
-    public double skystone2Distance = 0;
+
+    public boolean skystone1Found = false; //Tensorflow
+    public boolean skystone2Found = false; //Tensorflow
+
+    public double skystoneOffsetDistanceToTape = 31; //Tensorflow
+
+    public double skystone1Distance = 0; //Tensorflow
+    public double skystone2Distance = 0; //Tensorflow
 
     public boolean isGoldFound = false;
     public boolean isGoldAligned = false;

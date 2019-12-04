@@ -100,7 +100,7 @@ public class ManualDriving_SkyStone extends OpMode
     boolean gripper_rotate_stowed_changed = false;
     boolean gripper_rotate_stowed_commanded = false;
 
-    boolean gripper_rotate_stowed_locked = true;
+    boolean gripper_rotate_stowed_locked = false;
 
     double initStartingPositionArmAngle;
 
@@ -514,11 +514,11 @@ public class ManualDriving_SkyStone extends OpMode
             position = .9;
         }
 
-        if (gripper_rotate_stowed_locked) {
+        /*if (gripper_rotate_stowed_locked) {
             //io.gripperRotateStowed();
             //position = 1;
             position = .9;
-        }
+        }*/
 
         /*if (gamepad2.y) {
             io.gripperRotateParallel();
@@ -694,9 +694,9 @@ public class ManualDriving_SkyStone extends OpMode
             gripper_rotate_stowed_changed = false;
         }
 
-        if (gamepad2.b && !gamepad2.start) {
+        /*if (gamepad2.b && !gamepad2.start) {
             gripper_rotate_stowed_locked = false;
-        }
+        }*/
 
         if (!gamepad2.y && !gripper_rotate_stowed_commanded && !gripper_rotate_stowed_locked) {
             //keep gripper parallel

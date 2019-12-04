@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.utilities.PID;
  * Created by David Austin on 10/27/2016.
  */
 
-public class DriveForwardSkyStone extends BasicCommand {
+public class DriveForwardSkyStoneOpenCV extends BasicCommand {
     double targetPosition;
     double endDistance;
     double driveSpeed;
@@ -24,12 +24,12 @@ public class DriveForwardSkyStone extends BasicCommand {
     long wakeupTime;
     double targetHeading;
     boolean coast = false;
-    public DriveForwardSkyStone(double targetPosition, int test, double spd, double targetHeading, long timeOut){
-        headingPID = new PID(0.02,0.00,0);
+    public DriveForwardSkyStoneOpenCV(double targetPosition, int test, double spd, double targetHeading, long timeOut){
+        headingPID = new PID(0.03,0.00,0);
         //headingPID = new PID(0.02, 0.02, 0);
         //headingPID = new PID(0.05, 0, 0);
         headingPID.setTarget(targetHeading);
-        distancePID = new PID(.3,0,0);
+        distancePID = new PID(.4,0,0);
         //distancePID = new PID(.2,0,0);
         distancePID.setTarget(targetPosition);
         this.targetPosition = targetPosition;
@@ -38,18 +38,21 @@ public class DriveForwardSkyStone extends BasicCommand {
         this.targetHeading = targetHeading;
         this.timeOut = timeOut;
     }
-    public DriveForwardSkyStone(double targetPosition, int test, double spd, double targetHeading, long timeOut, boolean coast){
+    public DriveForwardSkyStoneOpenCV(double targetPosition, int test, double spd, double targetHeading, long timeOut, boolean coast){
         this(targetPosition,test,spd,targetHeading, timeOut);
         this.coast=coast;
     }
 
-    public DriveForwardSkyStone(double dist) {
+    public DriveForwardSkyStoneOpenCV(double dist) {
         this(dist, YGREATERTHAN, 0.5, 0.0, 5000);
     }
 
     public void init(){
         wakeupTime = System.currentTimeMillis() + timeOut;
         //endTime = System.currentTimeMillis() + 5000;
+
+        this.targetPosition = targetPosition - (Math.signum(targetPosition)*io.skystoneDirection * io.skystoneWidth);
+        distancePID.setTarget(this.targetPosition);
 
         /*if (usebutton){
             this.proximitybutton = io.proximityArmButtonPushed;

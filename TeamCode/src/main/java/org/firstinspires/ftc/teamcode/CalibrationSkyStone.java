@@ -97,7 +97,7 @@ public class CalibrationSkyStone extends OpMode
     public void init() {
         io = new IO_SkyStone_Test(hardwareMap, telemetry);
         //io.hookStop();
-        io.gripperRotateStowed();
+        //io.gripperRotateStowed();
         io.resetDriveEncoders();
         //io.resetDriveEncoders();
         //telemetry.addData("Status", "Resetting Encoders");

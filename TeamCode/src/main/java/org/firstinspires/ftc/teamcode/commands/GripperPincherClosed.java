@@ -10,6 +10,7 @@ public class GripperPincherClosed extends BasicCommand {
     long wakeupTime;
 
     boolean gripperPincherClosed = false;
+    boolean gripperPincher2Closed = false;
 
 
     public GripperPincherClosed(long timeOut){ this.timeOut = timeOut; }
@@ -18,16 +19,24 @@ public class GripperPincherClosed extends BasicCommand {
         wakeupTime = System.currentTimeMillis() + timeOut;
         //timeOut = System.currentTimeMillis() + 3000;
         gripperPincherClosed = false;
+        gripperPincher2Closed = false;
     }
 
     public void execute(){
         telemetry.addData("Mode:", "Gripper Pincher Closed");
         io.gripperPincherClosed();
+        io.gripperPincher2Closed();
         gripperPincherClosed = true;
+        gripperPincher2Closed = true;
     }
 
     public boolean isFinished(){
-        return gripperPincherClosed || System.currentTimeMillis() >= wakeupTime;
+        if (System.currentTimeMillis() >= wakeupTime) {
+            io.gripperPincherStopped();
+            io.gripperPincher2Stopped();
+        }
+        return System.currentTimeMillis() >= wakeupTime;
+        //return gripperPincherClosed || gripperPincher2Closed || System.currentTimeMillis() >= wakeupTime;
     }
     public void stop() {
         io.setDrivePower(0,0, 0, 0);

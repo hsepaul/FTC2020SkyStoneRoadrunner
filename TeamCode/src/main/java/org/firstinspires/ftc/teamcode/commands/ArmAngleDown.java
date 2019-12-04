@@ -19,7 +19,7 @@ public class ArmAngleDown extends BasicCommand {
 
     public void execute(){
         telemetry.addData("Mode:", "Arm Angle Down");
-        io.armAngleMotor.setPower(.6);
+        io.armAngleMotor.setPower(.75);
     }
 
     public boolean isFinished(){

@@ -10,6 +10,7 @@ public class GripperPincherOpen extends BasicCommand {
     long wakeupTime;
 
     boolean gripperPincherOpen = false;
+    boolean gripperPincher2Open = false;
 
 
     public GripperPincherOpen(long timeOut){ this.timeOut = timeOut; }
@@ -18,16 +19,24 @@ public class GripperPincherOpen extends BasicCommand {
         wakeupTime = System.currentTimeMillis() + timeOut;
         //timeOut = System.currentTimeMillis() + 3000;
         gripperPincherOpen = false;
+        gripperPincher2Open = false;
     }
 
     public void execute(){
         telemetry.addData("Mode:", "Gripper Pincher Open");
         io.gripperPincherOpen();
+        io.gripperPincher2Open();
         gripperPincherOpen = true;
+        gripperPincher2Open = true;
     }
 
     public boolean isFinished(){
-        return gripperPincherOpen || System.currentTimeMillis() >= wakeupTime;
+        if (System.currentTimeMillis() >= wakeupTime) {
+            io.gripperPincherStopped();
+            io.gripperPincher2Stopped();
+        }
+        return System.currentTimeMillis() >= wakeupTime;
+        //return gripperPincherOpen || gripperPincher2Open|| System.currentTimeMillis() >= wakeupTime;
     }
     public void stop() {
         io.setDrivePower(0,0, 0, 0);
