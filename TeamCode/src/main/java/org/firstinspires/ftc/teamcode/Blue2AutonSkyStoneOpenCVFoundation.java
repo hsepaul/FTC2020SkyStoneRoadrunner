@@ -4,13 +4,13 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.commands.ArmAngleDown;
 import org.firstinspires.ftc.teamcode.commands.ArmAngleDown1000;
-import org.firstinspires.ftc.teamcode.commands.ArmAngleDownReturnToZero;
 import org.firstinspires.ftc.teamcode.commands.ArmAngleUp;
 import org.firstinspires.ftc.teamcode.commands.ArmAngleUp3000;
 import org.firstinspires.ftc.teamcode.commands.CalibrationSkystoneCommand;
 import org.firstinspires.ftc.teamcode.commands.CommandGroup;
 import org.firstinspires.ftc.teamcode.commands.DriveForwardHeadingandDistanceSensorSkyStone;
 import org.firstinspires.ftc.teamcode.commands.DriveForwardHeavySkyStonewithSlideLeft;
+import org.firstinspires.ftc.teamcode.commands.DriveForwardHeavySkyStonewithSlideRight;
 import org.firstinspires.ftc.teamcode.commands.DriveForwardSkyStone;
 import org.firstinspires.ftc.teamcode.commands.DriveForwardSkyStoneOpenCV;
 import org.firstinspires.ftc.teamcode.commands.DriveSidewaysSkyStoneMecanumNoSkystones;
@@ -18,7 +18,6 @@ import org.firstinspires.ftc.teamcode.commands.DriveSidewaysSkyStoneOpenCV;
 import org.firstinspires.ftc.teamcode.commands.GripperPincherClosed;
 import org.firstinspires.ftc.teamcode.commands.GripperPincherOpenArmUp;
 import org.firstinspires.ftc.teamcode.commands.GripperRotateParallel;
-import org.firstinspires.ftc.teamcode.commands.GripperRotateSlightlyUp;
 import org.firstinspires.ftc.teamcode.commands.HooksDown;
 import org.firstinspires.ftc.teamcode.commands.HooksUp;
 import org.firstinspires.ftc.teamcode.commands.ResetDriveEncoders;
@@ -30,8 +29,8 @@ import org.firstinspires.ftc.teamcode.commands.WaitForTime;
  * Created by David Austin on 11/10/2016.
  */
 
-@Autonomous(name="Red Skystone Foundation Skybridge",group="Red Auton")
-public class Red2AutonSkyStoneOpenCVFoundation extends RedAutonSkyStone {
+@Autonomous(name="Blue Skystone Foundation Skybridge",group="Blue Auton")
+public class Blue2AutonSkyStoneOpenCVFoundation extends BlueAutonSkyStone {
     public void addFinalCommands() {
 
         CommandGroup group = new CommandGroup();
@@ -44,14 +43,14 @@ public class Red2AutonSkyStoneOpenCVFoundation extends RedAutonSkyStone {
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());
 
-        commands.add(new DriveSidewaysSkyStoneOpenCV(io.skystoneWidth,DriveForwardSkyStone.XGREATERTHAN,.5,0, 2000));
+        commands.add(new DriveSidewaysSkyStoneOpenCV(io.skystoneWidth,DriveForwardSkyStone.XGREATERTHAN,.65,0, 2000));
 
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());
 
 
 
-        commands.add(new DriveForwardHeadingandDistanceSensorSkyStone(io.approachDistance+2, DriveForwardHeadingandDistanceSensorSkyStone.LEFTLESSTHAN,.4,0, 3000));
+        commands.add(new DriveForwardHeadingandDistanceSensorSkyStone(io.approachDistance+2, DriveForwardHeadingandDistanceSensorSkyStone.RIGHTLESSTHAN,.4,0, 3000));
 
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());
@@ -76,7 +75,7 @@ public class Red2AutonSkyStoneOpenCVFoundation extends RedAutonSkyStone {
         commands.add(new ResetDriveEncoders());
 
         CommandGroup group3 = new CommandGroup();
-        group3.addCommand(new Rotate(90, .5, .5, 3000));
+        group3.addCommand(new Rotate(-90, .5, .5, 3000));
         group3.addCommand(new ArmAngleDown1000(5000));
         commands.add(group3);
 
@@ -92,7 +91,12 @@ public class Red2AutonSkyStoneOpenCVFoundation extends RedAutonSkyStone {
         //commands.add(new WaitForTime(250));
         //commands.add(new ResetDriveEncoders());
 
-        commands.add(new DriveForwardSkyStoneOpenCV((io.distanceToTape+io.distancePastTape+21),DriveForwardSkyStone.XGREATERTHAN,.75,90, 10000));
+
+
+
+
+
+        commands.add(new DriveForwardSkyStoneOpenCV((io.distanceToTape+io.distancePastTape+22),DriveForwardSkyStone.XGREATERTHAN,.75,-90, 10000));
 
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());
@@ -112,28 +116,31 @@ public class Red2AutonSkyStoneOpenCVFoundation extends RedAutonSkyStone {
         //DROP SKYSTONE
         commands.add(new GripperPincherOpenArmUp( 1000));
 
-        commands.add(new DriveForwardHeavySkyStonewithSlideLeft(-20, DriveForwardHeavySkyStonewithSlideLeft.XLESSTHAN,-.75,0, 8000));
-        commands.add(new WaitForTime(250));
+
+
+        commands.add(new DriveForwardHeavySkyStonewithSlideRight(-14, DriveForwardHeavySkyStonewithSlideRight.XLESSTHAN,-.65,0, 8000));
+        commands.add(new WaitForTime(500));
         commands.add(new ResetDriveEncoders());
 
         //commands.add(new RotateSkyStonePlatformRed(90, .75, .75));
-        commands.add(new RotateHeavy(90, .75, .75, 3000));
-        commands.add(new WaitForTime(250));
+        commands.add(new RotateHeavy(-90, .75, .75, 3000));
+        commands.add(new WaitForTime(500));
         commands.add(new ResetDriveEncoders());
 
         //commands.add(new DriveSidewaysSkyStoneMecanum(30,DriveSidewaysSkyStoneMecanum.XGREATERTHAN,.85,90));
         //commands.add(new ResetDriveEncoders());
         //commands.add(new WaitForTime(500));
 
-        commands.add(new DriveForwardSkyStone(7,DriveForwardSkyStone.XGREATERTHAN,.75,90, 2000));
-        commands.add(new WaitForTime(250));
+        commands.add(new DriveForwardSkyStone(10,DriveForwardSkyStone.XGREATERTHAN,.5,-90, 2000));
+        commands.add(new WaitForTime(500));
         commands.add(new ResetDriveEncoders());
 
         commands.add(new HooksUp(3000));
-        commands.add(new WaitForTime(1000));
+        commands.add(new WaitForTime(1500));
 
 
-        commands.add(new DriveForwardSkyStone(-8,DriveForwardSkyStone.XLESSTHAN,-.75,90, 5000));
+
+        commands.add(new DriveForwardSkyStone(-8,DriveForwardSkyStone.XLESSTHAN,-.75,-90, 5000));
 
 
         commands.add(new WaitForTime(250));
@@ -141,7 +148,7 @@ public class Red2AutonSkyStoneOpenCVFoundation extends RedAutonSkyStone {
 
 
 
-        commands.add(new DriveSidewaysSkyStoneMecanumNoSkystones(-6,DriveSidewaysSkyStoneMecanumNoSkystones.XLESSTHAN,-.75,90, 3000));
+        commands.add(new DriveSidewaysSkyStoneMecanumNoSkystones(5,DriveSidewaysSkyStoneMecanumNoSkystones.XGREATERTHAN,.75,-90, 3000));
 
 
         commands.add(new WaitForTime(250));
@@ -150,7 +157,7 @@ public class Red2AutonSkyStoneOpenCVFoundation extends RedAutonSkyStone {
 
         CommandGroup group4 = new CommandGroup();
         group4.addCommand(new ArmAngleDown(5000));
-        group4.addCommand(new DriveForwardSkyStone(-25,DriveForwardSkyStone.XLESSTHAN,-.5,90, 3000));
+        group4.addCommand(new DriveForwardSkyStone(-20,DriveForwardSkyStone.XLESSTHAN,-.5,-90, 3000));
         commands.add(group4);
 
 

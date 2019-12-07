@@ -35,8 +35,8 @@ public class Red2AutonSkyStoneOpenCV extends RedAutonSkyStone {
 
         CommandGroup group = new CommandGroup();
         group.addCommand(new DriveForwardSkyStone(5,DriveForwardSkyStone.XGREATERTHAN,.7,0, 2000));
-        //group.addCommand(new GripperRotateParallel(3000));
-        group.addCommand(new GripperRotateSlightlyUp(3000));
+        group.addCommand(new GripperRotateParallel(3000));
+        //group.addCommand(new GripperRotateSlightlyUp(3000));
         group.addCommand(new ArmAngleUp(5000));
         commands.add(group);
 
@@ -123,7 +123,7 @@ public class Red2AutonSkyStoneOpenCV extends RedAutonSkyStone {
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());
 
-        commands.add(new DriveForwardHeadingandDistanceSensorSkyStone(io.approachDistance, DriveForwardHeadingandDistanceSensorSkyStone.LEFTLESSTHAN,.4,0, 3000));
+        commands.add(new DriveForwardHeadingandDistanceSensorSkyStone(io.approachDistance, DriveForwardHeadingandDistanceSensorSkyStone.LEFTLESSTHAN,.4,0, 2000));
 
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());
