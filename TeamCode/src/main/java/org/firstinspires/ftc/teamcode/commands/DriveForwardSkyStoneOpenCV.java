@@ -29,8 +29,9 @@ public class DriveForwardSkyStoneOpenCV extends BasicCommand {
         //headingPID = new PID(0.02, 0.02, 0);
         //headingPID = new PID(0.05, 0, 0);
         headingPID.setTarget(targetHeading);
-        distancePID = new PID(.4,0,0);
-        //distancePID = new PID(.2,0,0);
+        //distancePID = new PID(.4,0,0);
+        // = new PID(2,0,0);
+        distancePID = new PID(.07,0,0);
         distancePID.setTarget(targetPosition);
         this.targetPosition = targetPosition;
         this.test = test;
@@ -51,7 +52,7 @@ public class DriveForwardSkyStoneOpenCV extends BasicCommand {
         wakeupTime = System.currentTimeMillis() + timeOut;
         //endTime = System.currentTimeMillis() + 5000;
 
-        this.targetPosition = targetPosition - (Math.signum(targetPosition)*io.skystoneDirection * io.skystoneWidth);
+        this.targetPosition = (targetPosition - (Math.signum(targetPosition)*io.fbskystoneDirection * io.skystoneWidth)) + Math.signum(targetPosition)*io.centerOffset;
         distancePID.setTarget(this.targetPosition);
 
         /*if (usebutton){

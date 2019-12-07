@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
  * Created by David Austin on 11/10/2016.
  */
 
-@Autonomous(name="Blue Sky Stone Blocks TEST",group="Auton")
+//@Autonomous(name="Blue Sky Stone Blocks TEST",group="Auton")
 public class Blue2AutonSkyStoneTEST extends BlueAutonSkyStone {
     public void addFinalCommands() {
         //commands.add( new CalibrationSkystoneCommand(8000));

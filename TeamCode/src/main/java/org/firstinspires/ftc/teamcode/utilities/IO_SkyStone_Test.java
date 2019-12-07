@@ -94,13 +94,17 @@ public class IO_SkyStone_Test {
     //public boolean proximityArmButtonPushed = false;
 
     public double skystoneWidth = 7.5; //OpenCV
-    public double backupClearance = 7; //OpenCV
-    public double approachDistance = 6; //OpenCV
+    public double backupClearance = 3; //OpenCV
+    public double approachDistance = 3; //OpenCV
     public double distanceToTape = 22; //OpenCV
-    public double distancePastTape = 4; //OpenCV
+    //public double distancePastTape = 4; //OpenCV
+    public double distancePastTape = 30; //OpenCV
+    public double distancePastTape2 = 15; //OpenCV
     public double distanceBetweenSkystones = 24; //OpenCV
 
-    public int skystoneDirection;
+    public int skystoneDirection; //OpenCV
+    public int fbskystoneDirection; //OpenCV
+    public double centerOffset; //OpenCV
 
 
     public boolean skystone1Found = false; //Tensorflow
@@ -158,6 +162,7 @@ public class IO_SkyStone_Test {
     //public static double gripperRotateStowed = 1;
     public static double gripperRotateStowed = .9;
     public static double gripperRotateParallel = .33;
+    public static double gripperRotateSlightlyUp = .4;
     public static double gripperRotateDown = 0;
     public static double capStoneUp = .8;
     //public static double capStoneDown = 0;
@@ -336,6 +341,7 @@ public class IO_SkyStone_Test {
     public void leftHookDown() { leftHook.setPosition(IO_SkyStone_Test.leftHookDown); }
     public void gripperRotateStowed() { gripperRotate.setPosition(IO_SkyStone_Test.gripperRotateStowed); }
     public void gripperRotateParallel() { gripperRotate.setPosition(IO_SkyStone_Test.gripperRotateParallel); }
+    public void setGripperRotateSlightlyUp() { gripperRotate.setPosition(IO_SkyStone_Test.gripperRotateSlightlyUp); }
     public void gripperRotateDown() { gripperRotate.setPosition(IO_SkyStone_Test.gripperRotateDown); }
     public void capStoneUp() { capStone.setPosition(IO_SkyStone_Test.capStoneUp); }
     public void capStoneDown() { capStone.setPosition(IO_SkyStone_Test.capStoneDown); }

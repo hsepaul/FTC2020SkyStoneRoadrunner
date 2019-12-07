@@ -98,6 +98,7 @@ public class CalibrationSkyStone extends OpMode
         io = new IO_SkyStone_Test(hardwareMap, telemetry);
         //io.hookStop();
         //io.gripperRotateStowed();
+        io.setGripperRotateSlightlyUp();
         io.resetDriveEncoders();
         //io.resetDriveEncoders();
         //telemetry.addData("Status", "Resetting Encoders");
@@ -274,7 +275,7 @@ public class CalibrationSkyStone extends OpMode
         //calibrationChinDone
         // chin down io.chinMotor.setPower(-1);
 
-        io.gripperRotateStowed();
+        //io.gripperRotateStowed();
 
         if ((io.touchArmExtender.getState() == true) && !calibrationArmExtenderDone) {
             io.armExtenderMotor.setPower(.5);

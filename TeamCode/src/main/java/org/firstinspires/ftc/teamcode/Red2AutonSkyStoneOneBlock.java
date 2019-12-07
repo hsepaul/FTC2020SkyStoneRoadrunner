@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.commands.WaitForTime;
  * Created by David Austin on 11/10/2016.
  */
 
-@Autonomous(name="Red Sky Stone Blocks (1 Block)",group="Auton")
+//@Autonomous(name="Red Sky Stone Blocks (1 Block)",group="Auton")
 public class Red2AutonSkyStoneOneBlock extends RedAutonSkyStone {
     public void addFinalCommands() {
         CommandGroup group = new CommandGroup();

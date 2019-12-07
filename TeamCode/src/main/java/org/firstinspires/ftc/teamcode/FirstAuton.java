@@ -211,14 +211,23 @@ public abstract class FirstAuton extends OpMode {
             if (valLeft == 0) {
                 telemetry.addData("Skystone", "Left");
                 io.skystoneDirection = -1;
+                io.fbskystoneDirection = -1;
+                io.distanceBetweenSkystones = 16;
+                io.centerOffset = 0;
             }
             if (valMid == 0) {
                 telemetry.addData("Skystone", "Middle");
                 io.skystoneDirection = 0;
+                io.fbskystoneDirection = 0;
+                io.distanceBetweenSkystones = 24;
+                io.centerOffset = 0;
             }
             if (valRight == 0) {
                 telemetry.addData("Skystone", "Right");
                 io.skystoneDirection = 1;
+                io.fbskystoneDirection = 1;
+                io.distanceBetweenSkystones = 24;
+                io.centerOffset = 0;
             }
         }
 
@@ -227,14 +236,23 @@ public abstract class FirstAuton extends OpMode {
             if (valLeft == 0) {
                 telemetry.addData("Skystone", "Left");
                 io.skystoneDirection = -1;
+                io.fbskystoneDirection = 1;
+                io.distanceBetweenSkystones = 24;
+                io.centerOffset = 4;
             }
             if (valMid == 0) {
                 telemetry.addData("Skystone", "Middle");
                 io.skystoneDirection = 0;
+                io.fbskystoneDirection = 0;
+                io.distanceBetweenSkystones = 24;
+                io.centerOffset = 3;
             }
             if (valRight == 0) {
                 telemetry.addData("Skystone", "Right");
                 io.skystoneDirection = 1;
+                io.fbskystoneDirection = -1;
+                io.distanceBetweenSkystones = 16;
+                io.centerOffset = 3;
             }
         }
 

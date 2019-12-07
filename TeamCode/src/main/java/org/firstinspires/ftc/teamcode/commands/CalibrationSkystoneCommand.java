@@ -19,6 +19,8 @@ public class CalibrationSkystoneCommand extends BasicCommand {
     public void init() {
         wakeupTime = System.currentTimeMillis() + timeOut;
         //timeOut = System.currentTimeMillis() + 8000;
+        io.rightHookMidDown();
+        io.leftHookUp();
 
         //io.gripperRotateStowed();
         io.resetDriveEncoders();
@@ -71,7 +73,7 @@ public class CalibrationSkystoneCommand extends BasicCommand {
     }
 
     public boolean isFinished(){
-        return calibrationComplete && System.currentTimeMillis() >= wakeupTime;
+        return calibrationComplete || System.currentTimeMillis() >= wakeupTime;
     }
     public void stop() {
         //io.hookStop();

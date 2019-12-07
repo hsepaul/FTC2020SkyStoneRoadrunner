@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.commands.WaitForTime;
  * Created by David Austin on 11/10/2016.
  */
 
-@Autonomous(name="Blue Sky Stone Blocks",group="Auton")
+//@Autonomous(name="Blue Sky Stone Blocks",group="Auton")
 public class Blue2AutonSkyStone extends BlueAutonSkyStone {
     public void addFinalCommands() {
         CommandGroup group = new CommandGroup();

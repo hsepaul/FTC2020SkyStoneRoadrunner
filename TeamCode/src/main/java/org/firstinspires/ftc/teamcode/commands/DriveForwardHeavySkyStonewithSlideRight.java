@@ -76,10 +76,10 @@ public class DriveForwardHeavySkyStonewithSlideRight extends BasicCommand {
         correction = Range.clip(correction,-1,1);
 
 
-        double frontleftSpeed = (-driveSpeed * distanceCorrection) - correction - .35;
-        double frontrightSpeed = (-driveSpeed * distanceCorrection) + correction + .35;
-        double backleftSpeed = (-driveSpeed * distanceCorrection) - correction + .35;
-        double backrightSpeed = (-driveSpeed * distanceCorrection) + correction - .35;
+        double frontleftSpeed = (-driveSpeed * distanceCorrection) - correction - .4;
+        double frontrightSpeed = (-driveSpeed * distanceCorrection) + correction + .4;
+        double backleftSpeed = (-driveSpeed * distanceCorrection) - correction + .4;
+        double backrightSpeed = (-driveSpeed * distanceCorrection) + correction - .4;
 
         if (driveSpeed > 0) {
             frontleftSpeed = Range.clip(frontleftSpeed, -1, 0);

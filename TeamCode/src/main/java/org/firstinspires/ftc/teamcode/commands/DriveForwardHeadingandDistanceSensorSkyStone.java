@@ -33,7 +33,7 @@ public class DriveForwardHeadingandDistanceSensorSkyStone extends BasicCommand {
     public DriveForwardHeadingandDistanceSensorSkyStone(double targetPosition, int test, double spd, double targetHeading, long timeOut){
         headingPID = new PID(0.02,0,0);
         headingPID.setTarget(targetHeading);
-        distancePID = new PID(0.3,0,0);
+        distancePID = new PID(0.2,0,0);
         distancePID.setTarget(targetPosition);
         this.targetPosition = targetPosition;
         this.test = test;

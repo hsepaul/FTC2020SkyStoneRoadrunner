@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.commands.WaitForTime;
  * Created by David Austin on 11/10/2016.
  */
 
-@Autonomous(name="Blue Sky Stone Platform",group="Auton")
+//@Autonomous(name="Blue Sky Stone Platform",group="Auton")
 public class Blue1AutonSkyStone extends BlueAutonSkyStone {
     public void addFinalCommands() {
         commands.add(new DriveSidewaysSkyStoneMecanum(-12,DriveSidewaysSkyStoneMecanum.XLESSTHAN,-.85,0, 12000));

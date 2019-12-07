@@ -54,11 +54,21 @@ public class DriveSidewaysSkyStoneOpenCV extends BasicCommand {
         wakeupTime = System.currentTimeMillis() + timeOut;
         //endTime = System.currentTimeMillis() + 30000;
 
-        this.targetPosition = targetPosition * io.skystoneDirection;
+        this.targetPosition = (targetPosition * io.skystoneDirection) + io.centerOffset;
         distancePID.setTarget(this.targetPosition);
 
-        this.test = 2 - io.skystoneDirection;
-        this.driveSpeed = this.driveSpeed * io.skystoneDirection;
+        if (targetPosition > 0) {
+            this.test = XGREATERTHAN;
+            this.driveSpeed = this.driveSpeed;
+        } else if (targetPosition < 0) {
+            this.test = XLESSTHAN;
+            this.driveSpeed = -this.driveSpeed;
+        } else {
+            this.test = 2;
+        }
+
+        //this.test = 2 - io.skystoneDirection;
+        //this.driveSpeed = this.driveSpeed * io.skystoneDirection;
 
         /*if (usebutton){
             this.proximitybutton = io.proximityArmButtonPushed;
