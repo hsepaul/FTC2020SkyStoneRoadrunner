@@ -50,27 +50,36 @@ public class Blue1AutonSkyStoneTurnPlatformWall extends BlueAutonSkyStone {
         //commands.add(new ResetDriveEncoders());
         //commands.add(new WaitForTime(500));
 
-        commands.add(new DriveForwardSkyStone(10,DriveForwardSkyStone.XGREATERTHAN,.5,-90, 2000));
-        commands.add(new WaitForTime(500));
-        commands.add(new ResetDriveEncoders());
+        //commands.add(new DriveForwardSkyStone(10,DriveForwardSkyStone.XGREATERTHAN,.5,-90, 2000));
+        //commands.add(new WaitForTime(500));
+        //commands.add(new ResetDriveEncoders());
 
-        commands.add(new HooksUp(3000));
-        commands.add(new WaitForTime(1500));
-
-        commands.add(new DriveForwardSkyStone(-20,DriveForwardSkyStone.XLESSTHAN,-.5,-90, 5000));
-        commands.add(new WaitForTime(500));
-        commands.add(new ResetDriveEncoders());
-
+        //commands.add(new HooksUp(3000));
+        //commands.add(new WaitForTime(1500));
 
         CommandGroup group = new CommandGroup();
-        group.addCommand(new GripperRotateSlightlyUp(3000));
-        group.addCommand(new DriveSidewaysSkyStoneMecanumNoSkystones(-13,DriveSidewaysSkyStoneMecanumNoSkystones.XLESSTHAN,-.65,-90, 5000));
+        group.addCommand(new DriveForwardSkyStone(10,DriveForwardSkyStone.XGREATERTHAN,.5,-90, 2000));
+        group.addCommand(new HooksUp(3000));
         commands.add(group);
+
+        commands.add(new WaitForTime(250));
+        commands.add(new ResetDriveEncoders());
+
+
+        commands.add(new DriveForwardSkyStone(-3,DriveForwardSkyStone.XLESSTHAN,-.5,-90, 5000));
+        commands.add(new WaitForTime(500));
+        commands.add(new ResetDriveEncoders());
+
+
+        CommandGroup group1 = new CommandGroup();
+        group1.addCommand(new GripperRotateSlightlyUp(3000));
+        group1.addCommand(new DriveSidewaysSkyStoneMecanumNoSkystones(-13,DriveSidewaysSkyStoneMecanumNoSkystones.XLESSTHAN,-.65,-90, 5000));
+        commands.add(group1);
 
         commands.add(new WaitForTime(500));
         commands.add(new ResetDriveEncoders());
 
-        commands.add(new DriveForwardSkyStone(-13,DriveForwardSkyStone.XLESSTHAN,-.5,-90, 4000));
+        commands.add(new DriveForwardSkyStone(-30,DriveForwardSkyStone.XLESSTHAN,-.5,-90, 4000));
         commands.add(new WaitForTime(500));
         commands.add(new ResetDriveEncoders());
 

@@ -50,14 +50,14 @@ public class Red2AutonSkyStoneOpenCV extends RedAutonSkyStone {
 
 
 
-        commands.add(new DriveForwardHeadingandDistanceSensorSkyStone(io.approachDistance+3.5, DriveForwardHeadingandDistanceSensorSkyStone.LEFTLESSTHAN,.4,0, 3000));
+        commands.add(new DriveForwardHeadingandDistanceSensorSkyStone(io.approachDistance+3, DriveForwardHeadingandDistanceSensorSkyStone.LEFTLESSTHAN,.4,0, 3000));
 
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());
 
         //GRAB SKYSTONE
         CommandGroup group1 = new CommandGroup();
-        group1.addCommand(new GripperPincherClosed( 1250));
+        group1.addCommand(new GripperPincherClosed( 1500));
         group1.addCommand(new ArmAngleDown(5000));
         group1.addCommand(new DriveForwardSkyStone(-1,DriveForwardSkyStone.XLESSTHAN,-.4,0, 1000));
         commands.add(group1);
@@ -123,14 +123,14 @@ public class Red2AutonSkyStoneOpenCV extends RedAutonSkyStone {
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());
 
-        commands.add(new DriveForwardHeadingandDistanceSensorSkyStone(io.approachDistance+2, DriveForwardHeadingandDistanceSensorSkyStone.LEFTLESSTHAN,.4,0, 2000));
+        commands.add(new DriveForwardHeadingandDistanceSensorSkyStone(io.approachDistance+2, DriveForwardHeadingandDistanceSensorSkyStone.LEFTLESSTHAN,.4,0, 1000));
 
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());
 
         //GRAB SKYSTONE
         CommandGroup group5 = new CommandGroup();
-        group5.addCommand(new GripperPincherClosed( 1250));
+        group5.addCommand(new GripperPincherClosed( 1500));
         group5.addCommand(new ArmAngleDown(5000));
         group5.addCommand(new DriveForwardSkyStone(-1,DriveForwardSkyStone.XLESSTHAN,-.4,0, 1000));
         commands.add(group5);

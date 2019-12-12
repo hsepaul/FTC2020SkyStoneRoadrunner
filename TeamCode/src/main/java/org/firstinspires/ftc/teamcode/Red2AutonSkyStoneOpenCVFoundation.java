@@ -51,14 +51,14 @@ public class Red2AutonSkyStoneOpenCVFoundation extends RedAutonSkyStone {
 
 
 
-        commands.add(new DriveForwardHeadingandDistanceSensorSkyStone(io.approachDistance+3.5, DriveForwardHeadingandDistanceSensorSkyStone.LEFTLESSTHAN,.4,0, 3000));
+        commands.add(new DriveForwardHeadingandDistanceSensorSkyStone(io.approachDistance+3, DriveForwardHeadingandDistanceSensorSkyStone.LEFTLESSTHAN,.4,0, 3000));
 
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());
 
         //GRAB SKYSTONE
         CommandGroup group1 = new CommandGroup();
-        group1.addCommand(new GripperPincherClosed( 1250));
+        group1.addCommand(new GripperPincherClosed( 1500));
         group1.addCommand(new ArmAngleDown(5000));
         group1.addCommand(new DriveForwardSkyStone(-1,DriveForwardSkyStone.XLESSTHAN,-.4,0, 1000));
         commands.add(group1);
@@ -112,7 +112,7 @@ public class Red2AutonSkyStoneOpenCVFoundation extends RedAutonSkyStone {
         //DROP SKYSTONE
         commands.add(new GripperPincherOpenArmUp( 1000));
 
-        commands.add(new DriveForwardHeavySkyStonewithSlideLeft(-20, DriveForwardHeavySkyStonewithSlideLeft.XLESSTHAN,-.75,0, 8000));
+        commands.add(new DriveForwardHeavySkyStonewithSlideLeft(-16, DriveForwardHeavySkyStonewithSlideLeft.XLESSTHAN,-.75,0, 8000));
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());
 
@@ -125,33 +125,39 @@ public class Red2AutonSkyStoneOpenCVFoundation extends RedAutonSkyStone {
         //commands.add(new ResetDriveEncoders());
         //commands.add(new WaitForTime(500));
 
-        commands.add(new DriveForwardSkyStone(7,DriveForwardSkyStone.XGREATERTHAN,.75,90, 2000));
-        commands.add(new WaitForTime(250));
-        commands.add(new ResetDriveEncoders());
+        //commands.add(new DriveForwardSkyStone(7,DriveForwardSkyStone.XGREATERTHAN,.75,90, 2000));
+        //commands.add(new WaitForTime(250));
+        //commands.add(new ResetDriveEncoders());
 
-        commands.add(new HooksUp(3000));
-        commands.add(new WaitForTime(1000));
-
-
-        commands.add(new DriveForwardSkyStone(-8,DriveForwardSkyStone.XLESSTHAN,-.75,90, 5000));
-
-
-        commands.add(new WaitForTime(250));
-        commands.add(new ResetDriveEncoders());
-
-
-
-        commands.add(new DriveSidewaysSkyStoneMecanumNoSkystones(-6,DriveSidewaysSkyStoneMecanumNoSkystones.XLESSTHAN,-.75,90, 3000));
-
-
-        commands.add(new WaitForTime(250));
-        commands.add(new ResetDriveEncoders());
+        //commands.add(new HooksUp(3000));
+        //commands.add(new WaitForTime(1000));
 
 
         CommandGroup group4 = new CommandGroup();
-        group4.addCommand(new ArmAngleDown(5000));
-        group4.addCommand(new DriveForwardSkyStone(-25,DriveForwardSkyStone.XLESSTHAN,-.5,90, 3000));
+        group4.addCommand(new DriveForwardSkyStone(7,DriveForwardSkyStone.XGREATERTHAN,.75,90, 2000));
+        group4.addCommand(new HooksUp(3000));
         commands.add(group4);
+
+        commands.add(new WaitForTime(250));
+        commands.add(new ResetDriveEncoders());
+
+
+        commands.add(new DriveForwardSkyStone(-3,DriveForwardSkyStone.XLESSTHAN,-.75,90, 5000));
+        commands.add(new WaitForTime(250));
+        commands.add(new ResetDriveEncoders());
+
+
+        commands.add(new DriveSidewaysSkyStoneMecanumNoSkystones(-5,DriveSidewaysSkyStoneMecanumNoSkystones.XLESSTHAN,-.75,90, 3000));
+
+
+        commands.add(new WaitForTime(250));
+        commands.add(new ResetDriveEncoders());
+
+
+        CommandGroup group5 = new CommandGroup();
+        group5.addCommand(new ArmAngleDown(5000));
+        group5.addCommand(new DriveForwardSkyStone(-30,DriveForwardSkyStone.XLESSTHAN,-.5,90, 3000));
+        commands.add(group5);
 
 
         commands.add(new WaitForTime(250));

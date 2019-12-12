@@ -107,7 +107,8 @@ public abstract class FirstAuton extends OpMode {
         io.gripperPincher2Stopped();
         //io.leftHookMid();
         //io.rightHookMid();
-        io.rightHookMidDown();
+        //io.rightHookMidDown();
+        io.rightHookMid();
         io.leftHookUp();
         //io.rightHookUp();
         io.capStoneUp();
