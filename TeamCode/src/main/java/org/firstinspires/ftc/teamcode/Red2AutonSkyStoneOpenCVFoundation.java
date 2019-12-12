@@ -51,7 +51,7 @@ public class Red2AutonSkyStoneOpenCVFoundation extends RedAutonSkyStone {
 
 
 
-        commands.add(new DriveForwardHeadingandDistanceSensorSkyStone(io.approachDistance+2, DriveForwardHeadingandDistanceSensorSkyStone.LEFTLESSTHAN,.4,0, 3000));
+        commands.add(new DriveForwardHeadingandDistanceSensorSkyStone(io.approachDistance+3.5, DriveForwardHeadingandDistanceSensorSkyStone.LEFTLESSTHAN,.4,0, 3000));
 
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());

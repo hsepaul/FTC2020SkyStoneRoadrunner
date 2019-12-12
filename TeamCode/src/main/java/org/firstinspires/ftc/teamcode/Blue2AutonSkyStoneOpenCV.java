@@ -47,7 +47,7 @@ public class Blue2AutonSkyStoneOpenCV extends BlueAutonSkyStone {
 
 
 
-        commands.add(new DriveForwardHeadingandDistanceSensorSkyStone(io.approachDistance+2, DriveForwardHeadingandDistanceSensorSkyStone.RIGHTLESSTHAN,.4,0, 3000));
+        commands.add(new DriveForwardHeadingandDistanceSensorSkyStone(io.approachDistance+3.5, DriveForwardHeadingandDistanceSensorSkyStone.RIGHTLESSTHAN,.4,0, 3000));
 
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());
@@ -88,7 +88,7 @@ public class Blue2AutonSkyStoneOpenCV extends BlueAutonSkyStone {
         //commands.add(new WaitForTime(250));
         //commands.add(new ResetDriveEncoders());
 
-        commands.add(new DriveForwardSkyStoneOpenCV((io.distanceToTape+io.distancePastTape+1),DriveForwardSkyStone.XGREATERTHAN,.65,-90, 7000));
+        commands.add(new DriveForwardSkyStoneOpenCV((io.distanceToTape+io.distancePastTape+1),DriveForwardSkyStone.XGREATERTHAN,.65,-90, 8000));
 
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());
@@ -120,7 +120,7 @@ public class Blue2AutonSkyStoneOpenCV extends BlueAutonSkyStone {
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());
 
-        commands.add(new DriveForwardHeadingandDistanceSensorSkyStone(io.approachDistance+1, DriveForwardHeadingandDistanceSensorSkyStone.RIGHTLESSTHAN,.4,0, 2000));
+        commands.add(new DriveForwardHeadingandDistanceSensorSkyStone(io.approachDistance+2, DriveForwardHeadingandDistanceSensorSkyStone.RIGHTLESSTHAN,.4,0, 2000));
 
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());

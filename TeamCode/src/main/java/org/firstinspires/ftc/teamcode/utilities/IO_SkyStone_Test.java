@@ -161,7 +161,7 @@ public class IO_SkyStone_Test {
     public static double leftHookDown = 0;
     //public static double gripperRotateStowed = 1;
     public static double gripperRotateStowed = .9;
-    public static double gripperRotateParallel = .33;
+    public static double gripperRotateParallel = .36;
     public static double gripperRotateSlightlyUp = .4;
     public static double gripperRotateDown = 0;
     public static double capStoneUp = .8;
