@@ -156,7 +156,7 @@ public class Blue2AutonSkyStoneOpenCVFoundation extends BlueAutonSkyStone {
 
 
 
-        commands.add(new DriveSidewaysSkyStoneMecanumNoSkystones(4,DriveSidewaysSkyStoneMecanumNoSkystones.XGREATERTHAN,.75,-90, 3000));
+        commands.add(new DriveSidewaysSkyStoneMecanumNoSkystones(3,DriveSidewaysSkyStoneMecanumNoSkystones.XGREATERTHAN,.75,-90, 3000));
 
 
         commands.add(new WaitForTime(250));
