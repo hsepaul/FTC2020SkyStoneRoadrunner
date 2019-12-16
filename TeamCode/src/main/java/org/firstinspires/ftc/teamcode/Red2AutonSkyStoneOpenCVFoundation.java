@@ -112,7 +112,7 @@ public class Red2AutonSkyStoneOpenCVFoundation extends RedAutonSkyStone {
         //DROP SKYSTONE
         commands.add(new GripperPincherOpenArmUp( 1000));
 
-        commands.add(new DriveForwardHeavySkyStonewithSlideLeft(-16, DriveForwardHeavySkyStonewithSlideLeft.XLESSTHAN,-.75,0, 8000));
+        commands.add(new DriveForwardHeavySkyStonewithSlideLeft(-17, DriveForwardHeavySkyStonewithSlideLeft.XLESSTHAN,-.75,0, 8000));
         commands.add(new WaitForTime(250));
         commands.add(new ResetDriveEncoders());
 

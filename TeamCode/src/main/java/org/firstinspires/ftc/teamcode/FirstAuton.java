@@ -213,7 +213,7 @@ public abstract class FirstAuton extends OpMode {
                 telemetry.addData("Skystone", "Left");
                 io.skystoneDirection = -1;
                 io.fbskystoneDirection = -1;
-                io.distanceBetweenSkystones = 16;
+                io.distanceBetweenSkystones = 13;
                 io.centerOffset = 0;
             }
             if (valMid == 0) {
@@ -252,7 +252,7 @@ public abstract class FirstAuton extends OpMode {
                 telemetry.addData("Skystone", "Right");
                 io.skystoneDirection = 1;
                 io.fbskystoneDirection = -1;
-                io.distanceBetweenSkystones = 16;
+                io.distanceBetweenSkystones = 13;
                 io.centerOffset = 3;
             }
         }
